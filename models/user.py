@@ -37,9 +37,9 @@ class Employee:
         done = False
         while not done:
             if admin == 0:
-                return 0
+                return False
             elif admin == 1:
-                return 1
+                return True
             try:
                 admin = int(input("Please input 1 if admin permision is true and 0 for false: "))
             except:
@@ -64,6 +64,3 @@ class Employee:
         return self.__admin
 
 
-
-abi = Employee("doctor", 123, "Valtýr Oddsson", "Sævangur 22", -1, admin=2)
-print(abi)
