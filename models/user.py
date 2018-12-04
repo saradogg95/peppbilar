@@ -11,6 +11,7 @@ class Employee:
         self.__age = self.age_check(age)
         self.__admin = self.admin_check(admin)
 
+    #Checks if the user input correct age e.g. age is not under 0 and and must be a number
     def age_check(self, age):
         done = False
         while not done:
@@ -31,6 +32,7 @@ class Employee:
     def __repr__(self):
             return self.__str__()
 
+    #checks if user input correct admin status, e.g. only accapts 0 for False and 1 for True
     def admin_check(self, admin):
         done = False
         while not done:
@@ -46,7 +48,21 @@ class Employee:
     def get_username(self):
         return self.__username
 
-    def 
+    def get_password(self):
+        return self.__password
+    
+    def get_name(self):
+        return self.__name
+    
+    def get_address(self):
+        return self.__address
+
+    def get_age(self):
+        return self.__age
+
+    def get_admin_status(self):
+        return self.__admin
+
 
 
 abi = Employee("doctor", 123, "Valtýr Oddsson", "Sævangur 22", -1, admin=2)
