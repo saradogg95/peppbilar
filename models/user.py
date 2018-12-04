@@ -9,22 +9,27 @@ class Employee:
         self.__name = name
         self.__address = address
         self.__age = self.age_check(age)
-
         self.__admin = admin
 
     def age_check(self, age):
         done = False
         while not done:
             try:
-                if int(age) >= 0:
-                    return age
+                age = int(age)
+                if age >= 0:
+                    done = True
+                else:
+                    done = False
+                    age = input("Please input a number >= 0 for age: ")
             except:
-                age = input("Please input a number >= 0 for age.")
+                age = input("Please input a number >= 0 for age: ")
+            return age
 
     def __str__(self):
         return "{}, {}, {}, {}, {}, {}".format(self.__username, self.__password, self.__name, 
                                     self.__address, self.__age, self.__admin)
 
+    def admin_check(self)
 
 abi = Employee("doctor", 123, "Valtýr Oddsson", "Sævangur 22", -1, admin=True)
 print(abi)
