@@ -1,6 +1,4 @@
 import csv
-from models.car import Car
-
 
 class carRepository:
     def __init__(self):
@@ -9,14 +7,13 @@ class carRepository:
         self.__available_cars = []
 
     def get_car(self, reg_num):
-        """ Tekur inn bílnúmer. Ef bílnúmerið finnst í gagnarunninum þá er bílnum skilað sem ordered dictionary. Prentar annars að bíllinn finnist ekki og skilar None"""
+        """ Tekur inn bílnúmer. Ef bílnúmerið finnst í gagnarunninum þá er bílnum skilað. Skilar annars None"""
         self.__regNum = reg_num
         with open("./data/cars_test.csv", "r") as car_db: #breyta þessu í cars.csv fyrir fullan db
             csv_dict = csv.DictReader(car_db)
             for line in csv_dict:
                 if line["regNum"] == self.__regNum:
                     return line
-            #print("No car with registration number {} found".format(self.__regNum)) setja einhvern svona varnagla í layeri fyrir ofan ef gildið sem fengið er til baka er None
         return None
 
     def add_car(self, car):
@@ -41,10 +38,9 @@ class carRepository:
         return self.__cars
 
     def get_available_cars(self):
-        """ Fer í gegnum gagnagrunninn og bætir öllum tiltækum bílum í lista sem er skilað """
+        """ Fer í gegnum gagnagrunninn og bætir öllum tiltækum bílum í lista af röðuðum uppflettitöflum sem er skilað """
         with open("./data/cars_test.csv", "r") as car_db: #breyta þessu í cars.csv fyrir fullan db
             csv_dict = csv.DictReader(car_db)
-            next(csv_dict)
             for line in csv_dict:
                 if line["available"] == "True":
                     self.__available_cars.append(line)
