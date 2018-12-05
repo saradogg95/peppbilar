@@ -11,8 +11,19 @@ class UserInterface:
         self.__car_service = CarService()
 
     def main_menu(self):
+        
+        action = ""
+
+        while action != "q":
+            self.print_choices(action)
+            
+
+    def print_choices(self, action):
         pass
 
+    #kannski mögulega prenta út fancy interface
+    def __str__(self):
+        pass
 
     def order_service_action(self):
         pass
