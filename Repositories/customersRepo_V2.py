@@ -8,7 +8,7 @@ class customerRepository:
     def get_customer(self,identity_number):
         self.identity_number = identity_number
         with open("Customer_grunnur_TBD.csv", "r") as customer_db:
-            cvs_dict = csv.DictReader(customer_db)
+            csv_dict = csv.DictReader(customer_db)
             for line in csv_dict:
                 if line["kennitala"] == self.identity_number:
                     return line
