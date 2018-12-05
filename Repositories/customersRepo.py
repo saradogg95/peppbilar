@@ -1,6 +1,8 @@
 import csv
 
 class customerRepository:
+    """Default values for every attribute, as the values will be provided in separate functions, 
+    depending on whether customer is already registered, or not."""
     def __init__(self, identity_nr="", passport_nr="", first_names="", surname="", citizenship="", customer_ID=0):
         self.identity_nr = identity_nr
         self.passport_nr = passport_nr
@@ -10,17 +12,20 @@ class customerRepository:
         self.customer_ID = customer_ID
     
     def __str__(self):
+        """This printut is an overview, either for new customer, or customer who's already registered."""
         return ("\nCustomer ID: {}\nName: {} {}\nCountry code: {}\nIdentity number: {}\nPassport number: {}"
         .format(self.customer_ID, self.first_names, self.surname, self.citizenship, self.identity_nr, 
         self.passport_nr))
 
 
 def get_identity_nr():
+    """First requested value is kennitala; if left blank, next, passport number will be requested."""
     id = (input("\nPEPP CARS says:\nTo register order, please enter ICELANDIC IDENTITY NUMBER, "
     "or leave blank if not applicable:\n"))
     return id
     
 def get_passport_nr():
+    """Passport number requested, if Icelandic identity number is left blank."""
     pid = input("No Icelandic identity number; so please enter PASSPORT NUMBER:\n")
     return pid
 
@@ -37,21 +42,28 @@ def get_citizenship():
     return cs
 
 def get_new_customer_ID(newest_customer_ID):
+    """The value for newest_customer_ID should be the highest value from the first column of the csv file."""
     ncid = newest_customer_ID + 1
     return ncid
         
 def add_to_csv(customerRepository):
-    entry = ("{};{};{};{};{}".format(self.customer_ID, self.identity_nr, 
-    self.first_names, self.surname, self.citizenship, self.passport_nr))
+    """This creates a string to add to the csv file."""
+    entry = ("{};{};{};{};{}".format(customerRepository.customer_ID, customerRepository.identity_nr, 
+    customerRepository.first_names, customerRepository.surname, customerRepository.citizenship, 
+    customerRepository.passport_nr))
     with open("Customer_grunnur_TBD.csv","a") as file:
         file.write(entry)
 
 
 def get_customer(customerRepository):
+    """This function calls on all the other functions, to create the customer."""
     key_value_provided = False
+    """Becomes True when either identity number or passport number have been provided."""
     returning_customer = False
+    """Becomes True when customer has been found in the csv file."""
     customer_IDs = []
     newest_customer_ID = 0
+    """The last two variables are for creating a customer ID for new customers."""
 
     """Asks for Icelandic identity number:"""
 
@@ -123,11 +135,10 @@ def get_customer(customerRepository):
 
         """If customer not found in csv, the newest customer ID is extracted here, from the open file."""
 
-        customer_IDs = []
         for line in csv_dict:
             customer_IDs.append(line["Customer_ID"])
             print(customer_IDs)
-#        newest_customer_ID = customer_IDs[0]
+        newest_customer_ID = customer_IDs[0]
                                 
         if returning_customer == True:
             """This is the end of the line, if customer exists in the csv file."""
@@ -139,7 +150,7 @@ def get_customer(customerRepository):
                 return None
         else:
                 
-            """If customer doesn't exist in csv, info should be provided, but cutomer_ID is generated."""
+            """If customer doesn't exist in csv, info should be provided, though cutomer_ID will be generated."""
                 
             customerRepository.customer_ID = get_new_customer_ID(newest_customer_ID)
             customerRepository.first_names = get_first_names()
