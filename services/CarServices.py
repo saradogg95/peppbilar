@@ -25,5 +25,6 @@ class CarServices():
         return self.__cars
 
     def get_available_cars(self):
+        """ biður um lista yfir alla sem eru ekki í útleigu úr gagnagrunninum og skilar í lista """
         self.__cars = self.__repository.get_available_cars()
         return self.__cars
