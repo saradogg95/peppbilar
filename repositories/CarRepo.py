@@ -1,6 +1,9 @@
 import csv
+from models.Car import Car
 
-class carRepository:
+
+
+class CarRepository:
     def __init__(self):
         self.__cars = []
         self.__regNum = 0
