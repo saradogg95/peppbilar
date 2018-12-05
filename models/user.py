@@ -2,7 +2,7 @@
 
 class Employee:
 
-    def __init__(self, username, password, name, address, age, admin=0):
+    def __init__(self, username="", password="", name="", address="", age=0, admin=0):
         
         self.__username = username
         self.__password = password
