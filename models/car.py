@@ -4,7 +4,7 @@ class Car:
         self.__make = make
         self.__category = category
         self.__manufacturer = manufacturer
-        self.__registration_date = registration_date #datetime á þetta
+        self.__registration_date = registration_date
         self.__mileage = mileage
         self.__availability = is_available
     
