@@ -16,10 +16,45 @@ class UserInterface:
 
         while action != "q":
             self.print_choices(action)
-            
+            action = self.get_action()
+            if action == 1:
+                pass
+            elif action == 2:
+                pass
+            elif action == 3:
+                pass
+            elif action == 4:
+                pass
+            elif action == 5:
+                pass
+
+
+
+    def get_action(self):
+        correct_input_list = [1, 2, 3, 4, 5, "q"]
+        action = input("Please choose an option: ").lower()
+
+        done = False
+
+        while not done:
+            if action not in correct_input_list:
+                action = ""
+                print("Wrong action, please chose one of the following options:")
+                self.print_choices(action)
+                action = input("Please choose an option: ").lower()
+            else:
+                done = True
+
+        return action
 
     def print_choices(self, action):
-        pass
+        if action == "":
+            print("")
+        elif:
+        
+        elif:
+
+        else:
 
     #kannski mögulega prenta út fancy interface
     def __str__(self):
