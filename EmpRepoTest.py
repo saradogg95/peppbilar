@@ -1,12 +1,15 @@
-from models.Employee import Empolyee
+#from models.Employee import Employee
 from repositories.EmployeeRepository import EmployeeRepository
+from models.Employee import Employee
 
 
-from models.Employee import Empolyee
 def main():
+    employee = Employee("kalli", "123", "Ari", "kjkj", 29)
+
     empRepo = EmployeeRepository()
-    emps = empRepo.get_employees()
-    print(emps)
+    print(empRepo.get_employees())
+    print(employee.get_age())
+    print(employee.get_name())
 
     #car1 = Car()
     #print(car1)

@@ -1,4 +1,5 @@
-from models.Employee import Empolyee
+from models.Employee import Employee
+import csv
 
 class EmployeeRepository:
     def __init__(self):
@@ -19,15 +20,14 @@ class EmployeeRepository:
             password = employee.get_password()
             admin = employee.get_admin()
             employee_file.write("{},{},{},{},{},{} \n".format(name, age, address, username, password, admin))
-    
+
+ 
     def get_employees(self):
         if self.__employee == []:
-            with open("./data/employee.txt", "r") as video_file:
-                for line in video_file.readlines():
-                    name, age, address, username, password, admin = line.split(",")
-                    new_employee = Employee(username, password, name, address, age, admin)
-                    self.__employee.append(new_employee)    
-        
+            with open("./data/Employees.csv", "r") as employee_file:
+                csv_reader = csv.reader(employee_file, delimiter=";")
+                for line in csv_reader:
+                    self.__employee.append(line)        
         return self.__employee
     
 
