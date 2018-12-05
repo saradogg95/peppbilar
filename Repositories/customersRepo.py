@@ -1,6 +1,6 @@
 import csv
 
-class customerRepository:
+class customerRepository():
     """Default values for every attribute, as the values will be provided in separate functions, 
     depending on whether customer is already registered, or not."""
     def __init__(self, identity_nr="", passport_nr="", first_names="", surname="", citizenship="", customer_ID=0):
@@ -12,7 +12,13 @@ class customerRepository:
         self.customer_ID = customer_ID
     
     def __str__(self):
-        """This printut is an overview, either for new customer, or customer who's already registered."""
+        """This printout is an overview, either for new customer, or customer who's already registered."""
+        return ("\nCustomer ID: {}\nName: {} {}\nCountry code: {}\nIdentity number: {}\nPassport number: {}"
+        .format(self.customer_ID, self.first_names, self.surname, self.citizenship, self.identity_nr, 
+        self.passport_nr))
+
+    def __repr__(self):
+        """This printout is an overview, either for new customer, or customer who's already registered."""
         return ("\nCustomer ID: {}\nName: {} {}\nCountry code: {}\nIdentity number: {}\nPassport number: {}"
         .format(self.customer_ID, self.first_names, self.surname, self.citizenship, self.identity_nr, 
         self.passport_nr))
@@ -48,7 +54,7 @@ def get_new_customer_ID(newest_customer_ID):
         
 def add_to_csv(customerRepository):
     """This creates a string to add to the csv file."""
-    entry = ("{};{};{};{};{}".format(customerRepository.customer_ID, customerRepository.identity_nr, 
+    entry = ("{},{},{},{},{}".format(customerRepository.customer_ID, customerRepository.identity_nr, 
     customerRepository.first_names, customerRepository.surname, customerRepository.citizenship, 
     customerRepository.passport_nr))
     with open("Customer_grunnur_TBD.csv","a") as file:
@@ -104,7 +110,7 @@ def get_customer(customerRepository):
         csv_dict = csv.DictReader(customer_db)
         if customerRepository.identity_nr != "":
             for line in csv_dict:
-                if line["Kennitala"] == customerRepository.identity_number:
+                if line["Kennitala"] == customerRepository.identity_nr:
 
                     """Customer found in csv, from identity number."""
 
@@ -134,11 +140,11 @@ def get_customer(customerRepository):
                     pass
 
         """If customer not found in csv, the newest customer ID is extracted here, from the open file."""
-
-        for line in csv_dict:
-            customer_IDs.append(line["Customer_ID"])
-            print(customer_IDs)
-        newest_customer_ID = customer_IDs[0]
+        with open("Customer_grunnur_TBD.csv","r") as customer_db:
+            csv_dict = csv.DictReader(customer_db)
+            for line in csv_dict:
+                customer_IDs.append(line["Customer_ID"])
+            newest_customer_ID = customer_IDs[-1]
                                 
         if returning_customer == True:
             """This is the end of the line, if customer exists in the csv file."""
