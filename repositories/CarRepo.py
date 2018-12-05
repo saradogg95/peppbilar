@@ -17,8 +17,7 @@ class CarRepository:
             for line in csv_dict:
                 if line["regNum"] == self.__regNum:
                     new_car = Car(line["regNum"], line["make"],line["model"],line["category"],line["registration_date"],line["mileage"],line["available"])
-                    self.__cars.append(new_car)
-                    return self.__cars
+                    return new_car
         return None
 
     def add_car(self, car):
