@@ -27,4 +27,3 @@ class Customers():
     
     def get_passport_ID(self):
         return self.passport_ID
-
