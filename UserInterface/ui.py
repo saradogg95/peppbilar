@@ -77,8 +77,15 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            #eh til að deala við new customer
-            self.__order_service.add_new_customer(new_customer)
+            customer_ID = 
+            car_id = input("Car id: ")
+            customer_id = input("Customer id: ")
+            order_date = input("Order date: ")
+            rent_date_from = input("Rent date from: ")
+            rent_date_to = input("Rent date to: ")
+
+            new_customer = Customer(order_id, order_date, rent_date_from, rent_date_to, customer_id, car_id)
+            self.__order_service.add_customer(new_customer)
         elif:
             pass
         return action
