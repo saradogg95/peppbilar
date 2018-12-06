@@ -19,7 +19,7 @@ class OrderRepository:
                                                             rent_date_to, customer_id, car_id))
     
     def get_order(self, order_id):
-        """ tekur við númeri viðskiptavins, sækir pöntunina í gagnagrunninn og skilar pöntun. Skilar None ef engin pöntun finnst á viðskiptavin """
+        """ Takes in an order id, gets the order from the database and returns it. If no order is found returns None. """
         with open("./data/orders.csv", "r") as order_db:
             csv_dict = csv.DictReader(order_db)
             for line in csv_dict:
@@ -29,7 +29,7 @@ class OrderRepository:
         return None
 
     def get_customer_orders(self, customer_id):
-        """ tekur við númeri viðskiptavins, nær í allar pantanir á hans númeri og skilar þeim sem lista """
+        """ Takes in a customer id, gets all orders for that customer id and returns as a list. """
         with open("./data/orders.csv", "r") as order_db:
             csv_dict = csv.DictReader(order_db)
             for line in csv_dict:
@@ -39,7 +39,7 @@ class OrderRepository:
         return self.__orders
 
     def get_all_orders(self):
-        """ Fer í gegnum gagnagrunninn og bætir öllum pöntunum í lista sem er skilað """
+        """ Gets all orders from the database and returns them as a list """
         with open("./data/orders.csv", "r", newline="") as order_db:
             csv_reader = csv.reader(order_db)
             next(csv_reader)
