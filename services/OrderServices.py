@@ -5,9 +5,8 @@ class OrderServices:
 
     def __init__(self):
 
-        self.__repository = CarRepository()
-        self.__cars = []
+        self.__repository = OrderRepository()
+        self.__orders = []
     
-    def add_car(self, order):
-
-        self.__repository.add_order(order)
+    def add_order(self, new_order):
+        self.__repository.add_order(new_order)

@@ -68,7 +68,7 @@ class UserInterface:
             rent_date_from = input("Rent date from: ")
             rent_date_to = input("Rent date to: ")
             new_order = Order(order_id, order_date, rent_date_from, rent_date_to, customer_id, car_id)
-            self.__order_service.add_new_order(new_order)
+            self.__order_service.add_order(new_order)
         elif:
             pass
         return action
