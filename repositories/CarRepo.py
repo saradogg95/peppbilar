@@ -6,7 +6,6 @@ from models.Car import Car
 class CarRepository:
     def __init__(self):
         self.__cars = []
-        self.__available_cars = []
 
     def get_car(self, get_regNum):
         """ Takes in a registration number and returns the car with that registration number. If no car is found returns None """
