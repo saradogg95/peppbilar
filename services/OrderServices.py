@@ -1,4 +1,4 @@
-#from models.Car import Car P.S. vantar fyrir order class ef við ætlum að hafa hann
+from models.Order import Order
 from repositories.OrderRepo import OrderRepository
 
 class OrderServices:

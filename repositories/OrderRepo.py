@@ -1,3 +1,5 @@
+import csv
+from models.Order import Order
 
 
 class OrderRepository:
@@ -14,4 +16,5 @@ class OrderRepository:
             rent_date_to = new_order.get_rent_date_to()
             customer_id = new_order.get_customer_id()
             car_id = new_order.get_car_id()
-            order_db.write("{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, rent_date_to, customer_id, car_id))
+            order_db.write("{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
+                                                            rent_date_to, customer_id, car_id))
