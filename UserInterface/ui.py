@@ -23,8 +23,6 @@ class UserInterface:
                 location_flag = "Order menu"
                 while action != "r":
                     action = self.order_service_action()
-                #prentar þá út main menu annar heldur áfram að halda áfram að prenta út
-                #menu fyrir 1
                 location_flag = "Main menu"
             elif action == 2:
                 location_flag = "Customer menu"
