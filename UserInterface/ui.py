@@ -1,3 +1,9 @@
+from services.CarServices import CarServices
+from services.CustomerServices import CustomerServices
+from services.EmployeeServices import EmployeeServices
+from services.OrderServices import OrderServices
+from services.PaymentServices import PaymentServices
+
 
 class UserInterface:
 
@@ -49,7 +55,43 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            self.__order_service.add_new_order(new_order)
+            self.__order_service.add_new_order()
+        elif:
+            pass
+        return action
+
+    def customer_service_action(self):
+        self.print_choices(location_flag)
+        action = self.get_action()
+        if action == 1:
+            self.__order_service.add_new_customer()
+        elif:
+            pass
+        return action
+
+    def payment_service_action(self):
+        self.print_choices(location_flag)
+        action = self.get_action()
+        if action == 1:
+            self.__order_service.add_new_payment()
+        elif:
+            pass
+        return action
+
+    def employee_service_action(self):
+        self.print_choices(location_flag)
+        action = self.get_action()
+        if action == 1:
+            self.__order_service.add_new_employee()
+        elif:
+            pass
+        return action
+
+    def car_service_action(self):
+        self.print_choices(location_flag)
+        action = self.get_action()
+        if action == 1:
+            self.__order_service.add_new_car()
         elif:
             pass
         return action
@@ -74,16 +116,32 @@ class UserInterface:
             print("Press r to return to main menu")
         
         #customer service options
-        elif:
+        elif location_flag == "Customer menu":
+            print("------------Customer menu options------------")
+            print("Please chose one of the following options:")
+            print("1. Add a new Customer")
+            print("Press r to return to main menu"):
 
         #payment service options
-        elif:
+        elif location_flag == "Payment menu":
+            print("------------Payment menu options------------")
+            print("Please chose one of the following options:")
+            print("1. Add a new payment")
+            print("Press r to return to main menu"):
 
         #employee service options
-        elif:
+        elif location_flag == "Employee menu":
+            print("------------Employee menu options------------")
+            print("Please chose one of the following options:")
+            print("1. Add a new employee")
+            print("Press r to return to main menu"):
 
         #car service options
-        elif:
+        elif location_flag == "Car menu":
+            print("------------Car menu options------------")
+            print("Please chose one of the following options:")
+            print("1. Add a new car")
+            print("Press r to return to main menu"):
 
 
     def get_action(self):
@@ -105,18 +163,4 @@ class UserInterface:
 
     #kannski mögulega prenta út fancy interface
     def __str__(self):
-        pass
-
-
-
-    def customer_service_action(self):
-        pass
-
-    def payment_service_action(self):
-        pass
-    
-    def employee_service_action(self):
-        pass
-
-    def car_service_action(self):
         pass
