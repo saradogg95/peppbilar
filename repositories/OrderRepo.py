@@ -29,7 +29,7 @@ class OrderRepository:
         return None
 
     def get_customer_orders(self, customer_id):
-        """ tekur við númeri viðskiptavinar, nær í allar pantanir á hans númeri og skilar þeim sem lista """
+        """ tekur við númeri viðskiptavins, nær í allar pantanir á hans númeri og skilar þeim sem lista """
         with open("./data/orders.csv", "r") as order_db:
             csv_dict = csv.DictReader(order_db)
             for line in csv_dict:
