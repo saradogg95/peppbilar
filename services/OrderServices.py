@@ -25,9 +25,13 @@ class OrderServices:
         else:
             return get_orders
 
-    def get_all_oders(self):
+    def get_all_orders(self):
         get_orders = self.__repository.get_all_orders()
+        orders_string = ""
         if not get_orders:
             return "No orders found"
         else:
-            return get_orders
+            for item in get_orders:
+                orders_string += item.__str__() + "\n"
+            orders_string = orders_string[:-1]
+            return orders_string
