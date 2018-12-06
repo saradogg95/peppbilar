@@ -3,6 +3,8 @@
 #get_payment_info(order_id): list
 #add_payment(): none
 
+#Þarf að skoða þennan klasa betur kv Sara
+
 from models.Payment import Payment
 import csv
 
@@ -31,13 +33,10 @@ class PaymentRepository:
     def add_payment():
         """Adds payment"""
         with open("./data/payment.csv", "a+") as payment_db:
-            order_id = Payment.get_id()
-            
-
-
-#order_id: string
-#order_date: datetime
-#rent_date_from: date
-#rent_date_to: date
-#customer_id: int
-#car_id: int
+            id_ = Payment.get_id()
+            basic_price = Payment.get_basic_price()
+            insurance = Payment.get_add_insurance()
+            additional_cost = Payment.get_additional_cost()
+            orders_id = Payment.get_orders_id()
+            payment_db.write("{}, {}, {}, {}, {}").format(id_, basic_price, insurance, 
+                                                          additional_cost, orders_id)
