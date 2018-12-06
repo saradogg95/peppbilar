@@ -2,8 +2,9 @@
 
 class Employee:
 
-    def __init__(self, username, password, name, address, age, admin=0):        
+    def __init__(self, username, ssn, password, name, address, age, admin=0):        
         self.__username = username
+        self.__ssn = ssn
         self.__password = password
         self.__name = name
         self.__address = address
@@ -25,7 +26,7 @@ class Employee:
             return age
 
     def __str__(self):
-        return "{}, {}, {}, {}, {}, {}".format(self.__username, self.__password, self.__name, 
+        return "{}, {}, {}, {}, {}, {}".format(self.__username, self.__ssn, self.__password, self.__name, 
                                     self.__address, self.__age, self.__admin)
 
     def __repr__(self):
@@ -46,6 +47,9 @@ class Employee:
 
     def get_username(self):
         return self.__username
+    
+    def get_ssn(self):
+        return self.__ssn
 
     def get_password(self):
         return self.__password
