@@ -7,8 +7,8 @@ from services.PaymentServices import PaymentServices
 from models.Car import Car
 from models.Order import Order
 from models.User import Employee
-from 
-
+from models.Payment import Payment
+from models.Customer import Customer
 
 
 class UserInterface:
@@ -61,7 +61,13 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            #eh til að deala við new order
+            order_id = input("Order id: ")
+            car_id = input("Car id: ")
+            customer_id = input("Customer id: ")
+            order_date = input("Order date: ")
+            rent_date_from = input("Rent date from: ")
+            rent_date_to = input("Rent date to: ")
+            new_order = Order(order_id, order_date, rent_date_from, rent_date_to, customer_id, car_id)
             self.__order_service.add_new_order(new_order)
         elif:
             pass

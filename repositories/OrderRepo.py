@@ -7,7 +7,7 @@ class OrderRepository:
         self.__orders = []
 
     def add_order(self, new_order):
-        with open("./data/order.csv", "a+") as order_db:
+        with open("./data/orders.csv", "a+") as order_db:
         
         # laga tilit til order
 
