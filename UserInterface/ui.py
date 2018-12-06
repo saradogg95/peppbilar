@@ -4,23 +4,20 @@ class UserInterface:
     def __init__(self):
 
         #vantar að búa til service layers, en tengist öllum service layers rn
-        self.__order_service = OrderService()
-        self.__customer_service = CustomerService()
-        self.__payment_service = PaymentService()
-        self.__employee_service = EmployeeService()
-        self.__car_service = CarService()
+        self.__order_service = OrderServices()
+        self.__customer_service = CustomerServices()
+        self.__payment_service = PaymentServices()
+        self.__employee_service = EmployeeServices()
+        self.__car_service = CarServices()
 
     def main_menu(self):
         
         location_flag = "Main menu"
 
-   
-
         while action != "q":
 
             self.print_choices(location_flag)
             action = self.get_action()
-
 
             if action == 1:
                 location_flag = "Order menu"
@@ -30,13 +27,25 @@ class UserInterface:
                 #menu fyrir 1
                 location_flag = "Main menu"
             elif action == 2:
-                pass
+                location_flag = "Customer menu"
+                while action != "r":
+                    action = self.order_service_action()
+                location_flag = "Main menu"
             elif action == 3:
-                pass
+                location_flag = "Payment menu"
+                while action != "r":
+                    action = self.order_service_action()
+                location_flag = "Main menu"
             elif action == 4:
-                pass
+                location_flag = "Employee menu"
+                while action != "r":
+                    action = self.order_service_action()
+                location_flag = "Main menu"
             elif action == 5:
-                pass
+                location_flag = "Car menu"
+                while action != "r":
+                    action = self.order_service_action()
+                location_flag = "Main menu"
 
     def order_service_action(self, location_flag):
         self.print_choices(location_flag)
