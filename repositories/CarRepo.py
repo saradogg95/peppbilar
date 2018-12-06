@@ -22,7 +22,7 @@ class CarRepository:
 
     def add_car(self, car):
         """ Bætir við bíl í gagnarunninn. """
-        with open("./data/cars_test.csv", "a+") as car_db:
+        with open("./data/cars.csv", "a+") as car_db:
             regNum = car.get_regNum()
             make = car.get_make()
             category = car.get_category()
@@ -34,7 +34,7 @@ class CarRepository:
 
     def get_all_cars(self):
         """ Fer í gegnum gagnagrunninn og bætir öllum bílum í lista sem er skilað """
-        with open("./data/cars_test.csv", "r", newline="") as car_db: #breyta þessu í cars.csv fyrir fullan db
+        with open("./data/cars.csv", "r", newline="") as car_db: #breyta þessu í cars.csv fyrir fullan db
             csv_reader = csv.reader(car_db)
             next(csv_reader)
             for line in csv_reader:
@@ -45,7 +45,7 @@ class CarRepository:
 
     def get_available_cars(self):
         """ Fer í gegnum gagnagrunninn og bætir öllum tiltækum bílum í lista sem er skilað """
-        with open("./data/cars_test.csv", "r") as car_db: #breyta þessu í cars.csv fyrir fullan db
+        with open("./data/cars.csv", "r") as car_db: #breyta þessu í cars.csv fyrir fullan db
             csv_dict = csv.DictReader(car_db)
             for line in csv_dict:
                 if line["available"] == "True":

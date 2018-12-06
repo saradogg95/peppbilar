@@ -4,6 +4,12 @@ from services.EmployeeServices import EmployeeServices
 from services.OrderServices import OrderServices
 from services.PaymentServices import PaymentServices
 
+from models.Car import Car
+from models.Order import Order
+from models.User import Employee
+from 
+
+
 
 class UserInterface:
 
@@ -55,7 +61,8 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            self.__order_service.add_new_order()
+            #eh til að deala við new order
+            self.__order_service.add_new_order(new_order)
         elif:
             pass
         return action
@@ -64,7 +71,8 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            self.__order_service.add_new_customer()
+            #eh til að deala við new customer
+            self.__order_service.add_new_customer(new_customer)
         elif:
             pass
         return action
@@ -73,7 +81,8 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            self.__order_service.add_new_payment()
+            #eh til að deala við new payment
+            self.__order_service.add_new_payment(new_payment)
         elif:
             pass
         return action
@@ -82,7 +91,8 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            self.__order_service.add_new_employee()
+            #eh til að deala við new employee
+            self.__order_service.add_new_employee(new_employee)
         elif:
             pass
         return action
@@ -91,7 +101,8 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            self.__order_service.add_new_car()
+            #eh til að deala við new car
+            self.__order_service.add_new_car(new_car)
         elif:
             pass
         return action
