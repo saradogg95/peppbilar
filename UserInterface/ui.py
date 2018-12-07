@@ -77,15 +77,14 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            customer_ID = 
-            car_id = input("Car id: ")
-            customer_id = input("Customer id: ")
-            order_date = input("Order date: ")
-            rent_date_from = input("Rent date from: ")
-            rent_date_to = input("Rent date to: ")
-
-            new_customer = Customer(order_id, order_date, rent_date_from, rent_date_to, customer_id, car_id)
-            self.__order_service.add_customer(new_customer)
+            customer_ID = input("Customer id: ")
+            identity_number = input("Indentity number: ")
+            first_names = input("First name: ")
+            surname = input("Surname: ")
+            citizenship = input("Citizenship: ")
+            passport_ID = input("Passport id: ")
+            new_customer = Customer(customer_ID, identity_number, first_names, surname, citizenship, passport_ID)
+            self.__customer_service.add_customer(new_customer)
         elif:
             pass
         return action
@@ -94,7 +93,15 @@ class UserInterface:
         self.print_choices(location_flag)
         action = self.get_action()
         if action == 1:
-            #eh til að deala við new payment
+
+            
+            customer_ID = input("Customer id: ")
+            identity_number = input("Indentity number: ")
+            first_names = input("First name: ")
+            surname = input("Surname: ")
+            citizenship = input("Citizenship: ")
+            passport_ID = input("Passport id: ")
+            new_customer = Customer(customer_ID, identity_number, first_names, surname, citizenship, passport_ID)
             self.__order_service.add_new_payment(new_payment)
         elif:
             pass
