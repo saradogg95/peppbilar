@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 #Data Access Layer
 #__payments: list
 #get_payment_info(order_id): list
@@ -5,6 +7,7 @@
 
 #Þarf að skoða þennan klasa betur kv Sara
 
+>>>>>>> b4878ec26d15c181addc9787b4c3501de4c15191
 from models.Payment import Payment
 import csv
 

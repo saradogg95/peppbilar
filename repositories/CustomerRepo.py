@@ -1,4 +1,3 @@
-
 import csv
 from models.Customer import Customer
 

@@ -1,5 +1,12 @@
-from models.Order import Order
-from repositories.OrderRepo import OrderRepository
+from models.Customer import Customer
+from repositories.CustomerRepo import customerRepository
 
 class CustomerServices:
-    pass
+    
+    def __init__(self):
+        
+        self.__repository = customerRepository()
+        self.__customers = []
+    
+    def add_customer(self, new_customer):
+        self.__repository.add_customer(new_customer)
