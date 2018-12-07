@@ -18,7 +18,6 @@ class CarServices():
         """ Takes in a car and send to the database for writing """
         self.__repository.add_car(car)
 
-<<<<<<< HEAD
     def get_all_cars(self):
         """ Gets all cars from the database and returns as a list """
         self.__cars = self.__repository.get_all_cars()
@@ -28,7 +27,6 @@ class CarServices():
         """ Gets all available cars from the database and returns as a list """
         self.__cars = self.__repository.get_available_cars()
         return self.__cars
-=======
     def get_available_cars(self):
         """ Gets all cars from the database and returns as a list """
         all_cars = self.__repository.get_cars()
@@ -36,4 +34,3 @@ class CarServices():
             if line.get_availability() == "True":
                 self.__cars.append(line)
         return self.__cars
->>>>>>> b4878ec26d15c181addc9787b4c3501de4c15191
