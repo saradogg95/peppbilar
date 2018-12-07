@@ -10,7 +10,7 @@ class CarRepository:
         with open("./data/cars.csv", "a+") as car_db:
             try:
                 regNum = car.get_regNum()
-                make = car.get_make()
+                make = car.get_brand()
                 category = car.get_category()
                 manufacturer = car.get_manufacturer()
                 registration_date = car.get_registration_date()
@@ -37,19 +37,16 @@ class CarRepository:
                 return self.__cars
             finally:
                 car_db.close()
-<<<<<<< HEAD
-
-    def get_cars(self):
-        """ Returns a list of all cars in the database """
-        self.__cars = self.open_csv()
-        return self.__cars
-=======
 
     def get_cars(self):
         """ Returns a list of all cars in the database """
         self.__cars = self.open_csv()
         return self.__cars
 
+    def get_cars(self):
+        """ Returns a list of all cars in the database """
+        self.__cars = self.open_csv()
+        return self.__cars
 
 
->>>>>>> b4878ec26d15c181addc9787b4c3501de4c15191
+
