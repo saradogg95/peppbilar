@@ -28,27 +28,27 @@ class UserInterface:
         action = self.get_action()
         while action != "q":
 
-            if action == 1:
+            if action == "1":
                 location_flag = "Order menu"
                 while action != "r":
                     action = self.order_service_action(location_flag)
                 location_flag = "Main menu"
-            elif action == 2:
+            elif action == "2":
                 location_flag = "Customer menu"
                 while action != "r":
                     action = self.order_service_action(location_flag)
                 location_flag = "Main menu"
-            elif action == 3:
+            elif action == "3":
                 location_flag = "Payment menu"
                 while action != "r":
                     action = self.order_service_action(location_flag)
                 location_flag = "Main menu"
-            elif action == 4:
+            elif action == "4":
                 location_flag = "Employee menu"
                 while action != "r":
                     action = self.order_service_action(location_flag)
                 location_flag = "Main menu"
-            elif action == 5:
+            elif action == "5":
                 location_flag = "Car menu"
                 while action != "r":
                     action = self.order_service_action(location_flag)
@@ -60,7 +60,7 @@ class UserInterface:
     def order_service_action(self, location_flag):
         self.print_choices(location_flag)
         action = self.get_action()
-        if action == 1:
+        if action == "1":
             order_id = input("Order id: ")
             car_id = input("Car id: ")
             customer_id = input("Customer id: ")
@@ -76,7 +76,7 @@ class UserInterface:
     def customer_service_action(self):
         self.print_choices(location_flag)
         action = self.get_action()
-        if action == 1:
+        if action == "1":
             customer_ID = input("Customer id: ")
             identity_number = input("Indentity number: ")
             first_names = input("First name: ")
@@ -92,7 +92,7 @@ class UserInterface:
     def payment_service_action(self):
         self.print_choices(location_flag)
         action = self.get_action()
-        if action == 1:
+        if action == "1":
 
             
             customer_ID = input("Customer id: ")
@@ -110,7 +110,7 @@ class UserInterface:
     def employee_service_action(self):
         self.print_choices(location_flag)
         action = self.get_action()
-        if action == 1:
+        if action == "1":
             #eh til að deala við new employee
             self.__order_service.add_new_employee(new_employee)
         #elif:
@@ -120,7 +120,7 @@ class UserInterface:
     def car_service_action(self):
         self.print_choices(location_flag)
         action = self.get_action()
-        if action == 1:
+        if action == "1":
             #eh til að deala við new car
             self.__order_service.add_new_car(new_car)
         #elif:
@@ -176,8 +176,8 @@ class UserInterface:
 
 
     def get_action(self):
-        correct_input_list = [1, 2, 3, 4, 5, "q", "r"]
-        action = input("Please choose an option: ").lower()
+        correct_input_list = ["1", "2", "3", "4", "5", "q", "r"]
+        action = input("Please choose an option: ")
 
         done = False
 
