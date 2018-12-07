@@ -20,7 +20,9 @@ class CarServices():
 
     def get_all_cars(self):
         """ Gets all cars from the database and returns as a list """
-        self.__cars = self.__repository.get_all_cars()
+        all_cars = self.__repository.get_cars()
+        for line in all_cars:
+            self.__cars.append(line.get_brand())
         return self.__cars
 
     def get_available_cars(self):
