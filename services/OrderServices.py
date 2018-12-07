@@ -35,3 +35,9 @@ class OrderServices:
                 orders_string += item.__str__() + "\n"
             orders_string = orders_string[:-1]
             return orders_string
+    
+    def change_order(self, order_number):
+        pass
+
+    def delete_order(self, order_number):
+        pass
