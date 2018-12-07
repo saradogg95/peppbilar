@@ -6,7 +6,7 @@ from services.PaymentServices import PaymentServices
 
 from models.Car import Car
 from models.Order import Order
-from models.User import Employee
+from models.Employee import Employee
 from models.Payment import Payment
 from models.Customer import Customer
 
@@ -69,7 +69,7 @@ class UserInterface:
             rent_date_to = input("Rent date to: ")
             new_order = Order(order_id, order_date, rent_date_from, rent_date_to, customer_id, car_id)
             self.__order_service.add_order(new_order)
-        elif:
+        else:
             pass
         return action
 
@@ -79,7 +79,7 @@ class UserInterface:
         if action == 1:
             #eh til að deala við new customer
             self.__order_service.add_new_customer(new_customer)
-        elif:
+        else:
             pass
         return action
 
@@ -89,7 +89,7 @@ class UserInterface:
         if action == 1:
             #eh til að deala við new payment
             self.__order_service.add_new_payment(new_payment)
-        elif:
+        else:
             pass
         return action
 
@@ -99,7 +99,7 @@ class UserInterface:
         if action == 1:
             #eh til að deala við new employee
             self.__order_service.add_new_employee(new_employee)
-        elif:
+        else:
             pass
         return action
 
@@ -109,7 +109,7 @@ class UserInterface:
         if action == 1:
             #eh til að deala við new car
             self.__order_service.add_new_car(new_car)
-        elif:
+        else:
             pass
         return action
 
@@ -137,28 +137,28 @@ class UserInterface:
             print("------------Customer menu options------------")
             print("Please chose one of the following options:")
             print("1. Add a new Customer")
-            print("Press r to return to main menu"):
+            print("Press r to return to main menu")
 
         #payment service options
         elif location_flag == "Payment menu":
             print("------------Payment menu options------------")
             print("Please chose one of the following options:")
             print("1. Add a new payment")
-            print("Press r to return to main menu"):
+            print("Press r to return to main menu")
 
         #employee service options
         elif location_flag == "Employee menu":
             print("------------Employee menu options------------")
             print("Please chose one of the following options:")
             print("1. Add a new employee")
-            print("Press r to return to main menu"):
+            print("Press r to return to main menu")
 
         #car service options
         elif location_flag == "Car menu":
             print("------------Car menu options------------")
             print("Please chose one of the following options:")
             print("1. Add a new car")
-            print("Press r to return to main menu"):
+            print("Press r to return to main menu")
 
 
     def get_action(self):
