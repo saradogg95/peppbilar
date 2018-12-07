@@ -8,14 +8,20 @@ class CarRepository:
     def add_car(self, car):
         """ Takes in a car and writes to the database """
         with open("./data/cars.csv", "a+") as car_db:
-            regNum = car.get_regNum()
-            make = car.get_make()
-            category = car.get_category()
-            manufacturer = car.get_manufacturer()
-            registration_date = car.get_registration_date()
-            mileage = car.get_mileage()
-            availability = car.get_availability()
-            car_db.write("{},{},{},{},{},{},{}\n".format(regNum, make, category, manufacturer, registration_date, mileage, availability)) #laga þegar formatið á db er komið á hreint
+            try:
+                regNum = car.get_regNum()
+                make = car.get_make()
+                category = car.get_category()
+                manufacturer = car.get_manufacturer()
+                registration_date = car.get_registration_date()
+                mileage = car.get_mileage()
+                availability = car.get_availability()
+                car_db.write("{},{},{},{},{},{},{}\n"
+                .format(regNum, make, category, manufacturer, registration_date, mileage, availability)) #laga þegar formatið á db er komið á hreint
+            except:
+                return None
+            finally:
+                car_db.close()
 
     def open_csv(self):
         """Returns list of cars from csv file"""
