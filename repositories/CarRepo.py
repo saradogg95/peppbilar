@@ -43,5 +43,10 @@ class CarRepository:
         self.__cars = self.open_csv()
         return self.__cars
 
+    def get_cars(self):
+        """ Returns a list of all cars in the database """
+        self.__cars = self.open_csv()
+        return self.__cars
+
 
 

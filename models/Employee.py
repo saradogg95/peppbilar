@@ -1,7 +1,5 @@
-
-
 class Employee:
-
+    
     def __init__(self, username="", password="", name="", address="", age=0, admin=0):
         
         self.__username = username
@@ -62,5 +60,3 @@ class Employee:
 
     def get_admin_status(self):
         return self.__admin
-
-

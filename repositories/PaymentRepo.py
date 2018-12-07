@@ -1,9 +1,4 @@
-#Data Access Layer
-#__payments: list
-#get_payment_info(order_id): list
-#add_payment(): none
 
-#Þarf að skoða þennan klasa betur kv Sara
 
 from models.Payment import Payment
 import csv

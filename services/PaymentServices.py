@@ -1,6 +1,3 @@
-#Service Layer
-#get_payment_info(order_id): list
-#add_payment(): none
 
 from models.Payment import Payment
 from repositories.PaymentRepo import PaymentRepository

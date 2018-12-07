@@ -1,5 +1,3 @@
-
-
 class Payment:
     
     def __init__(self, id="", basic_price=0.0, add_insurance=False,

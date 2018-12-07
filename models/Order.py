@@ -1,5 +1,3 @@
-
-
 class Order:
     
     def __init__(self, order_id="", order_date="", rent_date_from="", 
