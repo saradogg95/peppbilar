@@ -25,3 +25,11 @@ class CarServices():
             if line.get_availability() == "True":
                 self.__cars.append(line)
         return self.__cars
+
+    def get_brands(self):
+        """ Gets all cars from the database and returns as a list """
+        all_cars = self.__repository.get_cars()
+        for line in all_cars:
+            if line.get_brand() not in self.__cars:
+                self.__cars.append(line.get_brand())
+        return self.__cars

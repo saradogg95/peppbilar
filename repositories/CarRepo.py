@@ -10,7 +10,7 @@ class CarRepository:
         with open("./data/cars.csv", "a+") as car_db:
             try:
                 regNum = car.get_regNum()
-                make = car.get_make()
+                make = car.get_brand()
                 category = car.get_category()
                 manufacturer = car.get_manufacturer()
                 registration_date = car.get_registration_date()
