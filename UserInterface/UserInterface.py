@@ -89,39 +89,51 @@ class UserInterface:
             #pass
         return action
 
-    def payment_service_action(self):
+    def payment_service_action(self, location_flag):
         self.print_choices(location_flag)
         action = self.get_action()
         if action == "1":
 
-            
-            customer_ID = input("Customer id: ")
-            identity_number = input("Indentity number: ")
-            first_names = input("First name: ")
-            surname = input("Surname: ")
-            citizenship = input("Citizenship: ")
-            passport_ID = input("Passport id: ")
-            new_customer = Customer(customer_ID, identity_number, first_names, surname, citizenship, passport_ID)
-            self.__order_service.add_new_payment(new_payment)
+            payment_id = input("Payment id: ")
+            basic_price = input("Basic price: ")
+            add_insurance = input("Add insurance: ")
+            additional_cost = input("Additional cost: ")
+            orders_id = input("Order id: ")
+            new_payment = Payment(payment_id, basic_price, add_insurance, additional_cost, orders_id)
+            self.__payment_service.add_payment(new_payment)
         #elif:
             #pass
         return action
 
-    def employee_service_action(self):
+    def employee_service_action(self, location_flag):
         self.print_choices(location_flag)
         action = self.get_action()
         if action == "1":
-            #eh til að deala við new employee
-            self.__order_service.add_new_employee(new_employee)
+
+            username = input("Username: ")
+            password = input("Password: ")
+            name = input("Name: ")
+            address = input("Address: ")
+            age = input("Age: ")
+            admin = input("Admin: ")
+            new_employee = Employee(username, password, name, address, age, admin)
+            self.__employee_service.add_employee(new_employee)
         #elif:
             #pass
         return action
 
-    def car_service_action(self):
+    def car_service_action(self, location_flag):
         self.print_choices(location_flag)
         action = self.get_action()
         if action == "1":
-            #eh til að deala við new car
+            regNum = input("Registation number: ")
+            brand = input("Brand: ")
+            category = input("Category: ")
+            manufacturer = input("Manufacturer: ")
+            registration_date = input("Registration date: ")
+            mileage = input("Mileage: ")
+            is_available = input("Is available: ")
+            new_car = Car(regNum, brand, category, manufacturer, registration_date, mileage, is_available)
             self.__order_service.add_new_car(new_car)
         #elif:
             #pass
