@@ -1,17 +1,17 @@
-class Customer():
-    def __init__(self, customer_ID=0, identity_number="", first_names="", surname="", citizenship="", passport_ID=""):
-        self.__customer_ID = customer_ID
+class Customer:
+    def __init__(self, customer_id=0, identity_number="", first_names="", surname="", citizenship="", passport_id=""):
+        self.__customer_id = customer_id
         self.__identity_number = identity_number
         self.__first_names = first_names
         self.__surname = surname
         self.__citizenship = citizenship
-        self.__passport_ID = passport_ID
+        self.__passport_id = passport_id
 
     def __str__(self):
-        return "{} {} {} {} {} {}".format(self.__customer_ID, self.__identity_number, self.__first_names, self.__surname, self.__citizenship, self.__passport_ID)
+        return "{} {} {} {} {} {}".format(self.__customer_id, self.__identity_number, self.__first_names, self.__surname, self.__citizenship, self.__passport_id)
 
-    def get_customer_ID(self):
-        return self.__customer_ID
+    def get_customer_id(self):
+        return self.__customer_id
 
     def get_identity_number(self):
         return self.__identity_number
@@ -25,5 +25,5 @@ class Customer():
     def get_citizenship(self):
         return self.__citizenship
     
-    def get_passport_ID(self):
-        return self.__passport_ID
+    def get_passport_id(self):
+        return self.__passport_id
