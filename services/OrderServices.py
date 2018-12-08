@@ -16,7 +16,7 @@ class OrderServices:
             if order.get_order_id() == order_id:
                 return order
         return "No order with order number {} found.".format(order_id)
-    
+
     def get_customer_orders(self, customer_id):
         """ Takes in a customer id and returns a list with all orders for that customer. Returns and empty list if nothing is found. """
         customer_order_list = []
@@ -28,14 +28,13 @@ class OrderServices:
     def get_all_orders(self):
         """ Returns a list of all orders in the database. """
         return self.__order_db.get_all_orders()
-    
+
     def change_order(self, order_number, new_order):
         """ Takes in an order number and an order and replaces the old order with the new order. If no order with the order number is found the order taken in is added as an order. """
         for index, order in enumerate(self.__order_db.get_all_orders()):
             if order.get_order_id() == order_number:
                 self.__order_db.delete_order(index)
         self.__order_db.add_order(new_order)
-
 
     def delete_order(self, order_number):
         """ Takes in an order number and deletes it. Returns a string stating whether the order was deleted or not found. """
