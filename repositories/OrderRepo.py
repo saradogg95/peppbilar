@@ -18,7 +18,7 @@ class OrderRepository:
                     self.__orders.append(new_order)
         except FileNotFoundError:
             with open("./data/orders.csv", "a+") as orders_db:
-                orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to,Customer_id,Car_id")
+                orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to,Customer_id,Car_id\n")
 
     def check_empty(self):
         """ Checks if the database list is empty. Calls populate_order_list() if it is """
@@ -34,14 +34,6 @@ class OrderRepository:
         """ Takes in an index number and deletes the corresponding index from the database. """
         self.check_empty()
         self.__orders.pop(index_number)
-
-    def get_order(self, order_id):
-        """ Takes in an order id, gets the order from the database and returns it. If no order is found returns None. """
-        self.check_empty()
-        for order in self.__orders:
-            if order.get_order_id() == order_id:
-                return order
-        return None
 
     def get_customer_orders(self, customer_id):
         """ Takes in a customer id, gets all orders for that customer id and returns as a list. """
