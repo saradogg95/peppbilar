@@ -1,6 +1,7 @@
 from models.Order import Order
 from repositories.OrderRepo import OrderRepository
 from services.CarServices import CarServices
+from datetime import datetime
 
 class OrderServices:
 
@@ -52,15 +53,30 @@ class OrderServices:
     def get_additional_insuarance_cost(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
         for order in self.__order_db.get_all_orders():
-            if order.get_order_id() == order_id:
+            if order.get_order_id() == order_id:           
                 """Check if additional inusarance was ordered"""
-                if order.get_additional_insurance() == True:
+                if order.get_additional_insurance() == True:                
                     """From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price"""
-                    car = self.__car_services.get_car_by_regnum(order.get_car_id())
+                    car = self.__car_services.get_car_by_regnum(order.get_car_id())                 
                     """The cost of insurance is the 75% of the price of a days rental"""
                     return car.get_category_price() * 0.75
                 else:
                     return "No order with order number {} found.".format(order_id)
             else:
                 return None
+
+    def get_cost_without_additions(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:  
+                """We need the number of days the car is being rent for to calculat the total cost"""
+                start_date = datetime.strptime(order.get_rent_date_from, "%m/%d/%Y")
+                end_date = datetime.strptime(order.get_rent_date_to, "%m/%d/%Y")           
+                number_of_days = abs((end_date-start_date).days)
+                """From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price"""
+                car = self.__car_services.get_car_by_regnum(order.get_car_id())
+                return car.get_category_price() * number_of_days
+                     
+            else:
+                return "No order with order number {} found.".format(order_id)
 
