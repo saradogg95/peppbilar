@@ -61,9 +61,20 @@ class OrderServices:
                     """The cost of insurance is the 75% of the price of a days rental"""
                     return car.get_category_price() * 0.75
                 else:
-                    return "No order with order number {} found.".format(order_id)
+                   return None 
             else:
-                return None
+                return "No order with order number {} found.".format(order_id)
+    
+    def get_additional_cost_extra_millage(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:                      
+                """From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price"""
+                car = self.__car_services.get_car_by_regnum(order.get_car_id())                 
+                """The cost of additional millage over 100km is 1% of daily rental cost"""
+                return car.get_category_price() * 0.01
+            else:
+                return "No order with order number {} found.".format(order_id)
 
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
