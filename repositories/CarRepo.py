@@ -12,6 +12,7 @@ class CarRepository:
                 regNum = car.get_regNum()
                 make = car.get_brand()
                 category = car.get_category()
+                category_price = car.get_category_price()
                 manufacturer = car.get_manufacturer()
                 registration_date = car.get_registration_date()
                 mileage = car.get_mileage()
@@ -30,7 +31,7 @@ class CarRepository:
             try:
                 csv_dict = csv.DictReader(car_db)
                 for line in csv_dict:
-                    new_car = Car(line["regNum"], line["make"],line["model"],line["category"],line["registration_date"],line["mileage"],line["available"])
+                    new_car = Car(line["regNum"], line["brand"], line["model"], line["category"], line["category_price"], line["registration_date"], line["mileage"], line["available"])
                     self.__cars.append(new_car)
                 return self.__cars
             except:

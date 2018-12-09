@@ -19,6 +19,8 @@ class OrderRepository:
         except FileNotFoundError:
             with open("./data/orders.csv", "a+") as orders_db:
                 orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to,Customer_id,Car_id\n")
+        finally:
+            orders_db.close()
 
     def check_empty(self):
         """ Checks if the database list is empty. Calls populate_order_list() if it is """

@@ -1,5 +1,3 @@
-
-
 from models.Payment import Payment
 import csv
 
@@ -35,3 +33,5 @@ class PaymentRepository:
             orders_id = Payment.get_orders_id()
             payment_db.write("{}, {}, {}, {}, {}").format(id_, basic_price, insurance, 
                                                           additional_cost, orders_id)
+
+

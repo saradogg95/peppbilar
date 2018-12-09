@@ -33,6 +33,14 @@ class CarServices():
                 self.__cars.append(line)
         return self.__cars
 
+    def get_price_by_category(self):
+        """ Gets all cars from the database and returns as a list """
+        all_cars = self.__repository.get_cars()
+        for line in all_cars:
+            if line.get_category_price() not in self.__cars:
+                self.__cars.append(line)
+        return self.__cars
+
     def get_brands(self):
         """ Gets all cars from the database and returns as a list """
         all_cars = self.__repository.get_cars()

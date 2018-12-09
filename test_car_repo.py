@@ -5,7 +5,7 @@ def main():
     car_db = CarRepository()
     car_service = CarServices()
     car = car_db.get_cars()
-    cars = car_service.get_brands()
+    cars = car_service.get_price_by_category()
     print(cars)
 
 
