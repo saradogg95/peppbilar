@@ -1,10 +1,12 @@
 from models.Order import Order
 from repositories.OrderRepo import OrderRepository
+from services.CarServices import CarServices
 
 class OrderServices:
 
     def __init__(self):
         self.__order_db = OrderRepository()
+        self.__car_services = CarServices()
 
     def add_order(self, new_order):
         """ Takes in an order and adds it to the database. """
@@ -46,3 +48,14 @@ class OrderServices:
 
     def write_db_to_file(self):
         self.__order_db.write_db_to_file()
+
+    def get_additional_insuarance_cost(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:
+                """From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price"""
+                car = self.__car_services.get_car_by_regnum(order.get_car_id())
+                """The cost of insurance is the 75% of the price of a days rental"""
+                return car.get_category_price() * 0.75
+            else:
+                return "No order with order number {} found.".format(order_id)

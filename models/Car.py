@@ -10,7 +10,7 @@ class Car:
         self.__category_price = category_price
     
     def __str__(self): #gera þetta print aðeins flottara
-        return "{} {} {} {} {} {} {}".format(self.__regNum, self.__brand, self.__category, self.__category_price, self.__manufacturer, self.__registration_date, self.__mileage, self.__availability)
+        return "{} {} {} {} {} {} {} {}".format(self.__regNum, self.__brand, self.__category, self.__category_price, self.__manufacturer, self.__registration_date, self.__mileage, self.__availability)
 
     def get_regNum(self):
         return self.__regNum

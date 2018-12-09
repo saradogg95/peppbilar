@@ -17,8 +17,8 @@ class CarRepository:
                 registration_date = car.get_registration_date()
                 mileage = car.get_mileage()
                 availability = car.get_availability()
-                car_db.write("{},{},{},{},{},{},{}\n"
-                .format(regNum, make, category, manufacturer, registration_date, mileage, availability)) #laga þegar formatið á db er komið á hreint
+                car_db.write("{},{},{},{},{},{},{},{}\n"
+                .format(regNum, make, category, category_price, manufacturer, registration_date, mileage, availability)) #laga þegar formatið á db er komið á hreint
             except:
                 return None
             finally:

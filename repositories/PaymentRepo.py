@@ -1,4 +1,5 @@
 from models.Payment import Payment
+from models.Order import Order
 import csv
 
 class PaymentRepository:
@@ -20,18 +21,19 @@ class PaymentRepository:
             for line in csv_dict:
                 if line["order_id"] == self.__order_id:
                     new_id = Order(line["order_id"], line["order_date"], line["rent_date_from"],
-                    ["rent_date_to"], ["customer_id"], ["car_id"])
+                    ["rent_date_to"], ["additional_insurance"], ["customer_id"], ["car_id"])
                     return new_id
 
-    def add_payment():
+    def add_payment(self):
         """Adds payment"""
         with open("./data/payment.csv", "a+") as payment_db:
             id_ = Payment.get_id()
             basic_price = Payment.get_basic_price()
-            insurance = Payment.get_add_insurance()
+
             additional_cost = Payment.get_additional_cost()
             orders_id = Payment.get_orders_id()
-            payment_db.write("{}, {}, {}, {}, {}").format(id_, basic_price, insurance, 
-                                                          additional_cost, orders_id)
+            payment_db.write("{}, {}, {}, {}").format(id_, basic_price, additional_cost, orders_id)
+
+    
 
 

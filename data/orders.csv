@@ -1,3 +1,3 @@
-Order_id,Order_date,Rent_date_from,Rent_date_to,Customer_id,Car_id
-1,20160302,20160302,20160402,100,VA579D
-2,20170302,20170302,20170402,300,RW446Tjkjkj,jkjkj,jkjkj,jkjk,jkj,jkj
+Order_id,Order_date,Rent_date_from,Rent_date_to,Additional_Insurance,Customer_id,Car_id
+1,20160302,20160302,20160402,False,100,VA579D
+2,20170302,20170302,20170402,False,300,RW446
