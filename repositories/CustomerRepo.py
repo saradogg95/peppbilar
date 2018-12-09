@@ -42,10 +42,10 @@ class CustomerRepository:
         """ Writes the database (self.__customers) to file. This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/customers.csv", "w") as customer_db:
-            customer_ID = Customer.get_customer_ID
+            customer_ID = Customer.get_customer_id
             identity_number = Customer.get_identity_number
             first_names = Customer.get_first_names
             surname = Customer.get_surname
             citizenship = Customer.get_citizenship
-            passport_ID = Customer.get_passport_ID
+            passport_ID = Customer.get_passport_id
             customer_db.write("{},{},{},{},{}").format(customer_ID, identity_number, first_names, surname, citizenship,passport_ID)
