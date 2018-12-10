@@ -36,7 +36,6 @@ class Customer:
     
     def get_passport_id(self):
         return self.__passport_id
-<<<<<<< HEAD
 
     def set_citizenship(self, citizenship):
         self.__citizenship = citizenship
@@ -46,5 +45,3 @@ class Customer:
     
     def set_surname(self, surname):
         self.__surname = surname
-=======
->>>>>>> 81493eaeecfffe9653caf2483fbaa9480a7e7a67
