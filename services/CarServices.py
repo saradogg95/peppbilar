@@ -26,7 +26,7 @@ class CarServices():
         cars = []
         for line in all_cars:
             cars.append(line)
-        return self.__cars
+        return cars
 
     def get_unavailable_cars(self):
         """ Gets all cars from the database and returns as a list """
