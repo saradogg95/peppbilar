@@ -14,20 +14,19 @@ from models.Customer import Customer
 class UserInterface:
 
     def __init__(self):
-
         self.__order_service = OrderServices()
         self.__customer_service = CustomerServices()
         self.__payment_service = PaymentServices()
         self.__employee_service = EmployeeServices()
         self.__car_service = CarServices()
 
-    def main_menu(self):
         
+    def main_menu(self):
+        """Main menu with choices"""
         location_flag = "Main menu"
         self.print_choices(location_flag)
         action = self.get_action()
         while action != "q":
-
             if action == "1":
                 location_flag = "Order menu"
                 while action != "r":
@@ -57,7 +56,9 @@ class UserInterface:
             self.print_choices(location_flag)
             action = self.get_action()
 
+            
     def order_service_action(self, location_flag):
+        """Order service choices"""
         self.print_choices(location_flag)
         action = self.get_action()
         if action == "1":
@@ -73,7 +74,9 @@ class UserInterface:
             #pass
         return action
 
+    
     def customer_service_action(self):
+        """Customer service choices"""
         self.print_choices(location_flag)
         action = self.get_action()
         if action == "1":
@@ -89,11 +92,12 @@ class UserInterface:
             #pass
         return action
 
+    
     def payment_service_action(self, location_flag):
+        """Payment service choices"""
         self.print_choices(location_flag)
         action = self.get_action()
         if action == "1":
-
             payment_id = input("Payment id: ")
             basic_price = input("Basic price: ")
             add_insurance = input("Add insurance: ")
@@ -104,12 +108,13 @@ class UserInterface:
         #elif:
             #pass
         return action
-
+    
+    
     def employee_service_action(self, location_flag):
+        """Employee service choices"""
         self.print_choices(location_flag)
         action = self.get_action()
         if action == "1":
-
             username = input("Username: ")
             password = input("Password: ")
             name = input("Name: ")
@@ -122,25 +127,28 @@ class UserInterface:
             #pass
         return action
 
+    
     def car_service_action(self, location_flag):
+        """Car service choices"""
         self.print_choices(location_flag)
         action = self.get_action()
         if action == "1":
-            regNum = input("Registation number: ")
+            reg_num = input("Registation number: ")
             brand = input("Brand: ")
             category = input("Category: ")
             manufacturer = input("Manufacturer: ")
             registration_date = input("Registration date: ")
             mileage = input("Mileage: ")
             is_available = input("Is available: ")
-            new_car = Car(regNum, brand, category, manufacturer, registration_date, mileage, is_available)
+            new_car = Car(reg_num, brand, category, manufacturer, registration_date, mileage, is_available)
             self.__order_service.add_new_car(new_car)
         #elif:
             #pass
         return action
 
+    
     def print_choices(self, location_flag):
-        #main screent print options
+        """Prints choices"""
         if location_flag == "Main menu":
             print("------------Main screen options------------")
             print("Please chose one of the following options:")
@@ -188,6 +196,7 @@ class UserInterface:
 
 
     def get_action(self):
+        """Gets chosen option"""
         correct_input_list = ["1", "2", "3", "4", "5", "q", "r"]
         action = input("Please choose an option: ")
 
