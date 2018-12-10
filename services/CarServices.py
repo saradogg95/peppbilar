@@ -5,16 +5,15 @@ from repositories.CarRepo import CarRepository
 class CarServices():
     def __init__(self):
         self.__repository = CarRepository()
-        self.__cars = []
-        self.__cars_dict = {}
 
     def get_car(self, regNum):
         """ Takes in a registration number and asks the database to get it. If no such car is found it returns None otherwise return the car """     
         all_cars = self.__repository.get_cars()
+        cars = []
         for line in all_cars:
             if line.get_reg_num() == regNum:
-                self.__cars.append(line)
-                return self.__cars
+                cars.append(line)
+                return cars
         return "No car with registration number {} found".format(regNum)
 
     def add_car(self, car):
@@ -24,30 +23,33 @@ class CarServices():
     def get_all_cars(self):
         """ Gets all cars from the database and returns as a list """
         all_cars = self.__repository.get_cars()
+        cars = []
         for line in all_cars:
-            self.__cars.append(line)
+            cars.append(line)
         return self.__cars
 
     def get_unavailable_cars(self):
         """ Gets all cars from the database and returns as a list """
+        cars = []
         for line in self.__repository.get_cars():
             if line.get_availability().upper() == "False":
-                self.__cars.append(line)
-        return self.__cars
+                cars.append(line)
+        return cars
 
     def get_price_by_category(self):
         """ Gets all cars from the database and returns as a list """
         all_cars = self.__repository.get_cars()
- 
+        cars = []
         for line in all_cars:
-            if line.get_category_price() not in self.__cars:
-                self.__cars.append(line)
-        return self.__cars
+            if line.get_category() + " - " + line.get_category_price() + " ISK" not in cars:
+                cars.append(line.get_category() + " - " + line.get_category_price() + " ISK")
+        return cars
 
     def get_brands(self):
         """ Gets all cars from the database and returns as a list """
         all_cars = self.__repository.get_cars()
+        cars = []
         for line in all_cars:
-            if line.get_brand() not in self.__cars:
-                self.__cars.append(line.get_brand())
-        return self.__cars
+            if line.get_brand() not in cars:
+                cars.append(line.get_brand())
+        return cars

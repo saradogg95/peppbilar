@@ -21,37 +21,27 @@ class Car:
 
     def get_reg_num(self):
         return self.__reg_num
-
     
     def get_brand(self):
         return self.__brand
-
-    
+ 
     def get_category(self):
         return self.__category
-    
-    
+        
     def get_model(self):
-            return self.__model
-    
+            return self.__model   
     
     def get_category_price(self):
         return self.__category_price
-
-    
+  
     def get_registration_date(self):
         return self.__registration_date
-
     
     def get_mileage(self):
         return self.__mileage
     
-
     def get_availability(self):
         return self.__availability
-<<<<<<< HEAD
 
     def set_mileage(self, mileage):
         self.__mileage = mileage
-=======
->>>>>>> 81493eaeecfffe9653caf2483fbaa9480a7e7a67
