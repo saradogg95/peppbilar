@@ -27,3 +27,12 @@ class Customer:
     
     def get_passport_id(self):
         return self.__passport_id
+
+    def set_citizenship(self, citizenship):
+        self.__citizenship = citizenship
+
+    def set_first_name(self, first_name):
+        self.__first_names = first_name
+    
+    def set_surname(self, surname):
+        self.__surname = surname
