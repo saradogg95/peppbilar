@@ -35,3 +35,6 @@ class Car:
 
     def get_availability(self):
         return self.__availability
+
+    def set_mileage(self, mileage):
+        self.__mileage = mileage
