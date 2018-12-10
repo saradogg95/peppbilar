@@ -1,7 +1,6 @@
 class Employee:
     
     def __init__(self, username="", password="", name="", address="", age=0, admin=0):
-        
         self.__username = username
         self.__password = password
         self.__name = name
@@ -9,8 +8,9 @@ class Employee:
         self.__age = self.age_check(age)
         self.__admin = self.admin_check(admin)
 
-    #Checks if the user input correct age e.g. age is not under 0 and and must be a number
+        
     def age_check(self, age):
+        """Checks if the user input valid age"""
         done = False
         while not done:
             try:
@@ -23,15 +23,17 @@ class Employee:
                 print("Wrong input.")
             return age
 
+        
     def __str__(self):
         return "{}, {}, {}, {}, {}, {}".format(self.__username, self.__password, self.__name, 
-                                    self.__address, self.__age, self.__admin)
+                                               self.__address, self.__age, self.__admin)
 
     def __repr__(self):
             return self.__str__()
 
-    #checks if user input correct admin status, e.g. only accapts 0 for False and 1 for True
+ 
     def admin_check(self, admin):
+        """Checks if user inputs valid admin status"""
         done = False
         while not done:
             if admin == 0:
@@ -43,18 +45,23 @@ class Employee:
             except:
                 print("Wrong input.")
 
+                
     def get_username(self):
         return self.__username
 
+    
     def get_password(self):
         return self.__password
+    
     
     def get_name(self):
         return self.__name
     
+    
     def get_address(self):
         return self.__address
 
+    
     def get_age(self):
         return self.__age
 
