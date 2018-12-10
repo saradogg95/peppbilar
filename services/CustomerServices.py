@@ -17,10 +17,11 @@ class CustomerServices:
     
     def get_customer(self, customer_id):
         """ Takes in a customer id, looks it up in the database and returns the customer. If no customer is found a string is returned. """
+        get_customer = []
         for customer in self.__customer_db.get_all_customers():
             if customer.get_customer_id() == customer_id:
-                return customer
-        return "No customer with customer id {} found.".format(customer_id)
+                get_customer.append(customer)
+        return get_customer
 
     def delete_customer(self, customer_id):
         """ Takes in a customer id and deletes it from the database. Returns a string stating whether the customer was deleted or not. """
@@ -33,3 +34,7 @@ class CustomerServices:
     def write_db_to_file(self):
         """ Writes the database to a file. Call this before the program ends to save the state of the database. """
         self.__customer_db.write_customer_db_to_file()
+
+    def get_all_customers(self):
+        """ Returns a list of all customers. """
+        return self.__customer_db.get_all_customers()
