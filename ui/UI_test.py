@@ -133,7 +133,7 @@ class UserInterface:
                         print("{:>100} {} {}".format("No customer with passport number", passport_number, "found."))
                     else:
                         for customer in self.__customer_service.get_all_customers():
-                            if customer.get_passport_id() == passport_number.upper():
+                            if customer.get_passport_id().upper() == passport_number.upper():
                                 print("{:>100}".format(customer.__str__()))
                         print("\n" * 2)
                         print("{:>94}".format("Change customer options:\n"))
