@@ -6,7 +6,10 @@ def main():
     car_db = CarRepository()
     car_service = CarServices()
     car = car_db.get_cars()
+    brands = car_service.get_brands()
+    print(brands)
     cars = car_service.get_price_by_category()
+    print(car_service.get_price_by_category())
     orders = OrderServices()
     print("Viðbótarkostnaður er", orders.get_additional_insuarance_cost("1"))
 
