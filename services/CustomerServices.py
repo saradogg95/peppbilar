@@ -38,3 +38,19 @@ class CustomerServices:
     def get_all_customers(self):
         """ Returns a list of all customers. """
         return self.__customer_db.get_all_customers()
+
+    def get_customer_by_icelandic_id(self, identity_number):
+        """ Takes in a customer id, looks it up in the database and returns the customer. If no customer is found a string is returned. """
+        get_customer = []
+        for customer in self.__customer_db.get_all_customers():
+            if customer.get_identity_number() == identity_number:
+                get_customer.append(customer)
+        return get_customer
+
+    def get_customer_by_passport_no(self, passport_no):
+        """ Takes in a customer id, looks it up in the database and returns the customer. If no customer is found a string is returned. """
+        get_customer = []
+        for customer in self.__customer_db.get_all_customers():
+            if customer.get_passport_id().upper() == passport_no.upper(): #bæta svona á hin services föllin til að gera þau ekki case sensitive
+                get_customer.append(customer)
+        return get_customer
