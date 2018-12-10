@@ -2,7 +2,7 @@
 from models.Payment import Payment
 from repositories.PaymentRepo import PaymentRepository
 
-class PaymentServices():
+class PaymentServices:
 
         def __init__(self):
                 self.__repository = PaymentRepository()
@@ -18,10 +18,11 @@ class PaymentServices():
                 #self.__repository.add_payment(new_payment)
                 pass
 
-        def get_additional_insurance_cost(self, has_additional_cost):
+        """def get_additional_insurance_cost(self, has_additional_cost):
                 if has_additional_cost:
                         return self.__basic_price * 0.15
                 else:
-                        return 0
+                        return 0 """
         
-        def get_total_cost(self)
+        def get_total_cost(self):
+                pass

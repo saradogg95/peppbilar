@@ -13,8 +13,13 @@ class CarServices():
         for line in all_cars:
             if line.get_reg_num() == regNum:
                 self.__cars.append(line)
+<<<<<<< HEAD
                 return self.__cars
         return "No car with registration number {} found".format(regNum)
+=======
+        return self.__cars
+
+>>>>>>> 4c0ed89c18f2a770729b9f54321ace6dd4e72094
 
     def add_car(self, car):
         """ Takes in a car and send to the database for writing """
@@ -24,14 +29,13 @@ class CarServices():
         """ Gets all cars from the database and returns as a list """
         all_cars = self.__repository.get_cars()
         for line in all_cars:
-            self.__cars.append(line.get_brand())
+            self.__cars.append(line)
         return self.__cars
 
-    def get_available_cars(self):
+    def get_unavailable_cars(self):
         """ Gets all cars from the database and returns as a list """
-        all_cars = self.__repository.get_cars()
-        for line in all_cars:
-            if line.get_availability() == "True":
+        for line in self.__repository.get_cars():
+            if line.get_availability().upper() == "False":
                 self.__cars.append(line)
         return self.__cars
 
