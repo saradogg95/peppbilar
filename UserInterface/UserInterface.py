@@ -68,7 +68,8 @@ class UserInterface:
             order_date = input("Order date: ")
             rent_date_from = input("Rent date from: ")
             rent_date_to = input("Rent date to: ")
-            new_order = Order(order_id, order_date, rent_date_from, rent_date_to, customer_id, car_id)
+            new_order = Order(order_id, order_date, rent_date_from, 
+                              rent_date_to, customer_id, car_id)
             self.__order_service.add_order(new_order)
         #elif:
             #pass
@@ -86,7 +87,8 @@ class UserInterface:
             surname = input("Surname: ")
             citizenship = input("Citizenship: ")
             passport_ID = input("Passport id: ")
-            new_customer = Customer(customer_ID, identity_number, first_names, surname, citizenship, passport_ID)
+            new_customer = Customer(customer_ID, identity_number, first_names, 
+                                    surname, citizenship, passport_ID)
             self.__customer_service.add_customer(new_customer)
         #elif:
             #pass
@@ -103,7 +105,8 @@ class UserInterface:
             add_insurance = input("Add insurance: ")
             additional_cost = input("Additional cost: ")
             orders_id = input("Order id: ")
-            new_payment = Payment(payment_id, basic_price, add_insurance, additional_cost, orders_id)
+            new_payment = Payment(payment_id, basic_price, add_insurance, 
+                                  additional_cost, orders_id)
             self.__payment_service.add_payment(new_payment)
         #elif:
             #pass
@@ -140,7 +143,8 @@ class UserInterface:
             registration_date = input("Registration date: ")
             mileage = input("Mileage: ")
             is_available = input("Is available: ")
-            new_car = Car(reg_num, brand, category, manufacturer, registration_date, mileage, is_available)
+            new_car = Car(reg_num, brand, category, manufacturer, registration_date, 
+                          mileage, is_available)
             self.__order_service.add_new_car(new_car)
         #elif:
             #pass
