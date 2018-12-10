@@ -45,6 +45,7 @@ class Car:
     
     def get_mileage(self):
         return self.__mileage
+    
 
     def get_availability(self):
         return self.__availability
