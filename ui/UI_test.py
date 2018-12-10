@@ -98,7 +98,7 @@ class UserInterface:
 
     def find_customer(self):
         """ Customer options. All sub menus are nested functions within this function. """
-        def change_customer():
+        def customer_lookup(menu_action):
             """ Changes or deletes a customer. """
             def update_first_name():
                 """ Updates a customer first name. """
@@ -116,11 +116,30 @@ class UserInterface:
                     print("\n" * 2)
                     self.__menu_action = input("{:>95}".format("Enter menu action: "))
             while self.__menu_action.lower() != "b":
-                self.print_header()
-                print("{:>94}".format("Change customer options:\n"))
-                print("{:>107}".format("1. Update first name"))
-                print("{:>94}".format("2. Update surname"))
-                print("{:>94}".format("3. Update passport number"))
+                #self.print_header()
+                if menu_action == "1": #look up customer by icelandic registration number
+                    self.print_header()
+                    icelandic_registration_number = input("{:>100}".format("Enter Icelandic registration number: "))
+                    if len(self.__customer_service.get_customer_by_icelandic_id(icelandic_registration_number)) == 0:
+                        print("{:>100} {} {}".format("No customer with registration number", icelandic_registration_number, "found."))
+                    else:
+                        for customer in self.__customer_service.get_all_customers():
+                            if customer.get_identity_number() == icelandic_registration_number:
+                                print("{:>100}".format(customer.__str__()))
+                if menu_action == "2": #look up customer by passport number
+                    self.print_header()
+                    passport_number = input("{:>100}".format("Enter passport number: "))
+                    if len(self.__customer_service.get_customer_by_passport_no(passport_number)) == 0:
+                        print("{:>100} {} {}".format("No customer with passport number", passport_number, "found."))
+                    else:
+                        for customer in self.__customer_service.get_all_customers():
+                            if customer.get_passport_id() == passport_number.upper():
+                                print("{:>100}".format(customer.__str__()))
+                        print("\n" * 2)
+                        print("{:>94}".format("Change customer options:\n"))
+                        print("{:>107}".format("1. Update first name"))
+                        print("{:>94}".format("2. Update surname"))
+                        print("{:>94}".format("3. Update passport number"))
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -132,16 +151,15 @@ class UserInterface:
             pass
         while self.__menu_action.lower() != "b":
             self.print_header()
-            print("{:>94}".format("Customer options:\n"))
-            print("{:>107}".format("1. Change customer registration"))
-            print("{:>94}".format("2. Delete customer"))
+            print("{:>94}".format("Find customer by:\n"))
+            print("{:>107}".format("1. Icelandic registration number"))
+            print("{:>94}".format("2. Passport number"))
             print("{:>96}".format("B. Back to main menu"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
-            if self.__menu_action == "1":
-                change_customer()
-            if self.__menu_action == "2":
-                delete_customer()
+            if self.__menu_action == "1" or self.__menu_action == "2":
+                customer_lookup(self.__menu_action)
+
 
 
 
@@ -153,7 +171,7 @@ class UserInterface:
                 self.print_header()
                 all_cars = self.__car_service.get_all_cars()
                 for car in all_cars:
-                    if car.get_availability() == "TRUE":
+                    if car.get_availability().upper() == "TRUE":
                         print("{:>100}".format(car.__str__()))
                 print("\n" * 2)
                 print("{:>96}".format("B. Back to main menu"))
