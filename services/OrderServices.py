@@ -55,11 +55,11 @@ class OrderServices:
         for order in self.__order_db.get_all_orders():
             if order.get_order_id() == order_id:           
                 """Check if additional inusarance was ordered"""
-                if order.get_additional_insurance() == True:                
+                if order.get_additional_insurance() == "TRUE":                
                     """From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price"""
-                    car = self.__car_services.get_car_by_regnum(order.get_car_id())                 
+                    car = self.__car_services.get_car(order.get_car_id()) #Ekkert get_car_by_regnum                 
                     """The cost of insurance is the 75% of the price of a days rental"""
-                    return car.get_category_price() * 0.75
+                    return int(car[0].get_category_price()) * float(0.75)
                 else:
                    return None 
             else:
@@ -70,9 +70,9 @@ class OrderServices:
         for order in self.__order_db.get_all_orders():
             if order.get_order_id() == order_id:                      
                 """From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price"""
-                car = self.__car_services.get_car_by_regnum(order.get_car_id())                 
+                car = self.__car_services.get_car(order.get_car_id())                 
                 """The cost of additional millage over 100km is 1% of daily rental cost"""
-                return car.get_category_price() * 0.01
+                return int(car[0].get_category_price()) * 0.01
             else:
                 return "No order with order number {} found.".format(order_id)
 
@@ -81,12 +81,12 @@ class OrderServices:
         for order in self.__order_db.get_all_orders():
             if order.get_order_id() == order_id:  
                 """We need the number of days the car is being rent for to calculat the total cost"""
-                start_date = datetime.strptime(order.get_rent_date_from(), "%m/%d/%Y")
-                end_date = datetime.strptime(order.get_rent_date_to(), "%m/%d/%Y")           
+                start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
+                end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
                 number_of_days = abs((end_date-start_date).days)
                 """From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price"""
-                car = self.__car_services.get_car_by_regnum(order.get_car_id())
-                return car.get_category_price() * number_of_days                     
+                car = self.__car_services.get_car(order.get_car_id())
+                return int(car[0].get_category_price()) * number_of_days                     
             else:
                 return "No order with order number {} found.".format(order_id)
 
