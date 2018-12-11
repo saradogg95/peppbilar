@@ -46,7 +46,7 @@ class UserInterface:
         print("\n" * 10)
         print("{:>100}".format("PEPP BÍLAR"))
         print("{:>115}".format("-" * 40))
-        print("{:>106}".format(self.__today.strftime("%A, %B, %Y")))
+        print("{:>106}".format(self.__today.strftime("%A, %B %d, %Y")))
         print()
 
         
@@ -222,13 +222,12 @@ class UserInterface:
         
         def print_all_available_cars():
             """ Prints a list of all available cars. """
-            
             while self.__menu_action.lower() != "b":
                 self.print_header()
                 all_cars = self.__car_service.get_all_cars()
                 for car in all_cars:
                     if car.get_availability().upper() == "TRUE":
-                        print("{:>100}".format(car.__str__()))
+                        print("{:>150}".format(car.__str__()))
                 print("\n" * 2)
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
@@ -237,7 +236,6 @@ class UserInterface:
                 
         def print_all_unavailable_cars():
             """ Prints a list of all cars currently out. """
-            
             while self.__menu_action.lower() != "b":
                 self.print_header()
                 all_cars = self.__car_service.get_all_cars()
