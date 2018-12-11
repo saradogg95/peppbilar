@@ -22,6 +22,7 @@ class UserInterface:
         self.__employee_service = EmployeeServices()
         self.__car_service = CarServices()
 
+        
     def main_menu(self):
         
         location_flag = "Main menu"
@@ -57,6 +58,7 @@ class UserInterface:
                     action = self.order_service_action()
                 location_flag = "Main menu"
 
+                
     def order_service_action(self, location_flag):
         self.print_choices(location_flag)
         action = self.get_action()
@@ -73,6 +75,7 @@ class UserInterface:
             pass
         return action
 
+    
     def customer_service_action(self):
         self.print_choices(location_flag)
         action = self.get_action()
@@ -83,6 +86,7 @@ class UserInterface:
             pass
         return action
 
+    
     def payment_service_action(self):
         self.print_choices(location_flag)
         action = self.get_action()
@@ -93,6 +97,7 @@ class UserInterface:
             pass
         return action
 
+    
     def employee_service_action(self):
         self.print_choices(location_flag)
         action = self.get_action()
@@ -103,6 +108,7 @@ class UserInterface:
             pass
         return action
 
+    
     def car_service_action(self):
         self.print_choices(location_flag)
         action = self.get_action()
@@ -113,6 +119,7 @@ class UserInterface:
             pass
         return action
 
+    
     def print_choices(self, location_flag):
         #main screent print options
         if location_flag == "Main menu":

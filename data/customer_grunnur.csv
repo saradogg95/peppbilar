@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Customer_ID,Kennitala,Eiginnafn/eiginn�fn,Eftirnafn,R�kisfang,Vegabr�fsn�mer
+=======
+Customer_ID,Kennitala,Eiginnafn/eiginn�fn,Eftirnafn,R�kisfang,Vegabr�fsn�mer,Credi_Card_Number
+>>>>>>> 39afcb9f96bd3ac39d952aa57f18cc7f7fd1e253
 501001,0506812699,J�n,J�nsson,IS,
 501002,1107978869,Sigur�ur,J�nsson,IS,
 501003,0307732049,Gu�mundur,J�nsson,IS,

@@ -1,4 +1,5 @@
 import csv
+
 from models.Car import Car
 
 
@@ -20,9 +21,9 @@ class CarRepository:
                 registration_date = car.get_registration_date()
                 mileage = car.get_mileage()
                 availability = car.get_availability()
-                car_db.write("{},{},{},{},{},{},{},{},{}\n"
-                .format(reg_num, brand, model, category, category_price, 
-                        registration_date, mileage, availability))   
+                car_db.write("{},{},{},{},{},{},{},{},{}\n".format
+                            (reg_num, brand, model, category, category_price, 
+                             registration_date, mileage, availability))   
             except:
                 return None
 
@@ -48,5 +49,3 @@ class CarRepository:
         """ Returns a list of all cars in the database """
         self.__cars = self.open_csv()
         return self.__cars
-
-
