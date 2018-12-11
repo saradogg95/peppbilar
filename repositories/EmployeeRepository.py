@@ -19,7 +19,7 @@ class EmployeeRepository:
     
     def add_employee(self, employee):
         """Open file and write employee object attributes to 
-        empolyee files, which include employee data."""
+        employee files, which include employee data."""
         try:
             with open("./data/employee.csv", "a+") as employee_file:
                 try:     
@@ -41,7 +41,7 @@ class EmployeeRepository:
                                          password, admin))
                     return None
                 except:
-                    print("Something wong")
+                    print("Something wrong")
                 finally:
                     employee_file.close()
         except:
