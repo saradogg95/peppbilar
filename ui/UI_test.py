@@ -1,14 +1,11 @@
 from os import system, name
+from datetime import datetime
+import calendar
 
 from services.CarServices import CarServices
 from services.CustomerServices import CustomerServices
 from services.EmployeeServices import EmployeeServices
 from services.OrderServices import OrderServices
-#from services.PaymentServices import PaymentServices verður sennilega ekki notað
-
-from datetime import date
-
-import calendar
 
 from models.Car import Car
 from models.Order import Order
@@ -16,7 +13,6 @@ from models.Employee import Employee
 from models.Payment import Payment
 from models.Customer import Customer
 
-from datetime import datetime
 
 class UserInterface:
     
@@ -25,11 +21,9 @@ class UserInterface:
         self.__customer_service = CustomerServices()
         self.__employee_service = EmployeeServices()
         self.__order_service = OrderServices()
-        #self.__payment_service = PaymentServices()
-        self.__today = date.today()
+        self.__today = datetime.today()
         self.__menu_action = ""
 
-        
     def clear_screen(self):
         # for windows 
             if name == 'nt': 
