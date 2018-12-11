@@ -7,7 +7,7 @@ class OrderServices:
 
     def __init__(self):
         self.__order_db = OrderRepository()
-        self.__car_services = CarServices()
+
 
         
     def add_order(self, new_order):

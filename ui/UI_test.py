@@ -104,33 +104,48 @@ class UserInterface:
                 change_order()
             if self.__menu_action == "3":
                 delete_order()
-
                 
     def find_order(self):
         pass
 
-    
     def find_customer(self):
         """ Customer options. All sub menus are nested functions within this function. """
-        
         def customer_lookup(menu_action):
             """ Changes or deletes a customer. """
-            def update_first_name():
-                """ Updates a customer first name. """
-                
+            def update_first_name(customer_to_change):
+                """ Takes in a customer, asks the user to input a new first name and then updates the customer with the new first name. """
                 while self.__menu_action.lower() != "b":
                     self.print_header()
-                    print("{:>94}".format("Change customer first name:\n")) #færa þetta í find customer menu
-                    customer_id = input("Please enter customer id:")
-                    if len(self.__customer_service.get_customer(customer_id)) == 0:
-                        print("No customer with {} customer number found".format(customer_id))
-                    else:
-                        for customer in self.__customer_service.get_customer(customer_id):
-                            print(customer)
-                    
+                    print("{:>94}{}".format("Change customer first name: ", ("\n" * 2)))
+                    new_first_name = input("Enter customer new first name: ")
+                    customer_to_change.set_first_name(new_first_name)
+                    #write_to_customer_db call here to save changes to hd file
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__menu_action = input("{:>95}".format("Enter menu action: "))
+            def update_surname(customer_to_change):
+                """ Takes in a customer, asks the user to input a new surname and then updates the customer with the new surname. """
+                while self.__menu_action.lower() != "b":
+                    self.print_header()
+                    print("{:>94}{}".format("Change customer surname: ", ("\n" * 2)))
+                    new_surname = input("Enter customer new surname: ")
+                    customer_to_change.set_surname(new_surname)
+                    #write_to_customer_db call here to save changes to hd file
+                    print("{:>96}".format("B. Back to main menu"))
+                    print("\n" * 2)
+                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
+            def update_passport_number(customer_to_change):
+                """ Takes in a customer, asks the user to input a new passport number and then updates the customer with the new passport number. """
+                while self.__menu_action.lower() != "b":
+                    self.print_header()
+                    print("{:>94}{}".format("Change customer passport number: ", ("\n" * 2)))
+                    new_passport_no = input("Enter customer new passport number: ")
+                    customer_to_change.set_surname(new_passport_no)
+                    #write_to_customer_db call here to save changes to hd file
+                    print("{:>96}".format("B. Back to main menu"))
+                    print("\n" * 2)
+                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
+
             while self.__menu_action.lower() != "b":
                 customer_to_change = ""
                 if menu_action == "1": #look up customer by icelandic registration number
@@ -162,21 +177,19 @@ class UserInterface:
                             if customer.get_passport_id().upper() == passport_number.upper():
                                 print("{:>100}".format(customer.__str__()))
                         print("\n" * 2)
-                print("{:>94}".format("Change customer options:\n"))
-                print("{:>107}".format("1. Update first name"))
-                print("{:>94}".format("2. Update surname"))
-                print("{:>94}".format("3. Update passport number"))
+                        print("{:>94}".format("Change customer options:\n"))
+                        print("{:>107}".format("1. Update first name"))
+                        print("{:>94}".format("2. Update surname"))
+                        print("{:>94}".format("3. Update passport number"))
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
                 if self.__menu_action == "1":
-                    update_first_name()
+                    update_first_name(customer_to_change)
                 if self.__menu_action == "2":
-                    delete_customer()
-                    
-                    
-        def delete_customer():
-            pass
+                    update_surname(customer_to_change)
+                if self.__menu_action == "3":
+                    update_passport_number(customer_to_change)
         
         while self.__menu_action.lower() != "b":
             self.print_header()
@@ -188,7 +201,6 @@ class UserInterface:
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
             if self.__menu_action == "1" or self.__menu_action == "2":
                 customer_lookup(self.__menu_action)
-
 
     def open_car_database(self):
         """ Car database options. Its sub menus are nested within this function. """
@@ -234,7 +246,6 @@ class UserInterface:
                 print_all_available_cars()
             if self.__menu_action == "2":
                 print_all_unavailable_cars()
-
 
     def write_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
