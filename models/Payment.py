@@ -9,9 +9,9 @@ class Payment:
         
         
     def __str__(self):
-        return "{} {} {} {}".format(self.__id, self.__basic_price, 
-                                    self.__additional_cost, 
-                                    self.__orders_id)
+        return "{}, {}, {}, {}".format(self.__id, self.__basic_price, 
+                                       self.__additional_cost, 
+                                       self.__orders_id)
 
     def get_id(self):
         return self.__id
