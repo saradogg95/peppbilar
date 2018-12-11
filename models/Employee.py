@@ -41,7 +41,7 @@ class Employee:
             elif admin == 1:
                 return True
             try:
-                admin = int(input("Please input 1 if admin permision is true and 0 for false: "))
+                admin = int(input("Please input 1 if admin permission is true and 0 for false: "))
             except:
                 print("Wrong input.")
 

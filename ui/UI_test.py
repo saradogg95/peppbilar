@@ -1,11 +1,11 @@
 from os import system, name
+from datetime import datetime
+import calendar
+
 from services.CarServices import CarServices
 from services.CustomerServices import CustomerServices
 from services.EmployeeServices import EmployeeServices
 from services.OrderServices import OrderServices
-#from services.PaymentServices import PaymentServices verður sennilega ekki notað
-from datetime import date
-import calendar
 
 from models.Car import Car
 from models.Order import Order
@@ -15,13 +15,13 @@ from models.Customer import Customer
 
 
 class UserInterface:
+    
     def __init__(self):
         self.__car_service = CarServices()
         self.__customer_service = CustomerServices()
         self.__employee_service = EmployeeServices()
         self.__order_service = OrderServices()
-        #self.__payment_service = PaymentServices()
-        self.__today = date.today()
+        self.__today = datetime.today()
         self.__menu_action = ""
 
     def clear_screen(self):
@@ -32,6 +32,7 @@ class UserInterface:
             else: 
                 _ = system('clear')
     
+    
     def print_header(self):
         """ Prints the header file of the menu and resets the menu action comparsion string. """
         self.clear_screen()
@@ -39,9 +40,10 @@ class UserInterface:
         print("\n" * 10)
         print("{:>100}".format("PEPP BÍLAR"))
         print("{:>115}".format("-" * 40))
-        print("{:>106}".format(self.__today.strftime("%A, %B, %Y")))
+        print("{:>106}".format(self.__today.strftime("%A, %B %d, %Y")))
         print()
 
+        
     def main_menu(self):
         """ Main menu. """
         while self.__menu_action.lower() != "q":
@@ -63,18 +65,23 @@ class UserInterface:
             if self.__menu_action == "4":
                 self.open_car_database()
 
+                
     def show_available_cars(self):
         """ Order menu for the system. Its sub menus are nested functions within this function. """
+        
         def place_order():
             """ Menu method for placing a new order. """
             pass
+        
 
         def change_order():
             pass
 
+        
         def delete_order():
             pass
 
+        
         while self.__menu_action.lower() != "b":
             self.print_header()
             print("{:>100}".format("Show availability from:\n"))
@@ -92,7 +99,7 @@ class UserInterface:
                 change_order()
             if self.__menu_action == "3":
                 delete_order()
-
+                
     def find_order(self):
         pass
 
@@ -100,37 +107,77 @@ class UserInterface:
         """ Customer options. All sub menus are nested functions within this function. """
         def customer_lookup(menu_action):
             """ Changes or deletes a customer. """
-            def update_first_name():
-                """ Updates a customer first name. """
+            def update_first_name(customer_to_change):
+                """ Takes in a customer, asks the user to input a new first name and then updates the customer with the new first name. """
                 while self.__menu_action.lower() != "b":
                     self.print_header()
-                    print("{:>94}".format("Change customer first name:\n")) #færa þetta í find customer menu
-                    customer_id = input("Please enter customer id:")
-                    if len(self.__customer_service.get_customer(customer_id)) == 0:
-                        print("No customer with {} customer number found".format(customer_id))
-                    else:
-                        for customer in self.__customer_service.get_customer(customer_id):
-                            print(customer)
-                    
+                    print("{:>94}{}".format("Change customer first name: ", ("\n" * 2)))
+                    new_first_name = input("Enter customer new first name: ")
+                    customer_to_change.set_first_name(new_first_name)
+                    #write_to_customer_db call here to save changes to hd file
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__menu_action = input("{:>95}".format("Enter menu action: "))
+            def update_surname(customer_to_change):
+                """ Takes in a customer, asks the user to input a new surname and then updates the customer with the new surname. """
+                while self.__menu_action.lower() != "b":
+                    self.print_header()
+                    print("{:>94}{}".format("Change customer surname: ", ("\n" * 2)))
+                    new_surname = input("Enter customer new surname: ")
+                    customer_to_change.set_surname(new_surname)
+                    #write_to_customer_db call here to save changes to hd file
+                    print("{:>96}".format("B. Back to main menu"))
+                    print("\n" * 2)
+                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
+            def update_passport_number(customer_to_change):
+                """ Takes in a customer, asks the user to input a new passport number and then updates the customer with the new passport number. """
+                while self.__menu_action.lower() != "b":
+                    self.print_header()
+                    print("{:>94}{}".format("Change customer passport number: ", ("\n" * 2)))
+                    new_passport_no = input("Enter customer new passport number: ")
+                    customer_to_change.set_surname(new_passport_no)
+                    #write_to_customer_db call here to save changes to hd file
+                    print("{:>96}".format("B. Back to main menu"))
+                    print("\n" * 2)
+                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
+            def update_cc_number(customer_to_change):
+                """ Takes in a customer, asks the user to input a new credit card number and then updates the customer with the new credit card number. """
+                while self.__menu_action.lower() != "b":
+                    self.print_header()
+                    print("{:>94}{}".format("Change credit card number: ", ("\n" * 2)))
+                    new_credit_card_no = input("Enter customer credit card number: ")
+                    customer_to_change.set_surname(new_credit_card_no)
+                    #write_to_customer_db call here to save changes to hd file
+                    print("{:>96}".format("B. Back to main menu"))
+                    print("\n" * 2)
+                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
+
             while self.__menu_action.lower() != "b":
-                #self.print_header()
+                customer_to_change = ""
                 if menu_action == "1": #look up customer by icelandic registration number
                     self.print_header()
                     icelandic_registration_number = input("{:>100}".format("Enter Icelandic registration number: "))
+                    print("\n" * 2)
                     if len(self.__customer_service.get_customer_by_icelandic_id(icelandic_registration_number)) == 0:
-                        print("{:>100} {} {}".format("No customer with registration number", icelandic_registration_number, "found."))
+                        print("{:>100} {} {}".format("No customer with registration number", 
+                                                     icelandic_registration_number, "found."))
                     else:
                         for customer in self.__customer_service.get_all_customers():
                             if customer.get_identity_number() == icelandic_registration_number:
-                                print("{:>100}".format(customer.__str__()))
+                                customer_to_change = customer
+                                print("{:>100}".format(customer_to_change.__str__()))
+                        print("\n" * 2)
+                        print("{:>94}".format("Change customer options:\n"))
+                        print("{:>107}".format("1. Update first name"))
+                        print("{:>94}".format("2. Update surname"))
+                        print("{:>94}".format("3. Update passport number"))
                 if menu_action == "2": #look up customer by passport number
                     self.print_header()
                     passport_number = input("{:>100}".format("Enter passport number: "))
+                    print("\n" * 2)
                     if len(self.__customer_service.get_customer_by_passport_no(passport_number)) == 0:
-                        print("{:>100} {} {}".format("No customer with passport number", passport_number, "found."))
+                        print("{:>100} {} {}".format("No customer with passport number", 
+                                                     passport_number, "found."))
                     else:
                         for customer in self.__customer_service.get_all_customers():
                             if customer.get_passport_id().upper() == passport_number.upper():
@@ -140,15 +187,19 @@ class UserInterface:
                         print("{:>107}".format("1. Update first name"))
                         print("{:>94}".format("2. Update surname"))
                         print("{:>94}".format("3. Update passport number"))
+                        print("{:>94}".format("4. Update credit card number"))
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
                 if self.__menu_action == "1":
-                    update_first_name()
+                    update_first_name(customer_to_change)
                 if self.__menu_action == "2":
-                    delete_customer()
-        def delete_customer():
-            pass
+                    update_surname(customer_to_change)
+                if self.__menu_action == "3":
+                    update_passport_number(customer_to_change)
+                if self.__menu_action == "4":
+                    update_cc_number(customer_to_change)
+        
         while self.__menu_action.lower() != "b":
             self.print_header()
             print("{:>94}".format("Find customer by:\n"))
@@ -160,11 +211,9 @@ class UserInterface:
             if self.__menu_action == "1" or self.__menu_action == "2":
                 customer_lookup(self.__menu_action)
 
-
-
-
     def open_car_database(self):
         """ Car database options. Its sub menus are nested within this function. """
+        
         def print_all_available_cars():
             """ Prints a list of all available cars. """
             while self.__menu_action.lower() != "b":
@@ -172,12 +221,13 @@ class UserInterface:
                 all_cars = self.__car_service.get_all_cars()
                 for car in all_cars:
                     if car.get_availability().upper() == "TRUE":
-                        print("{:>100}".format(car.__str__()))
+                        print("{:>150}".format(car.__str__()))
                 print("\n" * 2)
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
 
+                
         def print_all_unavailable_cars():
             """ Prints a list of all cars currently out. """
             while self.__menu_action.lower() != "b":
@@ -203,6 +253,46 @@ class UserInterface:
                 print_all_available_cars()
             if self.__menu_action == "2":
                 print_all_unavailable_cars()
+
+    def get_additional_insuarance_cost(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:           
+                #Check if additional inusarance was ordered
+                if order.get_additional_insurance() == "TRUE":                
+                    #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                    car = self.__car_services.get_car(order.get_car_id())                 
+                    #The cost of insurance is the 75% of the price of a days rental
+                    return int(car[0].get_category_price()) * float(0.75)
+                else:
+                   return None 
+            else:
+                return "No order with order number {} found.".format(order_id)
+    
+    def get_additional_cost_extra_millage(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:                      
+                #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                car = self.__car_services.get_car(order.get_car_id())                 
+                #The cost of additional millage over 100km is 1% of daily rental cost
+                return int(car[0].get_category_price()) * 0.01
+            else:
+                return "No order with order number {} found.".format(order_id)
+
+    def get_cost_without_additions(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:  
+                #We need the number of days the car is being rent for to calculat the total cost
+                start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
+                end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
+                number_of_days = abs((end_date-start_date).days)
+                #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                car = self.__car_services.get_car(order.get_car_id())
+                return int(car[0].get_category_price()) * number_of_days                     
+            else:
+                return "No order with order number {} found.".format(order_id)
 
 
     def write_to_db(self):

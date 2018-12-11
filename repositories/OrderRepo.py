@@ -1,5 +1,7 @@
 import csv
+
 import datetime
+
 from models.Order import Order
 
 
@@ -19,13 +21,13 @@ class OrderRepository:
                     new_order = Order(line["Order_id"], line["Order_date"], 
                                       line["Rent_date_from"], line["Rent_date_to"], 
                                       line["Additional_Insurance"], 
+                                      line["Insurnace_with_credit_card"],
                                       line["Customer_id"], line["Car_id"])
                     self.__orders.append(new_order)
         except FileNotFoundError:
             with open("./data/orders.csv", "a+") as orders_db:
-                orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to, Customer_id, Car_id\n")
-        finally:
-            orders_db.close()
+                orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to," + 
+                "Additional_Insurance, Insurance_with_credit_card, Customer_id, Car_id\n")
 
             
     def check_empty(self):
@@ -77,8 +79,10 @@ class OrderRepository:
                 rent_date_from = order.get_rent_date_from()
                 rent_date_to = order.get_rent_date_to()
                 additional_insurance = order.get_additional_insurance()
+                insurance_with_credit_card = order.get_insurance_with_credit_card()
                 customer_id = order.get_customer_id()
                 car_id = order.get_car_id()
-                orders_db.write("{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
-                                                                additional_insurance, rent_date_to, 
-                                                                customer_id, car_id))
+                orders_db.write("{},{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
+                                                                   rent_date_to, additional_insurance,
+                                                                   insurance_with_credit_card,
+                                                                   customer_id, car_id))

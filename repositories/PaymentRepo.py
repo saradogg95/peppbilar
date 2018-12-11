@@ -1,5 +1,7 @@
 from models.Payment import Payment
+
 from models.Order import Order
+
 import csv
 
 
@@ -34,12 +36,12 @@ class PaymentRepository:
     def add_payment(self):
         """Adds payment"""
         with open("./data/payment.csv", "a+") as payment_db:
-            id_ = Payment.get_id()
+            payment_id = Payment.get_id()
             basic_price = Payment.get_basic_price()
 
             additional_cost = Payment.get_additional_cost()
             orders_id = Payment.get_orders_id()
-            payment_db.write("{}, {}, {}, {}").format(id_, basic_price, 
+            payment_db.write("{}, {}, {}, {}").format(payment_id, basic_price, 
                                                       additional_cost, 
                                                       orders_id)
 
