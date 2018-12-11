@@ -1,3 +1,0 @@
-Order_id,Order_date,Rent_date_from,Rent_date_to,Additional_Insurance,Customer_id,Car_id
-1,14/03/2016,14/03/2016,19/03/2016,TRUE,100,VA579D
-2,02/03/2017,06/03/2017,09/03/2017,FALSE,300,RW446
