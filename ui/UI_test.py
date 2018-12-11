@@ -116,19 +116,27 @@ class UserInterface:
                     print("\n" * 2)
                     self.__menu_action = input("{:>95}".format("Enter menu action: "))
             while self.__menu_action.lower() != "b":
-                #self.print_header()
+                customer_to_change = ""
                 if menu_action == "1": #look up customer by icelandic registration number
                     self.print_header()
                     icelandic_registration_number = input("{:>100}".format("Enter Icelandic registration number: "))
+                    print("\n" * 2)
                     if len(self.__customer_service.get_customer_by_icelandic_id(icelandic_registration_number)) == 0:
                         print("{:>100} {} {}".format("No customer with registration number", icelandic_registration_number, "found."))
                     else:
                         for customer in self.__customer_service.get_all_customers():
                             if customer.get_identity_number() == icelandic_registration_number:
-                                print("{:>100}".format(customer.__str__()))
+                                customer_to_change = customer
+                                print("{:>100}".format(customer_to_change.__str__()))
+                        print("\n" * 2)
+                        print("{:>94}".format("Change customer options:\n"))
+                        print("{:>107}".format("1. Update first name"))
+                        print("{:>94}".format("2. Update surname"))
+                        print("{:>94}".format("3. Update passport number"))
                 if menu_action == "2": #look up customer by passport number
                     self.print_header()
                     passport_number = input("{:>100}".format("Enter passport number: "))
+                    print("\n" * 2)
                     if len(self.__customer_service.get_customer_by_passport_no(passport_number)) == 0:
                         print("{:>100} {} {}".format("No customer with passport number", passport_number, "found."))
                     else:
@@ -136,10 +144,10 @@ class UserInterface:
                             if customer.get_passport_id().upper() == passport_number.upper():
                                 print("{:>100}".format(customer.__str__()))
                         print("\n" * 2)
-                        print("{:>94}".format("Change customer options:\n"))
-                        print("{:>107}".format("1. Update first name"))
-                        print("{:>94}".format("2. Update surname"))
-                        print("{:>94}".format("3. Update passport number"))
+                print("{:>94}".format("Change customer options:\n"))
+                print("{:>107}".format("1. Update first name"))
+                print("{:>94}".format("2. Update surname"))
+                print("{:>94}".format("3. Update passport number"))
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
