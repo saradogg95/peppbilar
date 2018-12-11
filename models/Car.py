@@ -14,7 +14,7 @@ class Car:
     
     
     def __str__(self): #gera þetta print aðeins flottara
-        return "{} {} {} {} {} {} {} {}".format(self.__reg_num, self.__brand, 
+        return "{}, {}, {}, {}, {}, {}, {}, {}".format(self.__reg_num, self.__brand, 
                                                 self.__model, self.__category, 
                                                 self.__category_price, 
                                                 self.__registration_date, 
