@@ -27,7 +27,7 @@ class OrderRepository:
         except FileNotFoundError:
             with open("./data/orders.csv", "a+") as orders_db:
                 orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to," + 
-                "Additional_Insurance, Insurnace_with_credit_card, Customer_id, Car_id\n")
+                "Additional_Insurance, Insurance_with_credit_card, Customer_id, Car_id\n")
 
             
     def check_empty(self):
