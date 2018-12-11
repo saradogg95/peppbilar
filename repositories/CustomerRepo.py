@@ -15,10 +15,10 @@ class customerRepository:
             citizenship = Customer.get_citizenship
             passport_ID = Customer.get_passport_ID
             customer_db.write("{},{},{},{},{}").format(customer_ID, first_names, surname, citizenship,passport_ID)
-
+            
     
     def get_customer(self, identity_number):
-        with open("Customer_grunnur_TBD.csv", "a+") as customer_db:
+        with open("customer_grunnur.csv", "a+") as customer_db:
             csv_dict = csv.DictReader(customer_db)
             for line in csv_dict:
                 if line["kennitala"] == self.identity_number:
