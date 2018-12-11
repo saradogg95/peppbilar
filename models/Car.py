@@ -13,10 +13,19 @@ class Car:
         self.__category_price = category_price
     
     
+<<<<<<< HEAD
     def __str__(self):
         car_info = self.__brand + " " + self.__model + ", " + self.__registration_date
         return "{:<15s}{:<45s}{:<15s}{:<15s}".format(self.__reg_num, car_info, self.__category, 
                                                 self.__category_price)
+=======
+    def __str__(self): #gera þetta print aðeins flottara
+        return "{}, {}, {}, {}, {}, {}, {}, {}".format(self.__reg_num, self.__brand, 
+                                                self.__model, self.__category, 
+                                                self.__category_price, 
+                                                self.__registration_date, 
+                                                self.__mileage, self.__availability)
+>>>>>>> e6a2bb60e30fbcb3923fb01dd228e7740dc81cb0
 
     def get_reg_num(self):
         return self.__reg_num
