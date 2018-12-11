@@ -41,7 +41,7 @@ class EmployeeRepository:
                                          password, admin))
                     return None
                 except:
-                    print("Something wong")
+                    print("Something wrong")
                 finally:
                     employee_file.close()
         except:
