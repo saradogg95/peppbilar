@@ -1,5 +1,7 @@
 from models.Order import Order
+
 from repositories.OrderRepo import OrderRepository
+
 from datetime import datetime
 
 
@@ -62,7 +64,7 @@ class OrderServices:
         self.__order_db.write_db_to_file()
 
         
-    def get_additional_insuarance_cost(self, order_id):
+    def get_additional_insurance_cost(self, order_id):
         """ Takes in an order id and gets that order from the 
         database and calculates the cost of additional insurance"""        
         for order in self.__order_db.get_all_orders():
@@ -80,7 +82,7 @@ class OrderServices:
                 return "No order with order number {} found.".format(order_id)
     
     
-    def get_additional_cost_extra_millage(self, order_id):
+    def get_additional_cost_extra_mileage(self, order_id):
         """ Takes in an order id and gets that order from the database 
         and calculates the cost of additional insurance"""        
         for order in self.__order_db.get_all_orders():
@@ -88,7 +90,7 @@ class OrderServices:
                 #From the order object, we obtain the registration number for the car 
                 #and send it into get_car_by_regnum to get car category price
                 car = self.__car_services.get_car(order.get_car_id())                 
-                #The cost of additional millage over 100km is 1% of daily rental cost
+                #The cost of additional mileage over 100km is 1% of daily rental cost
                 return int(car[0].get_category_price()) * 0.01
             else:
                 return "No order with order number {} found.".format(order_id)
@@ -98,7 +100,7 @@ class OrderServices:
         """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
         for order in self.__order_db.get_all_orders():
             if order.get_order_id() == order_id:  
-                #We need the number of days the car is being rent for to calculat the total cost"""
+                #We need the number of days the car is being rented to calculate the total cost"""
                 start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
                 end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
                 number_of_days = abs((end_date-start_date).days)

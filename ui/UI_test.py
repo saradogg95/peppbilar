@@ -16,6 +16,7 @@ from models.Employee import Employee
 from models.Payment import Payment
 from models.Customer import Customer
 
+from datetime import datetime
 
 class UserInterface:
     
@@ -247,6 +248,50 @@ class UserInterface:
             if self.__menu_action == "2":
                 print_all_unavailable_cars()
 
+<<<<<<< HEAD
+=======
+    def get_additional_insuarance_cost(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:           
+                #Check if additional inusarance was ordered
+                if order.get_additional_insurance() == "TRUE":                
+                    #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                    car = self.__car_services.get_car(order.get_car_id())                 
+                    #The cost of insurance is the 75% of the price of a days rental
+                    return int(car[0].get_category_price()) * float(0.75)
+                else:
+                   return None 
+            else:
+                return "No order with order number {} found.".format(order_id)
+    
+    def get_additional_cost_extra_millage(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:                      
+                #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                car = self.__car_services.get_car(order.get_car_id())                 
+                #The cost of additional millage over 100km is 1% of daily rental cost
+                return int(car[0].get_category_price()) * 0.01
+            else:
+                return "No order with order number {} found.".format(order_id)
+
+    def get_cost_without_additions(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
+        for order in self.__order_db.get_all_orders():
+            if order.get_order_id() == order_id:  
+                #We need the number of days the car is being rent for to calculat the total cost
+                start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
+                end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
+                number_of_days = abs((end_date-start_date).days)
+                #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                car = self.__car_services.get_car(order.get_car_id())
+                return int(car[0].get_category_price()) * number_of_days                     
+            else:
+                return "No order with order number {} found.".format(order_id)
+
+
+>>>>>>> eefd3c12388bd87283833f2aa3cdd20a19adaf56
     def write_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         self.__order_service.write_db_to_file()
