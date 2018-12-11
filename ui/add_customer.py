@@ -41,34 +41,25 @@ def customer_id_check():
         except ValueError:
             print("Wrong input.")
 
-print("Please press 1 for icelandic customers.\nPress 2 for international customers.")
+print("Please press 1 to add customers.")
 
 done = False
 while not done:
     try:
-        customer_input = int(input("Customer: "))
+        customer_input = int(input("Option: "))
         done = True
     except ValueError:
         print("Wrong input.")
 
 if customer_input == 1:
-
     customer_id = customer_id_check()
     if len(self.__customer_service.get_customer(customer_id)) == 0:
-
         identity_number = identity_number_check()
         first_names = input("Please input first name: ")
         surname = input("Please input last name: ")
         citizenship = input("Please input citizenship: ")
         passport_id = input("Please input passport id: ")        
-
-        new_customer = Employee() 
+        credit_card_no = input("Please input credit card number: ")
+        new_customer = Customer(customer_id, identity_number, first_names, surname, citizenship, passport_id, credit_card_no) 
         self.__customer_service.add_customer(new_customer)
-    else:
-        pass
 
-elif customer_input == 2:
-
-    customer_id = customer_id_check()
-
-    passport_id = input("Enter valid passport id: ")
