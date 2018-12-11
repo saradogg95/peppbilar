@@ -1,10 +1,13 @@
 from os import system, name
+
 from services.CarServices import CarServices
 from services.CustomerServices import CustomerServices
 from services.EmployeeServices import EmployeeServices
 from services.OrderServices import OrderServices
 #from services.PaymentServices import PaymentServices verður sennilega ekki notað
+
 from datetime import date
+
 import calendar
 
 from models.Car import Car
@@ -15,6 +18,7 @@ from models.Customer import Customer
 
 
 class UserInterface:
+    
     def __init__(self):
         self.__car_service = CarServices()
         self.__customer_service = CustomerServices()
@@ -24,6 +28,7 @@ class UserInterface:
         self.__today = date.today()
         self.__menu_action = ""
 
+        
     def clear_screen(self):
         # for windows 
             if name == 'nt': 
@@ -31,6 +36,7 @@ class UserInterface:
         # for mac and linux(here, os.name is 'posix') 
             else: 
                 _ = system('clear')
+    
     
     def print_header(self):
         """ Prints the header file of the menu and resets the menu action comparsion string. """
@@ -42,6 +48,7 @@ class UserInterface:
         print("{:>106}".format(self.__today.strftime("%A, %B, %Y")))
         print()
 
+        
     def main_menu(self):
         """ Main menu. """
         while self.__menu_action.lower() != "q":
@@ -63,18 +70,23 @@ class UserInterface:
             if self.__menu_action == "4":
                 self.open_car_database()
 
+                
     def show_available_cars(self):
         """ Order menu for the system. Its sub menus are nested functions within this function. """
+        
         def place_order():
             """ Menu method for placing a new order. """
             pass
+        
 
         def change_order():
             pass
 
+        
         def delete_order():
             pass
 
+        
         while self.__menu_action.lower() != "b":
             self.print_header()
             print("{:>100}".format("Show availability from:\n"))
@@ -93,15 +105,20 @@ class UserInterface:
             if self.__menu_action == "3":
                 delete_order()
 
+                
     def find_order(self):
         pass
 
+    
     def find_customer(self):
         """ Customer options. All sub menus are nested functions within this function. """
+        
         def customer_lookup(menu_action):
             """ Changes or deletes a customer. """
+            
             def update_first_name():
                 """ Updates a customer first name. """
+                
                 while self.__menu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}".format("Change customer first name:\n")) #færa þetta í find customer menu
@@ -121,7 +138,8 @@ class UserInterface:
                     self.print_header()
                     icelandic_registration_number = input("{:>100}".format("Enter Icelandic registration number: "))
                     if len(self.__customer_service.get_customer_by_icelandic_id(icelandic_registration_number)) == 0:
-                        print("{:>100} {} {}".format("No customer with registration number", icelandic_registration_number, "found."))
+                        print("{:>100} {} {}".format("No customer with registration number", 
+                                                     icelandic_registration_number, "found."))
                     else:
                         for customer in self.__customer_service.get_all_customers():
                             if customer.get_identity_number() == icelandic_registration_number:
@@ -130,7 +148,8 @@ class UserInterface:
                     self.print_header()
                     passport_number = input("{:>100}".format("Enter passport number: "))
                     if len(self.__customer_service.get_customer_by_passport_no(passport_number)) == 0:
-                        print("{:>100} {} {}".format("No customer with passport number", passport_number, "found."))
+                        print("{:>100} {} {}".format("No customer with passport number", 
+                                                     passport_number, "found."))
                     else:
                         for customer in self.__customer_service.get_all_customers():
                             if customer.get_passport_id().upper() == passport_number.upper():
@@ -147,8 +166,11 @@ class UserInterface:
                     update_first_name()
                 if self.__menu_action == "2":
                     delete_customer()
+                    
+                    
         def delete_customer():
             pass
+        
         while self.__menu_action.lower() != "b":
             self.print_header()
             print("{:>94}".format("Find customer by:\n"))
@@ -161,12 +183,12 @@ class UserInterface:
                 customer_lookup(self.__menu_action)
 
 
-
-
     def open_car_database(self):
         """ Car database options. Its sub menus are nested within this function. """
+        
         def print_all_available_cars():
             """ Prints a list of all available cars. """
+            
             while self.__menu_action.lower() != "b":
                 self.print_header()
                 all_cars = self.__car_service.get_all_cars()
@@ -178,8 +200,10 @@ class UserInterface:
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
 
+                
         def print_all_unavailable_cars():
             """ Prints a list of all cars currently out. """
+            
             while self.__menu_action.lower() != "b":
                 self.print_header()
                 all_cars = self.__car_service.get_all_cars()
