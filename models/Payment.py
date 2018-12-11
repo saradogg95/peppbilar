@@ -1,8 +1,8 @@
 class Payment:
     
-    def __init__(self, id_="", basic_price=0.0, add_insurance=False,
+    def __init__(self, payment_id="", basic_price=0.0, add_insurance=False,
                  additional_cost=0.0, orders_id=""):
-        self.__id = id_
+        self.__id = payment_id
         self.__basic_price = basic_price
         self.__additional_cost = additional_cost
         self.__orders_id = orders_id
