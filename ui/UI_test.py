@@ -115,7 +115,6 @@ class UserInterface:
         
         def customer_lookup(menu_action):
             """ Changes or deletes a customer. """
-            
             def update_first_name():
                 """ Updates a customer first name. """
                 
