@@ -146,6 +146,17 @@ class UserInterface:
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__menu_action = input("{:>95}".format("Enter menu action: "))
+            def update_cc_number(customer_to_change):
+                """ Takes in a customer, asks the user to input a new credit card number and then updates the customer with the new credit card number. """
+                while self.__menu_action.lower() != "b":
+                    self.print_header()
+                    print("{:>94}{}".format("Change credit card number: ", ("\n" * 2)))
+                    new_credit_card_no = input("Enter customer credit card number: ")
+                    customer_to_change.set_surname(new_credit_card_no)
+                    #write_to_customer_db call here to save changes to hd file
+                    print("{:>96}".format("B. Back to main menu"))
+                    print("\n" * 2)
+                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
 
             while self.__menu_action.lower() != "b":
                 customer_to_change = ""
@@ -182,6 +193,7 @@ class UserInterface:
                         print("{:>107}".format("1. Update first name"))
                         print("{:>94}".format("2. Update surname"))
                         print("{:>94}".format("3. Update passport number"))
+                        print("{:>94}".format("4. Update credit card number"))
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -191,6 +203,8 @@ class UserInterface:
                     update_surname(customer_to_change)
                 if self.__menu_action == "3":
                     update_passport_number(customer_to_change)
+                if self.__menu_action == "4":
+                    update_cc_number(customer_to_change)
         
         while self.__menu_action.lower() != "b":
             self.print_header()
