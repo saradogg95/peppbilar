@@ -23,6 +23,7 @@ class UserInterface:
         self.__order_service = OrderServices()
         self.__today = datetime.today()
         self.__menu_action = ""
+        self.__submenu_action = ""
 
     def clear_screen(self):
         # for windows 
@@ -37,6 +38,7 @@ class UserInterface:
         """ Prints the header file of the menu and resets the menu action comparsion string. """
         self.clear_screen()
         self.__menu_action = ""
+        self.__submenu_action = ""
         print("\n" * 10)
         print("{:>100}".format("PEPP BÍLAR"))
         print("{:>115}".format("-" * 40))
@@ -109,37 +111,37 @@ class UserInterface:
             """ Changes or deletes a customer. """
             def update_first_name(customer_to_change):
                 """ Takes in a customer, asks the user to input a new first name and then updates the customer with the new first name. """
-                while self.__menu_action.lower() != "b":
+                while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer first name: ", ("\n" * 2)))
                     new_first_name = input("Enter customer new first name: ")
                     customer_to_change.set_first_name(new_first_name)
                     #write_to_customer_db call here to save changes to hd file
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
                     self.__menu_action = input("{:>95}".format("Enter menu action: "))
             def update_surname(customer_to_change):
                 """ Takes in a customer, asks the user to input a new surname and then updates the customer with the new surname. """
-                while self.__menu_action.lower() != "b":
+                while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer surname: ", ("\n" * 2)))
                     new_surname = input("Enter customer new surname: ")
                     customer_to_change.set_surname(new_surname)
                     #write_to_customer_db call here to save changes to hd file
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
-                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
+                    self.__submenu_action = input("{:>95}".format("Enter menu action: "))
             def update_passport_number(customer_to_change):
                 """ Takes in a customer, asks the user to input a new passport number and then updates the customer with the new passport number. """
-                while self.__menu_action.lower() != "b":
+                while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer passport number: ", ("\n" * 2)))
                     new_passport_no = input("Enter customer new passport number: ")
                     customer_to_change.set_surname(new_passport_no)
                     #write_to_customer_db call here to save changes to hd file
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
-                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
+                    self.__submenu_action = input("{:>95}".format("Enter menu action: "))
             def update_cc_number(customer_to_change):
                 """ Takes in a customer, asks the user to input a new credit card number and then updates the customer with the new credit card number. """
                 while self.__menu_action.lower() != "b":
@@ -150,8 +152,14 @@ class UserInterface:
                     #write_to_customer_db call here to save changes to hd file
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
-                    self.__menu_action = input("{:>95}".format("Enter menu action: "))
-
+                    self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+            def print_bottom_menu():
+                print("\n" * 2)
+                print("{:>94}".format("Change customer options:\n"))
+                print("{:>107}".format("1. Update first name"))
+                print("{:>94}".format("2. Update surname"))
+                print("{:>94}".format("3. Update passport number"))
+                print("{:>94}".format("4. Update credit card number"))
             while self.__menu_action.lower() != "b":
                 customer_to_change = ""
                 if menu_action == "1": #look up customer by icelandic registration number
@@ -166,11 +174,7 @@ class UserInterface:
                             if customer.get_identity_number() == icelandic_registration_number:
                                 customer_to_change = customer
                                 print("{:>100}".format(customer_to_change.__str__()))
-                        print("\n" * 2)
-                        print("{:>94}".format("Change customer options:\n"))
-                        print("{:>107}".format("1. Update first name"))
-                        print("{:>94}".format("2. Update surname"))
-                        print("{:>94}".format("3. Update passport number"))
+                        print_bottom_menu()
                 if menu_action == "2": #look up customer by passport number
                     self.print_header()
                     passport_number = input("{:>100}".format("Enter passport number: "))
@@ -182,12 +186,8 @@ class UserInterface:
                         for customer in self.__customer_service.get_all_customers():
                             if customer.get_passport_id().upper() == passport_number.upper():
                                 print("{:>100}".format(customer.__str__()))
-                        print("\n" * 2)
-                        print("{:>94}".format("Change customer options:\n"))
-                        print("{:>107}".format("1. Update first name"))
-                        print("{:>94}".format("2. Update surname"))
-                        print("{:>94}".format("3. Update passport number"))
-                        print("{:>94}".format("4. Update credit card number"))
+                        print_bottom_menu()
+                print("{:>96}".format("R. Back to previous menu"))
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -199,6 +199,8 @@ class UserInterface:
                     update_passport_number(customer_to_change)
                 if self.__menu_action == "4":
                     update_cc_number(customer_to_change)
+                if self.__menu_action.lower() == "r":
+                    self.find_customer()
         
         while self.__menu_action.lower() != "b":
             self.print_header()
