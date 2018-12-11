@@ -13,7 +13,7 @@ def main():
     cars = car_service.get_price_by_category()
     print(car_service.get_price_by_category())
     orders = OrderServices()
-    print("Viðbótarkostnaður er", orders.get_additional_insuarance_cost("1"))
+    print("Viðbótarkostnaður er", orders.get_additional_insurance_cost("1"))
     print("Heildarkostnaður er", orders.get_cost_without_additions("1"))
     print(cars)
 
