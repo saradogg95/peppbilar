@@ -1,4 +1,5 @@
 from models.Employee import Employee
+
 import csv
 
 
@@ -17,14 +18,14 @@ class EmployeeRepository:
     
     
     def add_employee(self, employee):
-        """Open file and write employee object attributes to empolyee files, which
-           include employee data."""
+        """Open file and write employee object attributes to 
+        employee files, whichinclude employee data."""
         try:
             with open("./data/employee.csv", "a+") as employee_file:
                 try:     
                     name = employee.get_name()
 
-                    """If SSN is missing, an exception is thrown"""
+                    #If SSN is missing, an exception is thrown
                     if employee.get_ssn() == "":
                         raise Exception
                     else:
@@ -40,7 +41,7 @@ class EmployeeRepository:
                                          password, admin))
                     return None
                 except:
-                    print("Something wong")
+                    print("Something wrong")
                 finally:
                     employee_file.close()
         except:

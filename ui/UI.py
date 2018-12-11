@@ -16,7 +16,6 @@ from datetime import datetime
 class UserInterface:
 
     def __init__(self):
-
         #vantar að búa til service layers, en tengist öllum service layers rn
         self.__order_service = OrderServices()
         self.__customer_service = CustomerServices()
@@ -25,14 +24,10 @@ class UserInterface:
         self.__car_service = CarServices()
 
     def main_menu(self):
-        
         location_flag = "Main menu"
-
         while action != "q":
-
             self.print_choices(location_flag)
             action = self.get_action()
-
             if action == 1:
                 location_flag = "Order menu"
                 while action != "r":
@@ -166,9 +161,7 @@ class UserInterface:
     def get_action(self):
         correct_input_list = [1, 2, 3, 4, 5, "q", "r"]
         action = input("Please choose an option: ").lower()
-
         done = False
-
         while not done:
             if action not in correct_input_list:
                 action = ""
@@ -177,7 +170,6 @@ class UserInterface:
                 action = input("Please choose an option: ").lower()
             else:
                 done = True
-
         return action
 
 

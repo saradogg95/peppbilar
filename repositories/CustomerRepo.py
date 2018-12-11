@@ -1,4 +1,5 @@
 import csv
+
 from models.Customer import Customer
 
 
@@ -7,6 +8,7 @@ class CustomerRepository:
     def __init__(self):
         self.__customers = []
       
+    
     def populate_customer_list(self):
         """ Opens the database (csv) file and reads its contents. 
         If the file doesn't exist it is created with the columns of the file. """

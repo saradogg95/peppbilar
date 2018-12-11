@@ -1,8 +1,8 @@
 class Order:
     
     def __init__(self, order_id="", order_date="", rent_date_from="", 
-                 rent_date_to="",insurance_with_credit_card = "", additional_insurance=False, 
-                 customer_id=0, car_id=0):
+                 rent_date_to="",insurance_with_credit_card = "", 
+                 additional_insurance=False, customer_id=0, car_id=0):
         self.__order_id = order_id
         self.__order_date = order_date
         self.__rent_date_from = rent_date_from
