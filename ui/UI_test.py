@@ -248,8 +248,6 @@ class UserInterface:
             if self.__menu_action == "2":
                 print_all_unavailable_cars()
 
-<<<<<<< HEAD
-=======
     def get_additional_insuarance_cost(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
         for order in self.__order_db.get_all_orders():
@@ -291,7 +289,6 @@ class UserInterface:
                 return "No order with order number {} found.".format(order_id)
 
 
->>>>>>> eefd3c12388bd87283833f2aa3cdd20a19adaf56
     def write_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         self.__order_service.write_db_to_file()
