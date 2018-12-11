@@ -1,29 +1,47 @@
-class Customer():
-    def __init__(self, customer_ID=0, identity_number="", first_names="", surname="", citizenship="", passport_ID=""):
-        self.customer_ID = customer_ID
-        self.identity_number = identity_number
-        self.first_names = first_names
-        self.surname = surname
-        self.citizenship = citizenship
-        self.passport_ID = passport_ID
+class Customer:
+    
+    def __init__(self, customer_id=0, identity_number="", first_names="", 
+                 surname="", citizenship="", passport_id=""):
+        self.__customer_id = customer_id
+        self.__identity_number = identity_number
+        self.__first_names = first_names
+        self.__surname = surname
+        self.__citizenship = citizenship
+        self.__passport_id = passport_id
 
     def __str__(self):
-        return "{} {} {} {} {} {}".format(self.customer_ID, self.identity_number, self.first_names, self.surname, self.country, self.passport_ID)
+        return "{} {} {} {} {} {}".format(self.__customer_id, self.__identity_number, 
+                                          self.__first_names, self.__surname, 
+                                          self.__citizenship, self.__passport_id)
 
-    def get_customer_ID(self):
-        return self.customer_ID
+    def get_customer_id(self):
+        return self.__customer_id
 
+    
     def get_identity_number(self):
-        return self.identity_number
+        return self.__identity_number
 
+    
     def get_first_names(self):
-        return self.first_names
+        return self.__first_names
 
+    
     def get_surname(self):
-        return self.surname
+        return self.__surname
+    
     
     def get_citizenship(self):
-        return self.citizenship
+        return self.__citizenship
     
-    def get_passport_ID(self):
-        return self.passport_ID
+    
+    def get_passport_id(self):
+        return self.__passport_id
+
+    def set_citizenship(self, citizenship):
+        self.__citizenship = citizenship
+
+    def set_first_name(self, first_name):
+        self.__first_names = first_name
+    
+    def set_surname(self, surname):
+        self.__surname = surname
