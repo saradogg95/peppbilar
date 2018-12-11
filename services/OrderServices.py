@@ -64,7 +64,7 @@ class OrderServices:
         self.__order_db.write_db_to_file()
 
         
-    def get_additional_insuarance_cost(self, order_id):
+    def get_additional_insurance_cost(self, order_id):
         """ Takes in an order id and gets that order from the 
         database and calculates the cost of additional insurance"""        
         for order in self.__order_db.get_all_orders():
