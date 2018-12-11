@@ -18,16 +18,4 @@ class PaymentServices:
 
         
         def add_payment(self, new_payment):
-                #self.__repository.add_payment(new_payment)
-                pass
-
-        
-        """def get_additional_insurance_cost(self, has_additional_cost):
-                if has_additional_cost:
-                        return self.__basic_price * 0.15
-                else:
-                        return 0 """
-        
-        
-        def get_total_cost(self):
-                pass
+                self.__repository.add_payment(new_payment)
