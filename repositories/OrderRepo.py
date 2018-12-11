@@ -83,7 +83,6 @@ class OrderRepository:
                 customer_id = order.get_customer_id()
                 car_id = order.get_car_id()
                 orders_db.write("{},{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
-                                                                rent_date_to, 
-                                                                additional_insurance,
-                                                                insurance_with_credit_card,
-                                                                customer_id, car_id))
+                                                                   rent_date_to, additional_insurance,
+                                                                   insurance_with_credit_card,
+                                                                   customer_id, car_id))
