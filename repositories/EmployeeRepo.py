@@ -18,8 +18,8 @@ class EmployeeRepository:
     
     
     def add_employee(self, employee):
-        """Open file and write employee object attributes to empolyee files, which
-           include employee data."""
+        """Open file and write employee object attributes to 
+        employee files, whichinclude employee data."""
         try:
             with open("./data/employee.csv", "a+") as employee_file:
                 try:     
