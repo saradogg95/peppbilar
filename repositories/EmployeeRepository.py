@@ -1,4 +1,5 @@
 from models.Employee import Employee
+
 import csv
 
 
@@ -24,7 +25,7 @@ class EmployeeRepository:
                 try:     
                     name = employee.get_name()
 
-                    """If SSN is missing, an exception is thrown"""
+                    #If SSN is missing, an exception is thrown
                     if employee.get_ssn() == "":
                         raise Exception
                     else:
