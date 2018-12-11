@@ -6,8 +6,7 @@ class CustomerRepository:
     
     def __init__(self):
         self.__customers = []
-
-        
+      
     def populate_customer_list(self):
         """ Opens the database (csv) file and reads its contents. 
         If the file doesn't exist it is created with the columns of the file. """
@@ -17,11 +16,12 @@ class CustomerRepository:
                 for line in csv_dict:
                     new_customer = Customer(line["customer_ID"],line["identity_number"],
                                             line["first_names"],line["surname"],
-                                            line["citizenship"],line["passport_ID"])
+                                            line["citizenship"],line["passport_ID"],
+                                            line["credit_card_no"])
                     self.__customers.append(new_customer)
         except FileNotFoundError:
             with open("./data/customers.csv", "a+") as customer_db:
-                customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID\n")
+                customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID,credit_card_no\n")
 
                 
     def check_empty(self):
@@ -59,5 +59,6 @@ class CustomerRepository:
             surname = Customer.get_surname
             citizenship = Customer.get_citizenship
             passport_ID = Customer.get_passport_id
+            credit_card_no = Customer.get_credit_card_no
             customer_db.write("{},{},{},{},{}").format(customer_ID, identity_number, first_names, 
-                                                       surname, citizenship,passport_ID)
+                                                       surname, citizenship, passport_ID, credit_card_no)
