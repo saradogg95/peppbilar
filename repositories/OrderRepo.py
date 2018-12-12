@@ -74,19 +74,18 @@ class OrderRepository:
         with open("./data/orders.csv", "w") as orders_db:
             orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to, Insurnace_with_credit_card, Mileage_out, Mileage_in, Additional_Insurance, Customer_id, Car_id\n")
             for order in self.__orders:
-                order_id = order.get_order_id()
-                order_date = order.get_order_date()
-                rent_date_from = order.get_rent_date_from()
-                rent_date_to = order.get_rent_date_to()
-                insurance_with_credit_card = order.get_insurance_with_credit_card()
-                mileage_out = order.get_mileage_out()
-                Mileage_in = order.get_mileage_in()
-                additional_insurance = order.get_additional_insurance()
-                customer_id = order.get_customer_id()
-                car_id = order.get_car_id()
+                order_id = order.get_order_id().upper()
+                order_date = order.get_order_date().upper()
+                rent_date_from = order.get_rent_date_from().upper()
+                rent_date_to = order.get_rent_date_to().upper()
+                insurance_with_credit_card = order.get_insurance_with_credit_card().upper()
+                bought_km = order.get_bought_kom().upper()
+                additional_insurance = order.get_additional_insurance().upper()
+                customer_id = order.get_customer_id().upper()
+                car_id = order.get_car_id().upper()
                 orders_db.write("{},{},{},{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
                                                                    rent_date_to, 
                                                                    insurance_with_credit_card,
-                                                                   mileage_out, Mileage_in,
+                                                                   bought_km,
                                                                    additional_insurance,
                                                                    customer_id, car_id))

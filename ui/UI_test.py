@@ -419,11 +419,10 @@ class UserInterface:
                 except ValueError:
                     print("{} is not a valid order number.")
                     order_to_return_id = input("{:>100}".format("Enter order number: "))
-            car_to_return_id = input("{:>100}".format("Enter licence plate of car to return: "))
             print("\n" * 2)
-            return_car = self.__car_service.get_car(car_to_return_id)
+            return_car = self.__car_service.get_car(order_to_return.get_car_id())
             if len(return_car) == 0:
-                print("{:>100}".format("No car with licence plate {} found.".format(car_to_return_id)))
+                #print("{:>100}".format("No car with licence plate {} found.".format(order_to_return.get_car_id()))
                 print("\n" * 2)
             else:
                 mileage_complete = False
@@ -437,7 +436,6 @@ class UserInterface:
                             total_mileage =  input("{:>100}".format("Enter total mileage of car at return: "))
                             mileage_too_low = mileage_lower_check(return_car, total_mileage)
                             mileage_complete = True
-                        
                     except ValueError:
                         print("{:>100}".format("Invalid mileage entered. Please try again"))
             self.print_back_to_main_menu()
