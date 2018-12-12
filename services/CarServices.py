@@ -17,12 +17,12 @@ class CarServices():
         for line in all_cars:
             if line.get_reg_num() == reg_num:
                 cars.append(line)
-                return cars
-        return "No car with registration number {} found".format(reg_num)
+                break
+        return cars
 
     
     def add_car(self, car):
-        """ Takes in a car and send to the database for writing """
+        """ Takes in a car and sends to the database for writing """
         self.__repository.add_car(car)
 
         

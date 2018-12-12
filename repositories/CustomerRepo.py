@@ -23,7 +23,7 @@ class CustomerRepository:
                     self.__customers.append(new_customer)
         except FileNotFoundError:
             with open("./data/customers.csv", "a+") as customer_db:
-                customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID,credit_card_no\n")
+                customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID\n")
 
                 
     def check_empty(self):

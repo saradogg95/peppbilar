@@ -17,5 +17,6 @@ class PaymentServices:
                 return "No payment information for order {} found".format(order_id)
 
         
-        def add_payment(self, new_payment):
-                self.__repository.add_payment(new_payment)
+        #def add_payment(self, new_payment):
+        #       self.__repository.add_payment(new_payment)
+        # Somebody please fix this
