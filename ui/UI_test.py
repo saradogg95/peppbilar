@@ -52,6 +52,7 @@ class UserInterface:
             print("{:>89}".format("2. Find order"))
             print("{:>92}".format("3. Find customer"))
             print("{:>96}".format("4. Open car database"))
+            print("{:>96}".format("5. Return car"))
             print("{:>91}".format("Q. Quit program"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -64,6 +65,8 @@ class UserInterface:
                 self.find_customer()
             if self.__menu_action == "4":
                 self.open_car_database()
+            if self.__menu_action == "5":
+                self._return_car()
 
     def show_available_cars(self):
         """ Order menu for the system. Its sub menus are nested functions within this function. """
