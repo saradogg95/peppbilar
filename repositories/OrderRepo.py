@@ -20,14 +20,14 @@ class OrderRepository:
                     new_order = Order(line["Order_id"], line["Order_date"], 
                                       line["Rent_date_from"], line["Rent_date_to"],                                    
                                       line["Insurnace_with_credit_card"],
-                                      line["bought_km"],
+                                      line["Bought_km"],
                                       line["Additional_Insurance"],
                                       line["Customer_id"], line["Car_id"])
                     self.__orders.append(new_order)
         except FileNotFoundError:
             with open("./data/orders.csv", "a+") as orders_db:
                 orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to," + 
-                "Insurnace_with_credit_card,Mileage_out,Mileage_in,Additional_Insurance,Customer_id,Car_id\n")
+                "Insurnace_with_credit_card,Bought_km,Additional_Insurance,Customer_id,Car_id\n")
 
             
     def check_empty(self):
