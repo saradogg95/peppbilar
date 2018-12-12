@@ -11,7 +11,6 @@ class OrderServices:
         self.__order_db = OrderRepository()
 
 
-        
     def add_order(self, new_order):
         """ Takes in an order and adds it to the database. """
         self.__order_db.add_order(new_order)
@@ -97,10 +96,11 @@ class OrderServices:
 
             
     def get_cost_without_additions(self, order_id):
-        """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
+        """ Takes in an order id and gets that order from the database 
+        and calculates the cost without additions"""        
         for order in self.__order_db.get_all_orders():
             if order.get_order_id() == order_id:  
-                #We need the number of days the car is being rented to calculate the total cost"""
+                #We need the number of days the car is being rented to calculate the total cost
                 start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
                 end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
                 number_of_days = abs((end_date-start_date).days)
