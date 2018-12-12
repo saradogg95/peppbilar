@@ -7,7 +7,7 @@ from services.OrderServices import OrderServices
 from datetime import datetime
 from datetime import date
 import calendar
-import datetime
+
 
 from models.Car import Car
 from models.Order import Order
@@ -570,29 +570,6 @@ class UserInterface:
             found_customer = add_or_find_customer()
 
 
-        def change_order():
-            pass
-        def delete_order():
-            pass
-
-        while self.__menu_action.lower() != "b":
-            self.print_header()
-            print("{:>100}".format("Show availability from:\n"))
-            print("{:>84}".format("1. Today"))
-            print("{:>95}".format("2. A day this month"))
-            print("{:>111}".format("3. A day of another month this year"))
-            print("{:>94}".format("4. A day next year"))
-            print("{:>96}".format("B. Back to main menu"))
-            print("\n" * 2)
-            self.__menu_action = input("{:>95}".format("Enter menu action: "))
-
-            if self.__menu_action == "1":
-                place_order()
-            if self.__menu_action == "2":
-                change_order()
-            if self.__menu_action == "3":
-                delete_order()
-
     def find_order(self):
         done = False
         while not done:
@@ -867,7 +844,8 @@ class UserInterface:
                     print("{} is not a valid order number.")
                     order_to_return_id = input("{:>100}".format("Enter order number: "))
             print("\n" * 2)
-            if not self.__car_service.get_car(order_to_return.get_car_id()):
+            car_to_return = self.__car_service.get_car(order_to_return.get_car_id())
+            if not car_to_return:
                 print("{:>100} {} {}".format("No car with licence plate", order_to_return.get_car_id(), "found."))
                 print("\n" * 2)
             else:
@@ -882,7 +860,7 @@ class UserInterface:
                             total_mileage =  input("{:>100}".format("Enter total mileage of car at return: "))
                     except ValueError:
                         print("{:>100}".format("Invalid mileage entered. Please try again"))
-                
+            
             self.print_back_to_main_menu()
 
                 
@@ -898,17 +876,6 @@ class UserInterface:
         else:
             return None 
 
-    
-    
-    def get_additional_cost_extra_millage(self, order_id):
-        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
-        order = self.__order_service.get_order(order_id)                   
-        #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
-        car = self.__car_service.get_car(order.get_car_id())                 
-        #The cost of additional millage over 100km is 1% of daily rental cost
-        return int(car[0].get_category_price()) * 0.01
-
-
             
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
@@ -918,12 +885,13 @@ class UserInterface:
         end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
         number_of_days = abs((end_date-start_date).days)
         #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
-        car = self.__car_services.get_car(order.get_car_id())
-        return int(car[0].get_category_price()) * number_of_days                     
+        car = self.__car_service.get_car(order.get_car_id())
+        return int(car.get_category_price()) * number_of_days                     
 
 
     def write_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
+        #KLÁRA AÐ SKRIFA ÞESSI METHOD FYRIR ALLA KLASA OG BÆTA VIÐ HÉR SVO DRASLIÐ SAVEIST ÞEGAR FORRITIÐ HÆTTIR
         self.__order_service.write_db_to_file()
 
 
@@ -932,9 +900,8 @@ class UserInterface:
         car = self.__car_service.get_car(reg_num)
         #gets current mileage stauts and adds to mileage driven by customer
         new_mileage = int(car[0].get_mileage()) + int(mileage)
-        car[0].set_mileage(new_mileage)
-        car[0].set_availability(True)
-        return car[0]
+        car.set_mileage(new_mileage)
+        return car
 
 
     def update_order_mileage(self, order_id, mileage):
