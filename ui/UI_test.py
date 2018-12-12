@@ -190,7 +190,7 @@ class UserInterface:
         while not done:
             order_id = input("Please input the order id (b to back): ").lower()
             order = self.__order_service.get_order(order_id)
-            if order == type(Order):
+            if type(order) == Order:
                 print(order)
                 done = True
             elif order_id == "b":
