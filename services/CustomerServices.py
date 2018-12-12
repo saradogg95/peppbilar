@@ -2,6 +2,8 @@ from models.Customer import Customer
 
 from repositories.CustomerRepo import CustomerRepository
 
+import datetime
+
 
 class CustomerServices:
     
@@ -88,9 +90,14 @@ class CustomerServices:
     def automatic_id_generation(self):
         all_customers_list = self.__customer_db.get_all_customers()
         highest_customer_id = 0
-        for customer in all_customers_list:
-            customer_id = int(customer.get_customer_id())
-            if customer_id >= highest_customer_id:
-                highest_customer_id = customer_id
-        return highest_customer_id + 1
+        if len(all_customers_list) == 0:
+            year_now = datetime.date.today().year
+            highest_customer_id = int(str(year_now) + "00000")
+            return highest_customer_id
+        else:
+            for customer in all_customers_list:
+                customer_id = int(customer.get_customer_id())
+                if customer_id >= highest_customer_id:
+                    highest_customer_id = customer_id
+            return highest_customer_id + 1
 

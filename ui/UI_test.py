@@ -99,14 +99,6 @@ class UserInterface:
                             return identity_number
                         except:
                             print("{} is not a valid identity number!".format(identity_number))
-                            
-                def customer_id_check():
-                    while True:
-                        try:
-                            customer_id = int(input("Please input customer id: "))
-                            return customer_id
-                        except ValueError:
-                            print("Wrong input.")
 
                 def get_user_input():
                     while True:
