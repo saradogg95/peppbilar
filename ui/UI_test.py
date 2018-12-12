@@ -596,14 +596,16 @@ class UserInterface:
     def find_order(self):
         done = False
         while not done:
-            order_id = input("Please input the order id (q to quite): ")
+            order_id = input("Please input the order id (b to back): ").lower()
             order = self.__order_service.get_order(order_id)
-            if order == type(Order):
+            if type(order) == Order:
                 print(order)
-            elif order_id == "q":
                 done = True
-            else:
-                done = True
+            elif order_id == "b":
+                return None
+            elif type(order_id) == str:
+                print(order)
+            
 
         def print_choices():
             print("Press 1 to change order id.")

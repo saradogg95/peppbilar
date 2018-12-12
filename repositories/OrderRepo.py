@@ -9,7 +9,7 @@ class OrderRepository:
     def __init__(self):
         self.__orders = []
 
-        
+
     def populate_order_list(self):
         """ Opens the database (csv) file and reads its contents. 
         If the file doesn't exist it is created with the columns of the file. """
