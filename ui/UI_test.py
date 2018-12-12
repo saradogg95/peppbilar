@@ -1,5 +1,7 @@
 from os import system, name
+
 from datetime import datetime
+
 import calendar
 
 from services.CarServices import CarServices
@@ -107,10 +109,13 @@ class UserInterface:
 
     def find_customer(self):
         """ Customer options. All sub menus are nested functions within this function. """
+        
         def customer_lookup(menu_action):
             """ Changes or deletes a customer. """
+            
             def update_first_name(customer_to_change):
-                """ Takes in a customer, asks the user to input a new first name and then updates the customer with the new first name. """
+                """ Takes in a customer, asks the user to input a new first name and 
+                then updates the customer with the new first name. """
                 while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer first name: ", ("\n" * 2)))
@@ -120,8 +125,10 @@ class UserInterface:
                     print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
                     self.__menu_action = input("{:>95}".format("Enter menu action: "))
+                    
             def update_surname(customer_to_change):
-                """ Takes in a customer, asks the user to input a new surname and then updates the customer with the new surname. """
+                """ Takes in a customer, asks the user to input a new surname and 
+                then updates the customer with the new surname. """
                 while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer surname: ", ("\n" * 2)))
@@ -131,8 +138,10 @@ class UserInterface:
                     print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                    
             def update_passport_number(customer_to_change):
-                """ Takes in a customer, asks the user to input a new passport number and then updates the customer with the new passport number. """
+                """ Takes in a customer, asks the user to input a new passport number and 
+                then updates the customer with the new passport number. """
                 while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer passport number: ", ("\n" * 2)))
@@ -142,8 +151,10 @@ class UserInterface:
                     print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                    
             def update_cc_number(customer_to_change):
-                """ Takes in a customer, asks the user to input a new credit card number and then updates the customer with the new credit card number. """
+                """ Takes in a customer, asks the user to input a new credit card number and 
+                then updates the customer with the new credit card number. """
                 while self.__menu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change credit card number: ", ("\n" * 2)))
@@ -153,6 +164,7 @@ class UserInterface:
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                    
             def print_bottom_menu():
                 print("\n" * 2)
                 print("{:>94}".format("Change customer options:\n"))
@@ -160,6 +172,7 @@ class UserInterface:
                 print("{:>94}".format("2. Update surname"))
                 print("{:>94}".format("3. Update passport number"))
                 print("{:>94}".format("4. Update credit card number"))
+                
             while self.__menu_action.lower() != "b":
                 customer_to_change = ""
                 if menu_action == "1": #look up customer by icelandic registration number
@@ -213,6 +226,7 @@ class UserInterface:
             if self.__menu_action == "1" or self.__menu_action == "2":
                 customer_lookup(self.__menu_action)
 
+                
     def open_car_database(self):
         """ Car database options. Its sub menus are nested within this function. """
         
@@ -228,7 +242,6 @@ class UserInterface:
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
-
                 
         def print_all_unavailable_cars():
             """ Prints a list of all cars currently out. """
@@ -242,6 +255,7 @@ class UserInterface:
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
+                
         while self.__menu_action.lower() != "b":
             self.print_header()
             print("{:>100}".format("Car options:\n"))
@@ -256,13 +270,15 @@ class UserInterface:
             if self.__menu_action == "2":
                 print_all_unavailable_cars()
 
+                
     def get_additional_insuarance_cost(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
         for order in self.__order_db.get_all_orders():
             if order.get_order_id() == order_id:           
                 #Check if additional inusarance was ordered
                 if order.get_additional_insurance() == "TRUE":                
-                    #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                    #From the order object, we obtain the registration number for the car and 
+                    #send it into get_car_by_regnum to get car category price
                     car = self.__car_services.get_car(order.get_car_id())                 
                     #The cost of insurance is the 75% of the price of a days rental
                     return int(car[0].get_category_price()) * float(0.75)
@@ -271,17 +287,20 @@ class UserInterface:
             else:
                 return "No order with order number {} found.".format(order_id)
     
+    
     def get_additional_cost_extra_millage(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
         for order in self.__order_db.get_all_orders():
             if order.get_order_id() == order_id:                      
-                #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                #From the order object, we obtain the registration number for the car and send it 
+                #into get_car_by_regnum to get car category price
                 car = self.__car_services.get_car(order.get_car_id())                 
                 #The cost of additional millage over 100km is 1% of daily rental cost
                 return int(car[0].get_category_price()) * 0.01
             else:
                 return "No order with order number {} found.".format(order_id)
 
+            
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
         for order in self.__order_db.get_all_orders():
@@ -290,7 +309,8 @@ class UserInterface:
                 start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
                 end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
                 number_of_days = abs((end_date-start_date).days)
-                #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+                #From the order object, we obtain the registration number for the car and send it 
+                #into get_car_by_regnum to get car category price
                 car = self.__car_services.get_car(order.get_car_id())
                 return int(car[0].get_category_price()) * number_of_days                     
             else:
