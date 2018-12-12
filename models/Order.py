@@ -65,6 +65,3 @@ class Order:
 
     def set_additional_insurance(self, additional_insurance):
         self.__additional_insurance = additional_insurance
-
-    def set_mileage_in(self, mileage):
-        self.__mileage_in = mileage
