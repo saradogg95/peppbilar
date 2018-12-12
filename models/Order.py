@@ -20,7 +20,7 @@ class Order:
         return "{} {} {} {} {} {} {} {} {} {}".format(self.__order_id, self.__order_date, 
                                           self.__rent_date_from, self.__rent_date_to,                                         
                                           self.__insurance_with_credit_card,
-                                          self.__bought_km
+                                          self.__bought_km,
                                           self.__additional_insurance,
                                           self.__customer_id, self.__car_id)
 
