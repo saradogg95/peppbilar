@@ -765,11 +765,11 @@ class UserInterface:
                     print("{:>96}".format("R. Back to previous menu"))
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
-                    self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                     if self.__submenu_action.lower() == "r":
-                        self.find_customer()
+                        break
                     if self.__submenu_action.lower() == "b":
-                        self.main_menu()
+                        self.__menu_action = "b"
+                        break
                 else:
                     for customer in self.__customer_service.get_all_customers():
                         if customer.get_passport_id().upper() == passport_number.upper():
@@ -781,9 +781,7 @@ class UserInterface:
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                     if self.__submenu_action.lower() == "r":
-                        self.find_customer()
-                    if self.__submenu_action.lower() == "b":
-                        self.main_menu()
+                        break
                     if self.__submenu_action == "1":
                         update_first_name(customer_to_change)
                     if self.__submenu_action == "2":
@@ -792,6 +790,9 @@ class UserInterface:
                         update_passport_number(customer_to_change)
                     if self.__submenu_action == "4":
                         update_cc_number(customer_to_change)
+                    if self.__submenu_action.lower() == "b":
+                        self.__menu_action = "b"
+                        break
 
         
         while self.__menu_action.lower() != "b":
@@ -852,12 +853,6 @@ class UserInterface:
 
     def return_car(self):
         """ Function to return a car. """
-        def mileage_lower_check(return_car, total_mileage):
-            """ Checks wheter the entered mileage is lower than the mileage of the car when it went out. Returns True if so otherwise False. """
-            for car in return_car:
-                if car.get_mileage() < total_mileage:
-                    return True
-            return False
 
         while self.__menu_action.lower() != "b":
             self.print_header()
@@ -867,13 +862,13 @@ class UserInterface:
                 try:
                     int(order_to_return_id)
                     order_to_return = self.__order_service.get_order(order_to_return_id)
+                    valid_input = True
                 except ValueError:
                     print("{} is not a valid order number.")
                     order_to_return_id = input("{:>100}".format("Enter order number: "))
             print("\n" * 2)
-            return_car = self.__car_service.get_car(order_to_return.get_car_id())
-            if len(return_car) == 0:
-                #print("{:>100}".format("No car with licence plate {} found.".format(order_to_return.get_car_id()))
+            if not self.__car_service.get_car(order_to_return.get_car_id()):
+                print("{:>100} {} {}".format("No car with licence plate", order_to_return.get_car_id(), "found."))
                 print("\n" * 2)
             else:
                 mileage_complete = False
@@ -885,10 +880,9 @@ class UserInterface:
                         while not mileage_too_low:
                             print("Mileage entered is lower than when car went out. Please enter again.")
                             total_mileage =  input("{:>100}".format("Enter total mileage of car at return: "))
-                            mileage_too_low = mileage_lower_check(return_car, total_mileage)
-                            mileage_complete = True
                     except ValueError:
                         print("{:>100}".format("Invalid mileage entered. Please try again"))
+                
             self.print_back_to_main_menu()
 
                 
