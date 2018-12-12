@@ -20,10 +20,9 @@ class CarRepository:
                 category_price = car.get_category_price()
                 registration_date = car.get_registration_date()
                 mileage = car.get_mileage()
-                availability = car.get_availability()
-                car_db.write("{},{},{},{},{},{},{},{},{}\n".format
+                car_db.write("{},{},{},{},{},{},{}\n".format
                             (reg_num, brand, model, category, category_price, 
-                             registration_date, mileage, availability))   
+                             registration_date, mileage))   
             except:
                 return None
 
@@ -37,8 +36,7 @@ class CarRepository:
                 for line in csv_dict:
                     new_car = Car(line["reg_num"], line["brand"], line["model"], 
                                   line["category"], line["category_price"], 
-                                  line["registration_date"], line["mileage"], 
-                                  line["available"])
+                                  line["registration_date"], line["mileage"])
                     self.__cars.append(new_car)
                 return self.__cars
             except:
