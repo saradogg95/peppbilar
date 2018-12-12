@@ -74,10 +74,10 @@ class UserInterface:
             if self.__menu_action == "5":
                 self.return_car()
 
-    def show_available_cars(self):
-        """ Order menu for the system. Its sub menus are nested functions within this function. """
-        def place_order():
-            """ Menu method for placing a new order. """ 
+#    def show_available_cars(self):
+#        """ Order menu for the system. Its sub menus are nested functions within this function. """
+#        def place_order():
+#            """ Menu method for placing a new order. """ 
 
     #Set a day this month as starting date:
     def change_working_date_day(self, working_date, logic="STARTING"):
@@ -107,7 +107,7 @@ class UserInterface:
     
         valid_confirmation = False
         while valid_confirmation == False:
-            clear()
+            print_header()
             print(("Date of car going out is: {}, {} {}, {}?".format(outdate_weekday.upper(), outdate_month.upper(), 
             working_date[0], working_date[2])))
             confirmation = input("1. Confirm\n2. Change\n")
@@ -148,12 +148,12 @@ class UserInterface:
         starting_date_registered = False
         working_date_out_saved = working_date_out.copy()
         while starting_date_registered == False:
-            clear()   
+            print_header()   
             quick_starting_date = input("Show availability FROM:\n1. Today.\n2. Another day this month.\n3. A day of another month this year.\n4. Next year.\n5. Cancel.\n")
             if quick_starting_date == '1':
                 starting_date_registered = True
             elif quick_starting_date == '2':
-                clear()
+                print_header()
                 change_working_date_day(working_date_out)
                 valid_date = date_validation(working_date_out, this_is_today, working_date_out_saved)
                 while valid_date == False:
@@ -162,7 +162,7 @@ class UserInterface:
                 else:
                     starting_date_registered = True
             elif quick_starting_date == '3':
-                clear()
+                print_header()
                 change_working_date_day_month(working_date_out)
                 valid_date = date_validation(working_date_out, this_is_today, working_date_out_saved)
                 while valid_date == False:
@@ -171,17 +171,17 @@ class UserInterface:
                 else:
                     starting_date_registered = True
             elif quick_starting_date == '4':
-                clear()
+                print_header()
                 change_working_date_day_month_year(working_date_out)
                 starting_date_registered = True
             elif quick_starting_date == '5':
-                order.clear()
+                print_header()
                 return False
             else:
                 print("{} not a valid input".format(quick_starting_date))
 
             #Prompt for confirmation, control value updated:        
-            clear()
+            print_header()
             confirmation = outdate_confirmation(working_date_out)
             if confirmation == True:
                 outdate = datetime.date(working_date_out[2], working_date_out[1], working_date_out[0])
@@ -194,7 +194,7 @@ class UserInterface:
         outdate = datetime.date(working_date[2], working_date[1], working_date[0])
         outdate_weekday = calendar.day_name[outdate.weekday()]
         outdate_month = calendar.month_name[outdate.month]
-        clear()
+        print_header()
         print(("FROM: {}, {} {}, {}".format(outdate_weekday.upper(), outdate_month.upper(), 
         working_date[0], working_date[2])))
         valid_input = False
@@ -229,13 +229,13 @@ class UserInterface:
             except ValueError:
                 print("Invalid input.")
             if outdate >= return_date:
-                clear()
+                print_header()
                 print("Invalid input. Check starting date.")
                 print(("FROM: {}, {} {}, {}".format(outdate_weekday.upper(), outdate_month.upper(), 
                 working_date[0], working_date[2])))
                 valid_input = False
             else:
-                clear()
+                print_header()
                 confirmation = start_and_return_confirmation(outdate, return_date)
                 if confirmation == True:
                     order.append(return_date)
@@ -342,7 +342,7 @@ class UserInterface:
 
     def filter_prompt(self):
         valid_input = False
-        clear()
+        print_header()
         while valid_input == False:
             filter_input = input("Add filter (by brand, category, or registration date?\n1. Yes.\n2. No.\n")
             if filter_input == "1":
@@ -458,7 +458,7 @@ class UserInterface:
                 return True
 
 
-    def show_available_cars_in_range():
+    def show_available_cars_in_range(self):
         order_X = [] #Here, order details will gradually be inserted.
         ongoing_order = True #Control variable.
 
