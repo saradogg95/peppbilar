@@ -44,6 +44,11 @@ class UserInterface:
         print("{:>106}".format(self.__today.strftime("%A, %B %d, %Y")))
         print()
 
+    def print_back_to_main_menu(self):
+        print("{:>96}".format("B. Back to main menu"))
+        print("\n" * 2)
+        self.__menu_action = input("{:>95}".format("Enter menu action: "))
+
     def main_menu(self):
         """ Main menu. """
         while self.__menu_action.lower() != "q":
@@ -66,17 +71,15 @@ class UserInterface:
             if self.__menu_action == "4":
                 self.open_car_database()
             if self.__menu_action == "5":
-                self._return_car()
+                self.return_car()
 
     def show_available_cars(self):
         """ Order menu for the system. Its sub menus are nested functions within this function. """
         def place_order():
             """ Menu method for placing a new order. """
             pass
-
         def change_order():
             pass
-
         def delete_order():
             pass
 
@@ -310,6 +313,41 @@ class UserInterface:
                 print_all_available_cars()
             if self.__menu_action == "2":
                 print_all_unavailable_cars()
+
+    def return_car(self):
+        """ Function to return a car. """
+        def mileage_lower_check(return_car, total_mileage):
+            """ Checks wheter the entered mileage is lower than the mileage of the car when it went out. Returns True if so otherwise False. """
+            for car in return_car:
+                if car.get_mileage() < total_mileage:
+                    return True
+            return False
+
+        while self.__menu_action.lower() != "b":
+            self.print_header()
+            
+            car_to_return_id = input("{:>100}".format("Enter licence plate of car to return: "))
+            print("\n" * 2)
+            return_car = self.__car_service.get_car(car_to_return_id)
+            if len(return_car) == 0:
+                print("{:>100}".format("No car with licence plate {} found.".format(car_to_return_id)))
+                print("\n" * 2)
+            else:
+                mileage_complete = False
+                while not mileage_complete:
+                    total_mileage = input("{:>100}".format("Enter total mileage of car at return: "))
+                    try:
+                        total_mileage = int(total_mileage)
+                        mileage_too_low = False
+                        while not mileage_too_low:
+                            print("Mileage entered is lower than when car went out. Please enter again.")
+                            total_mileage =  input("{:>100}".format("Enter total mileage of car at return: "))
+                            mileage_too_low = mileage_lower_check(return_car, total_mileage)
+                            mileage_complete = True
+                        
+                    except ValueError:
+                        print("{:>100}".format("Invalid mileage entered. Please try again"))
+            self.print_back_to_main_menu()
 
                 
     def get_additional_insuarance_cost(self, order_id):
