@@ -13,9 +13,9 @@ class Customer:
         
     def __str__(self):
         return "{}, {}, {}, {}, {}, {}, {}".format(self.__customer_id, self.__identity_number, 
-                                             self.__first_names, self.__surname, 
-                                             self.__citizenship, self.__passport_id,
-                                             self.__credit_card_no)
+                                                   self.__first_names, self.__surname, 
+                                                   self.__citizenship, self.__passport_id,
+                                                   self.__credit_card_no)
 
     def get_customer_id(self):
         return self.__customer_id
