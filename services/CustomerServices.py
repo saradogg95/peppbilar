@@ -2,6 +2,8 @@ from models.Customer import Customer
 
 from repositories.CustomerRepo import CustomerRepository
 
+import datetime
+
 
 class CustomerServices:
     
@@ -30,8 +32,21 @@ class CustomerServices:
             if customer.get_customer_id() == customer_id:
                 get_customer.append(customer)
         return get_customer
-
     
+    def get_customer_after_id_num(self, identity_number):
+        get_customer = []
+        for customer in self.__customer_db.get_all_customers():
+            if customer.get_identity_number() == identity_number:
+                get_customer.append(customer)
+        return get_customer
+
+    def get_customer_after_pass_id(self, passport_id):
+        get_customer = []
+        for customer in self.__customer_db.get_all_customers():
+            if customer.get_passport_id() == passport_id:
+                get_customer.append(customer)
+        return get_customer
+
     def delete_customer(self, customer_id):
         """ Takes in a customer id and deletes it from the database. 
         Returns a string stating whether the customer was deleted or not. """
@@ -71,3 +86,18 @@ class CustomerServices:
             if customer.get_passport_id().upper() == passport_no.upper(): #bæta svona á hin services föllin til að gera þau ekki case sensitive
                 get_customer.append(customer)
         return get_customer
+
+    def automatic_id_generation(self):
+        all_customers_list = self.__customer_db.get_all_customers()
+        highest_customer_id = 0
+        if len(all_customers_list) == 0:
+            year_now = datetime.date.today().year
+            highest_customer_id = int(str(year_now) + "00000")
+            return highest_customer_id
+        else:
+            for customer in all_customers_list:
+                customer_id = int(customer.get_customer_id())
+                if customer_id >= highest_customer_id:
+                    highest_customer_id = customer_id
+            return highest_customer_id + 1
+

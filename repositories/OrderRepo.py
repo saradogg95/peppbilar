@@ -4,13 +4,12 @@ import datetime
 
 from models.Order import Order
 
-
 class OrderRepository:
 
     def __init__(self):
         self.__orders = []
 
-        
+
     def populate_order_list(self):
         """ Opens the database (csv) file and reads its contents. 
         If the file doesn't exist it is created with the columns of the file. """
@@ -19,15 +18,16 @@ class OrderRepository:
                 csv_dict = csv.DictReader(orders_db)
                 for line in csv_dict:
                     new_order = Order(line["Order_id"], line["Order_date"], 
-                                      line["Rent_date_from"], line["Rent_date_to"], 
-                                      line["Additional_Insurance"], 
+                                      line["Rent_date_from"], line["Rent_date_to"],                                    
                                       line["Insurnace_with_credit_card"],
+                                      line["bought_km"],
+                                      line["Additional_Insurance"],
                                       line["Customer_id"], line["Car_id"])
                     self.__orders.append(new_order)
         except FileNotFoundError:
             with open("./data/orders.csv", "a+") as orders_db:
-                orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to," + 
-                "Additional_Insurance, Insurance_with_credit_card, Customer_id, Car_id\n")
+                orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to," + 
+                "Insurnace_with_credit_card,Mileage_out,Mileage_in,Additional_Insurance,Customer_id,Car_id\n")
 
             
     def check_empty(self):
@@ -72,17 +72,20 @@ class OrderRepository:
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/orders.csv", "w") as orders_db:
-            orders_db.write("Order_id, Rent_date_from, Rent_date_to, Additional_Insurance, Customer_id, Car_id\n")
+            orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to, Insurnace_with_credit_card, Mileage_out, Mileage_in, Additional_Insurance, Customer_id, Car_id\n")
             for order in self.__orders:
-                order_id = order.get_order_id()
-                order_date = order.get_order_date()
-                rent_date_from = order.get_rent_date_from()
-                rent_date_to = order.get_rent_date_to()
-                additional_insurance = order.get_additional_insurance()
-                insurance_with_credit_card = order.get_insurance_with_credit_card()
-                customer_id = order.get_customer_id()
-                car_id = order.get_car_id()
-                orders_db.write("{},{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
-                                                                   rent_date_to, additional_insurance,
+                order_id = order.get_order_id().upper()
+                order_date = order.get_order_date().upper()
+                rent_date_from = order.get_rent_date_from().upper()
+                rent_date_to = order.get_rent_date_to().upper()
+                insurance_with_credit_card = order.get_insurance_with_credit_card().upper()
+                bought_km = order.get_bought_km().upper()
+                additional_insurance = order.get_additional_insurance().upper()
+                customer_id = order.get_customer_id().upper()
+                car_id = order.get_car_id().upper()
+                orders_db.write("{},{},{},{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
+                                                                   rent_date_to, 
                                                                    insurance_with_credit_card,
+                                                                   bought_km,
+                                                                   additional_insurance,
                                                                    customer_id, car_id))
