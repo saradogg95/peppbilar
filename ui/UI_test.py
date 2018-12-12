@@ -128,7 +128,7 @@ class UserInterface:
                 user_choice = get_user_input()
                 while user_choice != "b":
                     if user_choice == "1":
-                        customer_id = customer_id_check()
+                        customer_id = self.__customer_service.automatic_id_generation()
                         identity_number = identity_number_check()
                         first_names = input("Please input first name: ")
                         surname = input("Please input last name: ")
@@ -192,6 +192,7 @@ class UserInterface:
                 change_order()
             if self.__menu_action == "3":
                 delete_order()
+
     def find_order(self):
         done = False
         while not done:
