@@ -30,8 +30,21 @@ class CustomerServices:
             if customer.get_customer_id() == customer_id:
                 get_customer.append(customer)
         return get_customer
-
     
+    def get_customer_after_id_num(self, identity_number):
+        get_customer = []
+        for customer in self.__customer_db.get_all_customers():
+            if customer.get_identity_number() == identity_number:
+                get_customer.append(customer)
+        return get_customer
+
+    def get_customer_after_pass_id(self, passport_id):
+        get_customer = []
+        for customer in self.__customer_db.get_all_customers():
+            if customer.get_passport_id() == passport_id:
+                get_customer.append(customer)
+        return get_customer
+
     def delete_customer(self, customer_id):
         """ Takes in a customer id and deletes it from the database. 
         Returns a string stating whether the customer was deleted or not. """

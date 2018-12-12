@@ -7,6 +7,7 @@ from services.OrderServices import OrderServices
 from datetime import datetime
 from datetime import date
 import calendar
+import datetime
 
 from models.Car import Car
 from models.Order import Order
@@ -76,8 +77,99 @@ class UserInterface:
     def show_available_cars(self):
         """ Order menu for the system. Its sub menus are nested functions within this function. """
         def place_order():
-            """ Menu method for placing a new order. """
-            pass
+            """ Menu method for placing a new order. """ 
+
+            def add_or_find_customer():
+                customer = None
+                def identity_number_check():
+                    while True:
+                        identity_number = input("Enter valid identity number: ")
+                        try:
+                            if identity_number[-1] == '9':
+                                reference_year = 1900
+                            elif identity_number[-1] == '0':
+                                reference_year = 2000
+                            else:
+                                print("Wrong input.")
+                                continue
+                            birthday_day = int(identity_number[0:2])
+                            birthday_month = int(identity_number[2:4])
+                            birthday_year = int(identity_number[4:6]) + reference_year
+                            birthday = datetime.date(birthday_year, birthday_month, birthday_day)
+                            return identity_number
+                        except:
+                            print("{} is not a valid identity number!".format(identity_number))
+                            
+                def customer_id_check():
+                    while True:
+                        try:
+                            customer_id = int(input("Please input customer id: "))
+                            return customer_id
+                        except ValueError:
+                            print("Wrong input.")
+
+                def get_user_input():
+                    while True:
+                        try:
+                            customer_input = input("Option: ").lower()
+                            if customer_input == "1" or customer_input == "2" or customer_input == "b":
+                                return customer_input
+                            else:
+                                print("Please 1 or 2 for your choice.")
+                        except ValueError:
+                            print("Wrong input.")
+
+                def print_options_for_user():
+                    print("Please press 1 to add new customer.")
+                    print("Please press 2 to find costumer.")
+                    print("Please press b to back.")
+
+                print_options_for_user() 
+                user_choice = get_user_input()
+                while user_choice != "b":
+                    if user_choice == "1":
+                        customer_id = customer_id_check()
+                        identity_number = identity_number_check()
+                        first_names = input("Please input first name: ")
+                        surname = input("Please input last name: ")
+                        citizenship = input("Please input citizenship: ")
+                        passport_id = input("Please input passport id: ")        
+                        credit_card_no = input("Please input credit card number: ")
+                        new_customer = Customer(customer_id, identity_number, 
+                                                first_names, surname, citizenship, passport_id, credit_card_no) 
+                        self.__customer_service.add_customer(new_customer)
+                        customer = new_customer
+                        print(new_customer)
+
+                    elif user_choice == "2":
+                        print("Press 1 to find customer after identity number.")
+                        print("Press 2 to find customer after passport id.")
+                        user_choice = get_user_input()
+                        if user_choice == "1":
+                            id_num = input("Please input identity number: ")
+                            customer = self.__customer_service.get_customer_after_id_num(id_num)
+                            if customer:
+                                print(customer[0])
+                            else:
+                                print("Customer not found.")
+                        elif user_choice == "2":
+                            pass_id = input("Please input passport id: ")
+                            customer = self.__customer_service.get_customer_after_pass_id(pass_id)
+                            if customer:
+                                print(customer[0])
+                            else:
+                                print("Customer not found.")
+
+                    print_options_for_user()
+                    user_choice = get_user_input()
+                if type(customer) == list:
+                    return customer[0]
+                else:
+                    return customer
+            
+            found_customer = add_or_find_customer()
+
+
         def change_order():
             pass
         def delete_order():

@@ -1,4 +1,8 @@
 Order_id, Order_date, Rent_date_from, Rent_date_to, Insurnace_with_credit_card, Mileage_out, Mileage_in, Additional_Insurance, Customer_id, Car_id
 1,14/03/2016,14/03/2016,17/03/2016,4560-3443-2299-7567,20,700,TRUE,100,VA579D
+<<<<<<< HEAD
+2,02/03/2017,06/03/2017,09/03/2017,6543-6542-8923-7913,15,215,FALSE,300,RW446
+=======
 1,02/03/2017,06/03/2017,09/03/2017,6543-6542-8923-7913,15,215,FALSE,300,RW446
+>>>>>>> 8681f05612c8feea704e0d2c30a38b3bc7cbbaee
 3,14/03/2017,14/03/2017,19/03/2017,4560-3443-2299-7567,750,900,TRUE,100,VA579D
