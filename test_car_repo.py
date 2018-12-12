@@ -14,6 +14,10 @@ def main():
     all_orders = order_service.get_all_orders()
 
     print(all_orders)
+    
+    extra_cost = ui_test.get_total_cost_for_extra_kilometers("1")
+    print(extra_cost)
+
 
     ui_test.update_milage("VA579D", "20")
     hist = ui_test.get_car_rent_history("VA579D")
