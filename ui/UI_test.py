@@ -45,6 +45,11 @@ class UserInterface:
         print("{:>106}".format(self.__today.strftime("%A, %B %d, %Y")))
         print()
 
+    def print_back_to_main_menu(self):
+        print("{:>96}".format("B. Back to main menu"))
+        print("\n" * 2)
+        self.__menu_action = input("{:>95}".format("Enter menu action: "))
+
     def main_menu(self):
         """ Main menu. """
         while self.__menu_action.lower() != "q":
@@ -53,6 +58,7 @@ class UserInterface:
             print("{:>89}".format("2. Find order"))
             print("{:>92}".format("3. Find customer"))
             print("{:>96}".format("4. Open car database"))
+            print("{:>96}".format("5. Return car"))
             print("{:>91}".format("Q. Quit program"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -65,6 +71,8 @@ class UserInterface:
                 self.find_customer()
             if self.__menu_action == "4":
                 self.open_car_database()
+            if self.__menu_action == "5":
+                self.return_car()
 
     def show_available_cars(self):
         """ Order menu for the system. Its sub menus are nested functions within this function. """
@@ -164,7 +172,6 @@ class UserInterface:
 
         def change_order():
             pass
-
         def delete_order():
             pass
 
@@ -399,6 +406,41 @@ class UserInterface:
             if self.__menu_action == "2":
                 print_all_unavailable_cars()
 
+    def return_car(self):
+        """ Function to return a car. """
+        def mileage_lower_check(return_car, total_mileage):
+            """ Checks wheter the entered mileage is lower than the mileage of the car when it went out. Returns True if so otherwise False. """
+            for car in return_car:
+                if car.get_mileage() < total_mileage:
+                    return True
+            return False
+
+        while self.__menu_action.lower() != "b":
+            self.print_header()
+            
+            car_to_return_id = input("{:>100}".format("Enter licence plate of car to return: "))
+            print("\n" * 2)
+            return_car = self.__car_service.get_car(car_to_return_id)
+            if len(return_car) == 0:
+                print("{:>100}".format("No car with licence plate {} found.".format(car_to_return_id)))
+                print("\n" * 2)
+            else:
+                mileage_complete = False
+                while not mileage_complete:
+                    total_mileage = input("{:>100}".format("Enter total mileage of car at return: "))
+                    try:
+                        total_mileage = int(total_mileage)
+                        mileage_too_low = False
+                        while not mileage_too_low:
+                            print("Mileage entered is lower than when car went out. Please enter again.")
+                            total_mileage =  input("{:>100}".format("Enter total mileage of car at return: "))
+                            mileage_too_low = mileage_lower_check(return_car, total_mileage)
+                            mileage_complete = True
+                        
+                    except ValueError:
+                        print("{:>100}".format("Invalid mileage entered. Please try again"))
+            self.print_back_to_main_menu()
+
                 
     def get_additional_insuarance_cost(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
@@ -436,21 +478,27 @@ class UserInterface:
         return int(car[0].get_category_price()) * number_of_days                     
 
 
-
     def write_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         self.__order_service.write_db_to_file()
 
 
-    def update_milage(self, reg_num, mileage):
+    def update_car_mileage_and_availability(self, reg_num, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
         car = self.__car_service.get_car(reg_num)
         #gets current mileage stauts and adds to mileage driven by customer
         new_mileage = int(car[0].get_mileage()) + int(mileage)
         car[0].set_mileage(new_mileage)
-        #Write changes to db
-        return None
+        car[0].set_availability(True)
+        return car[0]
 
+
+    def update_order_mileage(self, order_id, mileage):
+        ''' Updates milage of a car, with mileage driven by customer'''
+        order = self.__order_service.get_order(order_id)
+        #update mileage
+        order.set_mileage_in(mileage)
+        return order
 
     def get_car_rent_history(self, reg_num):
         orders = []
