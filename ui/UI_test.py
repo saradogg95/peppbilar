@@ -726,9 +726,10 @@ class UserInterface:
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                     if self.__submenu_action.lower() == "r":
-                        self.find_customer()
+                        break
                     if self.__submenu_action.lower() == "b":
-                        self.main_menu()
+                        self.__menu_action = "b"
+                        break
                 else:
                     for customer in self.__customer_service.get_all_customers():
                         if customer.get_identity_number() == icelandic_registration_number:
@@ -740,9 +741,7 @@ class UserInterface:
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                     if self.__submenu_action.lower() == "r":
-                        self.find_customer()
-                    if self.__submenu_action.lower() == "b":
-                        self.main_menu()
+                        break
                     if self.__submenu_action == "1":
                         update_first_name(customer_to_change)
                     if self.__submenu_action == "2":
@@ -750,9 +749,12 @@ class UserInterface:
                     if self.__submenu_action == "2":
                         update_passport_number(customer_to_change)
                     if self.__submenu_action == "4":
-                        update_cc_number(customer_to_change)                        
+                        update_cc_number(customer_to_change)
+                    if self.__submenu_action.lower() == "b":
+                        self.__menu_action = "b"
+                        break
 
-        def fint_customer_by_passport_id():
+        def find_customer_by_passport_id():
             """ Available operations when customer has been looked up by passport id. """
             self.__submenu_action = ""
             while self.__submenu_action.lower() != "b":
@@ -771,6 +773,7 @@ class UserInterface:
                 else:
                     for customer in self.__customer_service.get_all_customers():
                         if customer.get_passport_id().upper() == passport_number.upper():
+                            customer_to_change = customer
                             print("{:>100}".format(customer.__str__()))
                     print_bottom_menu()
                     print("{:>96}".format("R. Back to previous menu"))
@@ -790,6 +793,7 @@ class UserInterface:
                     if self.__submenu_action == "4":
                         update_cc_number(customer_to_change)
 
+        
         while self.__menu_action.lower() != "b":
             self.print_header()
             print("{:>94}".format("Find customer by:\n"))
@@ -801,7 +805,8 @@ class UserInterface:
             if self.__menu_action == "1":
                 find_customer_by_icelandic_id()
             if self.__menu_action == "2":
-                fint_customer_by_passport_id()
+                find_customer_by_passport_id()
+        self.__menu_action = ""
 
                 
     def open_car_database(self):
