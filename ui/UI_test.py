@@ -325,7 +325,15 @@ class UserInterface:
 
         while self.__menu_action.lower() != "b":
             self.print_header()
-            
+            order_to_return_id = input("{:>100}".format("Enter order number: "))
+            valid_input = False
+            while not valid_input:
+                try:
+                    int(order_to_return_id)
+                    order_to_return = self.__order_service.get_order(order_to_return_id)
+                except ValueError:
+                    print("{} is not a valid order number.")
+                    order_to_return_id = input("{:>100}".format("Enter order number: "))
             car_to_return_id = input("{:>100}".format("Enter licence plate of car to return: "))
             print("\n" * 2)
             return_car = self.__car_service.get_car(car_to_return_id)
