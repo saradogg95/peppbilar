@@ -16,7 +16,7 @@ class Car:
     def __str__(self):
         car_info = self.__brand + " " + self.__model + ", " + self.__registration_date
         return "{:<15s}{:<45s}{:<15s}{:<15s}".format(self.__reg_num, car_info, self.__category, 
-                                                self.__category_price)
+                                                     self.__category_price)
 
     def get_reg_num(self):
         return self.__reg_num
