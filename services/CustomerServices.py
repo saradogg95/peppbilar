@@ -84,3 +84,13 @@ class CustomerServices:
             if customer.get_passport_id().upper() == passport_no.upper(): #bæta svona á hin services föllin til að gera þau ekki case sensitive
                 get_customer.append(customer)
         return get_customer
+
+    def automatic_id_generation(self):
+        all_customers_list = self.__customer_db.get_all_customers()
+        highest_customer_id = 0
+        for customer in all_customers_list:
+            customer_id = int(customer.get_customer_id())
+            if customer_id >= highest_customer_id:
+                highest_customer_id = customer_id
+        return highest_customer_id + 1
+
