@@ -933,13 +933,13 @@ class UserInterface:
         self.__order_service.write_db_to_file()
 
 
-    def update_car_mileage_and_availability(self, reg_num, mileage):
+    def update_car_mileage(self, reg_num, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
         car = self.__car_service.get_car(reg_num)
         #gets current mileage stauts and adds to mileage driven by customer
         new_mileage = int(car[0].get_mileage()) + int(mileage)
         car[0].set_mileage(new_mileage)
-        car[0].set_availability(True)
+        #TODO þarf að skrifa hér í grunn
         return car[0]
 
 
