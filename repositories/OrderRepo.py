@@ -20,7 +20,7 @@ class OrderRepository:
                     new_order = Order(line["Order_id"], line["Order_date"], 
                                       line["Rent_date_from"], line["Rent_date_to"],                                    
                                       line["Insurnace_with_credit_card"],
-                                      line["Mileage_out"], line["Mileage_in"],
+                                      line["bought_km"],
                                       line["Additional_Insurance"],
                                       line["Customer_id"], line["Car_id"])
                     self.__orders.append(new_order)
@@ -79,7 +79,7 @@ class OrderRepository:
                 rent_date_from = order.get_rent_date_from().upper()
                 rent_date_to = order.get_rent_date_to().upper()
                 insurance_with_credit_card = order.get_insurance_with_credit_card().upper()
-                bought_km = order.get_bought_kom().upper()
+                bought_km = order.get_bought_km().upper()
                 additional_insurance = order.get_additional_insurance().upper()
                 customer_id = order.get_customer_id().upper()
                 car_id = order.get_car_id().upper()
