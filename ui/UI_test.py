@@ -955,8 +955,7 @@ class UserInterface:
         for order in self.__order_service.get_all_orders():
             if order.get_car_id() == reg_num:
                 orders.append("Registration nr.: " + reg_num
-                + " - Mileage from: " + order.get_mileage_out() 
-                + " Mileage to: " + order.get_mileage_in()
+                + " - Kilometers driven: " + order.get_bought_km()
                 + " From: " + order.get_rent_date_from()
                 + " To: " + order.get_rent_date_to())
         return orders
