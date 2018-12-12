@@ -15,10 +15,10 @@ class Order:
 
     def __str__(self):
         return "{}, {}, {}, {}, {}, {}, {}, {}".format(self.__order_id, self.__order_date, 
-                                          self.__rent_date_from, self.__rent_date_to,
-                                          self.__additional_insurance, 
-                                          self.__insurance_with_credit_card,
-                                          self.__customer_id, self.__car_id)
+                                                       self.__rent_date_from, self.__rent_date_to,
+                                                       self.__additional_insurance, 
+                                                       self.__insurance_with_credit_card,
+                                                       self.__customer_id, self.__car_id)
 
     def get_order_id(self):
         return self.__order_id
