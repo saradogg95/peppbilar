@@ -22,7 +22,7 @@ class CarServices():
 
     
     def add_car(self, car):
-        """ Takes in a car and send to the database for writing """
+        """ Takes in a car and sends to the database for writing """
         self.__repository.add_car(car)
 
         
