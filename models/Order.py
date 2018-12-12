@@ -50,3 +50,19 @@ class Order:
     
     def get_car_id(self):
         return self.__car_id
+
+    def set_order_id(self, order_id):
+        self.__order_id = order_id
+
+    def set_order_date(self, order_date):
+        self.__order_date = order_date
+
+    def set_rent_date_from(self, rent_date_from):
+        self.__rent_date_from = rent_date_from
+
+    def set_rent_date_to(self, rent_date_to):
+        self.__rent_date_to = rent_date_to
+
+    def set_additional_insurance(self, additional_insurance):
+        self.__additional_insurance = additional_insurance
+

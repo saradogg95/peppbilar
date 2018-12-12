@@ -23,12 +23,8 @@ class CustomerServices:
     
     
     def get_customer(self, customer_id):
-<<<<<<< HEAD
-        """ Takes in a customer id, looks it up in the database and returns the customer. If no customer is found a empty list is returned. """
-=======
         """ Takes in a customer id, looks it up in the database and returns the customer. 
         If no customer is found a string is returned. """
->>>>>>> 39afcb9f96bd3ac39d952aa57f18cc7f7fd1e253
         get_customer = []
         for customer in self.__customer_db.get_all_customers():
             if customer.get_customer_id() == customer_id:
