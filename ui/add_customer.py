@@ -1,11 +1,15 @@
 from os import system, name
+
 from services.CarServices import CarServices
 from services.CustomerServices import CustomerServices
 from services.EmployeeServices import EmployeeServices
 from services.OrderServices import OrderServices
 #from services.PaymentServices import PaymentServices verður sennilega ekki notað
+
 from datetime import date
+
 import datetime #skoða þetta aðeins
+
 import calendar
 
 from models.Car import Car
@@ -33,6 +37,7 @@ def identity_number_check():
         except:
             print("{} is not a valid kennitala!".format(identity_number))
 
+            
 def customer_id_check():
     while True:
         try:

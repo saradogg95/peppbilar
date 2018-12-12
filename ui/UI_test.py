@@ -99,10 +99,13 @@ class UserInterface:
 
     def find_customer(self):
         """ Customer options. All sub menus are nested functions within this function. """
+        
         def customer_lookup(menu_action):
             """ Changes or deletes a customer. """
+            
             def update_first_name(customer_to_change):
-                """ Takes in a customer, asks the user to input a new first name and then updates the customer with the new first name. """
+                """ Takes in a customer, asks the user to input a new first name and 
+                then updates the customer with the new first name. """
                 while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer first name: ", ("\n" * 2)))
@@ -112,8 +115,10 @@ class UserInterface:
                     print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
                     self.__menu_action = input("{:>95}".format("Enter menu action: "))
+                    
             def update_surname(customer_to_change):
-                """ Takes in a customer, asks the user to input a new surname and then updates the customer with the new surname. """
+                """ Takes in a customer, asks the user to input a new surname and 
+                then updates the customer with the new surname. """
                 while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer surname: ", ("\n" * 2)))
@@ -123,8 +128,10 @@ class UserInterface:
                     print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                    
             def update_passport_number(customer_to_change):
-                """ Takes in a customer, asks the user to input a new passport number and then updates the customer with the new passport number. """
+                """ Takes in a customer, asks the user to input a new passport number and 
+                then updates the customer with the new passport number. """
                 while self.__submenu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change customer passport number: ", ("\n" * 2)))
@@ -134,8 +141,10 @@ class UserInterface:
                     print("{:>96}".format("B. Back to previous menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                    
             def update_cc_number(customer_to_change):
-                """ Takes in a customer, asks the user to input a new credit card number and then updates the customer with the new credit card number. """
+                """ Takes in a customer, asks the user to input a new credit card number and 
+                then updates the customer with the new credit card number. """
                 while self.__menu_action.lower() != "b":
                     self.print_header()
                     print("{:>94}{}".format("Change credit card number: ", ("\n" * 2)))
@@ -145,6 +154,7 @@ class UserInterface:
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                    
             def print_bottom_menu():
                 print("\n" * 2)
                 print("{:>94}".format("Change customer options:\n"))
@@ -152,6 +162,7 @@ class UserInterface:
                 print("{:>94}".format("2. Update surname"))
                 print("{:>94}".format("3. Update passport number"))
                 print("{:>94}".format("4. Update credit card number"))
+                
             while self.__menu_action.lower() != "b":
                 #self.print_header()
                 if menu_action == "1": #look up customer by icelandic registration number
@@ -201,6 +212,7 @@ class UserInterface:
             if self.__menu_action == "1" or self.__menu_action == "2":
                 customer_lookup(self.__menu_action)
 
+                
     def open_car_database(self):
         """ Car database options. Its sub menus are nested within this function. """
         def print_all_available_cars():
@@ -215,7 +227,6 @@ class UserInterface:
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
-
         def print_all_unavailable_cars():
             """ Prints a list of all cars currently out. """
             while self.__menu_action.lower() != "b":
@@ -228,6 +239,7 @@ class UserInterface:
                 print("{:>96}".format("B. Back to main menu"))
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
+                
         while self.__menu_action.lower() != "b":
             self.print_header()
             print("{:>100}".format("Car options:\n"))
@@ -242,6 +254,7 @@ class UserInterface:
             if self.__menu_action == "2":
                 print_all_unavailable_cars()
 
+                
     def get_additional_insuarance_cost(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
         order = self.__order_service.get_order(order_id)        
@@ -255,6 +268,7 @@ class UserInterface:
             return None 
 
     
+    
     def get_additional_cost_extra_millage(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
         order = self.__order_service.get_order(order_id)                   
@@ -264,6 +278,7 @@ class UserInterface:
         return int(car[0].get_category_price()) * 0.01
 
 
+            
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
         order = self.__order_service.get_order(order_id)
