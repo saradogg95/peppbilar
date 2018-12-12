@@ -291,21 +291,27 @@ class UserInterface:
         return int(car[0].get_category_price()) * number_of_days                     
 
 
-
     def write_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         self.__order_service.write_db_to_file()
 
 
-    def update_milage(self, reg_num, mileage):
+    def update_car_mileage_and_availability(self, reg_num, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
         car = self.__car_service.get_car(reg_num)
         #gets current mileage stauts and adds to mileage driven by customer
         new_mileage = int(car[0].get_mileage()) + int(mileage)
         car[0].set_mileage(new_mileage)
-        #Write changes to db
-        return None
+        car[0].set_availability(True)
+        return car[0]
 
+
+    def update_order_mileage(self, order_id, mileage):
+        ''' Updates milage of a car, with mileage driven by customer'''
+        order = self.__order_service.get_order(order_id)
+        #update mileage
+        order.set_mileage_in(mileage)
+        return order
 
     def get_car_rent_history(self, reg_num):
         orders = []
