@@ -20,7 +20,7 @@ class CarRepository:
                 category_price = car.get_category_price()
                 registration_date = car.get_registration_date()
                 mileage = car.get_mileage()
-                car_db.write("{},{},{},{},{},{},{},{},{}\n".format
+                car_db.write("{},{},{},{},{},{},{}\n".format
                             (reg_num, brand, model, category, category_price, registration_date, mileage))   
             except:
                 return None
