@@ -628,8 +628,6 @@ class UserInterface:
                     customer = self.__customer_service.get_customer_after_id_num(id_num)
                     if customer:
                         order.append(customer.get_customer_id())
-                        print(customer)
-                        disruptive = input("Disruptive input.")
                         return True
                     else:
                         print("Customer not found.")
@@ -638,8 +636,6 @@ class UserInterface:
                     customer = self.__customer_service.get_customer_after_pass_id(pass_id)
                     if customer:
                         order.append(customer.get_customer_id())
-                        print(customer)
-                        disruptive = input("Disruptive input.")
                         return True
                     else:
                         print("Customer not found.")
@@ -661,6 +657,36 @@ class UserInterface:
 
 
 
+        """Printout function, to confirm order."""
+        def confirmation_to_save_order(order):
+            start_date = order[0]
+            end_date = order[1]
+            total_days = abs((end_date - start_date).days)
+            car_in_question = order[2]
+            billing_customer = order[3]
+            proper_customer = self.__customer_service.get_customer(billing_customer)
+            customer_first_names = proper_customer.get_first_names()
+            customer_surname = proper_customer.get_surname()
+            price = int(car_in_question.get_category_price()) * total_days
+            licence_plate = car_in_question.get_reg_num()
+            brand = car_in_question.get_brand()
+            model = car_in_question.get_model()
+            category = car_in_question.get_category()
+            self.print_header()
+            print(("{} {}\nType of car: {}\nDate of car going out: {}\nDate of car coming back: {}\nTotal number of days: {}\nTotal price: {} isk.\n{} {}\n{}".format(
+                brand, model, category, start_date, end_date, total_days, price, customer_first_names, customer_surname)))
+            valid_confirmation = False
+            while valid_confirmation == False:
+                final_confirmation = input("Confirm?\n1. Yes.\n2. No, cancel order.")
+                if final_confirmation == 1:
+                    valid_confirmation == True
+                    return True
+                elif final_confirmation == 2:
+                    valid_confirmation == True
+                    return False
+                else:
+                    print("Invalid input!")
+            
 
 
 
@@ -668,8 +694,7 @@ class UserInterface:
 
 
 
-
-
+        
 
 
         order_X = [] #Here, order details will gradually be inserted.
@@ -697,9 +722,11 @@ class UserInterface:
                 if ongoing_order == True:
                     ongoing_order = add_or_find_customer(order_X) 
                     if ongoing_order == True:
-                        print(order_X)
-                        #save_order()
-                        #pass
+                        ongoing_order = confirmation_to_save_order(order_X)
+                        if ongoing_order == True:
+                            ongoing_order = save_order(order_X)
+                        else:
+                            return False
                     else:
                         return False
                 else:
