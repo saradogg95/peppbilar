@@ -1067,7 +1067,7 @@ class UserInterface:
         new_mileage = int(car.get_mileage()) + int(mileage)
         car.set_mileage(new_mileage)
         #Write changes to db
-        self.write_car_to_db()
+        self.__car_service.write_db_to_file()
         return car
 
 
