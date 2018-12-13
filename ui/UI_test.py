@@ -762,6 +762,7 @@ class UserInterface:
     def show_unavailable_cars(self):
         pass
 
+
     def find_order(self):
         done = False
         while not done:
@@ -780,7 +781,7 @@ class UserInterface:
             elif order_id.lower() == "b":
                 return None
             elif type(order) == str:
-                print("{:>110}".format(order))
+                print("{:>109}".format(order))
                 print()
                 print("{:>104}".format("Press any button to continue\n"))
                 input("{:>90}".format("*. Any buttom: "))
@@ -792,6 +793,7 @@ class UserInterface:
             print("{:>92}".format("3. Rent rate from"))
             print("{:>90}".format("4. Rent date to"))
             print("{:>98}".format("5. Additional insurance"))
+            print("{:>89}".format("6. Delet order"))
             print("{:>95}".format("B. Back to main menu"))
 
             
@@ -805,7 +807,7 @@ class UserInterface:
                     value_error_check = int(self.__menu_action)
                     return self.__menu_action
                 except ValueError:
-                    print("Wrong input.")
+                    print("Wrong input")
 
         self.print_header()            
         print_choices()
@@ -813,10 +815,11 @@ class UserInterface:
         while self.__menu_action.lower() != "b":
             if self.__menu_action == "1":
                 self.print_header()
-                change_order_id = input("{:>105}".format("Order id change: "))
-
-                order.set_order_id(change_order_id)
+                order_id = input("{:>92}".format("Order id change: "))
+                order.set_order_id(order_id)
+                self.__order_service.write_db_to_file()
                 print(order)
+                print()
             if self.__menu_action == "2":
                 done = False
                 while not done:
@@ -833,6 +836,7 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_order_date(change_order_date)
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
             if self.__menu_action == "3":
@@ -840,7 +844,7 @@ class UserInterface:
                 while not done:
                     try:
                         self.print_header()
-                        change_rent_date_from = input("{:>111}".format("Rent rate from change (YYYY-MM-DD): "))
+                        change_rent_date_from = input("{:>111}".format("Rent date from change (YYYY-MM-DD): "))
                         print()
                         year, month, day = change_order_date.split("-")
                         datetime.datetime(int(year), int(month), int(day))
@@ -851,6 +855,7 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_rent_date_from(change_rent_date_from)
+                self.__order_service.write_db_to_file()
                 print(order) 
                 print()   
             if self.__menu_action == "4":
@@ -869,16 +874,26 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_rent_date_to(change_rent_date_to)
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
             if self.__menu_action == "5":
                 self.print_header()
                 change_additional_insurance = input("{:>117}".format("Please input additional insurance change: "))
                 order.set_additional_insurance(change_additional_insurance)
-
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
-
+            if self.__menu_action == "6":
+                self.print_header()
+                deleted_order_msg = self.__order_service.delete_order(order_id)
+                print("{:>109}".format(deleted_order_msg))
+                print()
+                self.__order_service.write_db_to_file()
+                print("{:>104}".format("Press any button to continue\n"))
+                input("{:>90}".format("*. Any buttom: "))
+                break
+                
             print_choices()
             self.__menu_action = choice()
 
@@ -941,14 +956,28 @@ class UserInterface:
                 print("\n" * 2)
                 self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                 
+        def delete_customer(customer_to_change):
+            """ Takes in a customer and removes them from the database. """
+            while self.__submenu_action.lower() != "b":
+                self.print_header()
+                customer_id = customer_to_change.get_customer_id()
+                print(self.__customer_service.delete_customer(customer_id))
+                self.__customer_service.write_db_to_file()
                 
+                
+                print("{:>101}".format("R. Back to previous menu"))
+                print("{:>97}".format("B. Back to main menu"))
+                self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+
+
         def print_bottom_menu():
             print("\n" * 2)
-            print("{:>94}".format("Change customer options:\n"))
-            print("{:>107}".format("1. Update first name"))
+            print("{:>102}".format("Change customer options:\n"))
+            print("{:>97}".format("1. Update first name"))
             print("{:>94}".format("2. Update surname"))
-            print("{:>94}".format("3. Update passport number"))
-            print("{:>94}".format("4. Update credit card number"))
+            print("{:>102}".format("3. Update passport number"))
+            print("{:>105}".format("4. Update credit card number"))
+            print("{:>95}".format("5. Delete customer"))
             
             
         def find_customer_by_icelandic_id():
@@ -956,11 +985,11 @@ class UserInterface:
             self.__submenu_action = ""
             while self.__submenu_action.lower() != "b":
                 self.print_header()
-                icelandic_registration_number = input("{:>100}".format("Enter Icelandic registration number: "))
+                icelandic_registration_number = input("{:>113}".format("Enter Icelandic registration number: "))
                 if len(self.__customer_service.get_customer_by_icelandic_id(icelandic_registration_number)) == 0:
-                    print("{:>100} {} {}".format("No customer with registration number", 
+                    print("{:>114} {} {}".format("No customer with registration number", 
                                                  icelandic_registration_number, "found."))
-                    print("{:>96}".format("R. Back to previous menu"))
+                    print("{:>105}".format("R. Back to previous menu"))
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
@@ -975,10 +1004,10 @@ class UserInterface:
                             customer_to_change = customer
                             print("{:>100}".format(customer_to_change.__str__()))
                     print_bottom_menu()
-                    print("{:>96}".format("R. Back to previous menu"))
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>101}".format("R. Back to previous menu"))
+                    print("{:>97}".format("B. Back to main menu"))
                     print("\n" * 2)
-                    self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                    self.__submenu_action = input("{:>96}".format("Enter menu action: "))
                     if self.__submenu_action.lower() == "r":
                         break
                     if self.__submenu_action == "1":
@@ -989,6 +1018,8 @@ class UserInterface:
                         update_passport_number(customer_to_change)
                     if self.__submenu_action == "4":
                         update_cc_number(customer_to_change)
+                    if self.__submenu_action == "5":
+                        delete_customer(customer_to_change)
                     if self.__submenu_action.lower() == "b":
                         self.__menu_action = "b"
                         break
@@ -1002,8 +1033,8 @@ class UserInterface:
                 passport_number = input("{:>100}".format("Enter passport number: "))
                 if len(self.__customer_service.get_customer_by_passport_no(passport_number)) == 0:
                     print("{:>100} {} {}".format("No customer with passport number", passport_number, "found."))
-                    print("{:>96}".format("R. Back to previous menu"))
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>101}".format("R. Back to previous menu"))
+                    print("{:>97}".format("B. Back to main menu"))
                     print("\n" * 2)
                     if self.__submenu_action.lower() == "r":
                         break
@@ -1014,10 +1045,11 @@ class UserInterface:
                     for customer in self.__customer_service.get_all_customers():
                         if customer.get_passport_id().upper() == passport_number.upper():
                             customer_to_change = customer
+                            print("\n" * 2)
                             print("{:>100}".format(customer.__str__()))
                     print_bottom_menu()
-                    print("{:>96}".format("R. Back to previous menu"))
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>101}".format("R. Back to previous menu"))
+                    print("{:>97}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                     if self.__submenu_action.lower() == "r":
@@ -1030,6 +1062,8 @@ class UserInterface:
                         update_passport_number(customer_to_change)
                     if self.__submenu_action == "4":
                         update_cc_number(customer_to_change)
+                    if self.__submenu_action == "5":
+                        delete_customer(customer_to_change)
                     if self.__submenu_action.lower() == "b":
                         self.__menu_action = "b"
                         break
@@ -1102,19 +1136,13 @@ class UserInterface:
                 break
 
                 
-    def get_additional_insuarance_cost(self, order_id):
-        """ Takes in an order id and gets that order from the database 
+    def get_additional_insuarance_cost(self, reg_num):
+        """ Takes in the car registration number and gets the cost of daily rental
         and calculates the cost of additional insurance"""        
-        order = self.__order_service.get_order(order_id)        
-        #Check if additional inusarance was ordered
-        if order.get_additional_insurance() == "TRUE":                
-            #From the order object, we obtain the registration number for the car and 
-            #send it into get_car_by_regnum to get car category price
-            car = self.__car_service.get_car(order.get_car_id())                 
-            #The cost of insurance is the 75% of the price of a days rental
-            return int(car.get_category_price()) * float(0.75)
-        else:
-            return None 
+        car = self.__car_service.get_car(reg_num)                 
+        #The cost of insurance is the 75% of the price of a days rental
+        return int(car.get_category_price()) * float(0.75)
+
 
             
     def get_cost_without_additions(self, order_id):
