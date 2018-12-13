@@ -48,17 +48,14 @@ class CustomerRepository:
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/customers.csv", "w") as customer_db:
-            try:
                 customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID\n")
                 for customer in self.__customers:
-                    customer_ID = customer.get_customer_id.upper()
-                    identity_number = customer.get_identity_number.upper()
-                    first_names = customer.get_first_names.upper()
-                    surname = customer.get_surname.upper()
-                    citizenship = customer.get_citizenship.upper()
-                    passport_ID = customer.get_passport_id.upper()
-                    credit_card_no = customer.get_credit_card_no.upper()
-                    customer_db.write("{},{},{},{},{}").format(customer_ID, identity_number, first_names, 
-                                                            surname, citizenship, passport_ID, credit_card_no)
-            except:
-                return None
+                    customer_ID = customer.get_customer_id()
+                    identity_number = customer.get_identity_number()
+                    first_names = customer.get_first_names()
+                    surname = customer.get_surname()
+                    citizenship = customer.get_citizenship()
+                    passport_ID = customer.get_passport_id()
+                    credit_card_no = customer.get_credit_card_no()
+                    customer_db.write("{},{},{},{},{},{},{}\n".format(customer_ID, identity_number, first_names, surname, citizenship, passport_ID, credit_card_no))
+
