@@ -61,6 +61,7 @@ class UserInterface:
             print("{:>89}".format("3. Find order"))
             print("{:>92}".format("4. Find customer"))
             print("{:>89}".format("5. Return car"))
+            print("{:>92}".format("6. Usage history"))
             print("{:>91}".format("Q. Quit program"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -75,6 +76,8 @@ class UserInterface:
                 self.find_customer()
             if self.__menu_action == "5":
                 self.return_car()
+            if self.__menu_action == "6":
+                self.usage_history()
 
                 
 #    def show_available_cars(self):
@@ -1139,6 +1142,86 @@ class UserInterface:
             if self.__menu_action.lower() == "r":
                 self.return_car()
                 break
+
+    def usage_history(self):
+        """ Menu for showing usage history for cars/customers. """
+        def usage_history_customer():
+            """ Shows the usage history for a customer. """
+            while self.__submenu_action.lower() != "b":
+                self.print_header()
+                customer_id = input("{:>103}".format("Please enter a customer id: "))
+                valid_input = False
+                while not valid_input:
+                    try:
+                        int(customer_id)
+                        customer_orders_list = self.__order_service.get_all_orders_for_customer(customer_id)
+                        valid_input = True
+                    except ValueError:
+                        print("Invalid customer id. Please try again.")
+                        customer_id = input("{:>103}".format("Please enter a customer id: "))
+                print("\n" * 2)
+                if len(customer_orders_list) == 0:
+                    print("{:>100}".format("No orders for customer found."))
+                else:
+                    for order in customer_orders_list:
+                        print("{:>100}".format(order.__str__()))
+                print("\n" * 2)
+                print("{:>99}".format("R. Back to previous menu"))
+                print("{:>95}".format("B. Back to main menu"))
+                print("\n" * 2)
+                self.__submenu_action = input("{:>94}".format("Enter menu action: "))
+                if self.__submenu_action.lower() == "r":
+                    break
+                if self.__submenu_action.lower() == "b":
+                    self.__menu_action = "b"
+                    break
+
+
+
+        def usage_history_car():
+            """ Shows the usage history for a car. """
+            while self.__submenu_action.lower() != "b":
+                self.print_header()
+                car_id = input("{:>98}".format("Please enter a car id: "))
+                valid_input = False
+                while not valid_input:
+                    try:
+                        str(car_id)
+                        car_orders_list = self.__order_service.get_all_orders_for_car(car_id)
+                        valid_input = True
+                    except ValueError:
+                        print("{:>100}".format("Invalid customer id. Please try again."))
+                        car_id = input("{:>98}".format("Please enter a car id: "))
+                print("\n" * 2)
+                if len(car_orders_list) == 0:
+                    print("{:>100}".format("No orders for car found."))
+                else:
+                    for order in car_orders_list:
+                        print("{:>120}".format(order.__str__()))
+                print("\n" * 2)
+                print("{:>99}".format("R. Back to previous menu"))
+                print("{:>95}".format("B. Back to main menu"))
+                print("\n" * 2)
+                self.__submenu_action = input("{:>94}".format("Enter menu action: "))
+                if self.__submenu_action.lower() == "r":
+                    break
+                if self.__submenu_action.lower() == "b":
+                    self.__menu_action = "b"
+                    break
+
+        while self.__menu_action.lower() != "b":
+            self.print_header()
+
+            print("{:>111}".format("1. Show usage history for a customer"))
+            print("{:>106}".format("2. Show usage history for a car"))
+            print("{:>95}".format("B. Back to main menu"))
+            print("\n" * 2)
+            self.__menu_action = input("{:>94}".format("Enter menu action: "))
+            if self.__menu_action.lower() == "1":
+                usage_history_customer()
+            if self.__menu_action.lower() == "2":
+                usage_history_car()
+            
 
                 
     def get_additional_insuarance_cost(self, reg_num):
