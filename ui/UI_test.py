@@ -644,10 +644,6 @@ class UserInterface:
                 order.clear()
                 return False
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 5078e6bb4248ac7d777d3532a5e81f78db5b0dad
         """Printout function, to confirm order."""
         def confirmation_to_save_order(order):
             start_date = order[0]
