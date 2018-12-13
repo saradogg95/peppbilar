@@ -2,7 +2,7 @@ class Order:
     
     def __init__(self, order_id="", order_date="", rent_date_from="", 
                  rent_date_to="",insurance_with_credit_card = "", 
-                 bought_km = 100,
+                 bought_km = 100, additional_cost = "",
                  additional_insurance=False,
                  customer_id=0, car_id=0):
         self.__order_id = order_id
@@ -14,7 +14,7 @@ class Order:
         self.__customer_id = customer_id
         self.__car_id = car_id
         self.__bought_km = bought_km
-
+        self.__additional_cost = additional_cost
 
     def __str__(self):
         return "{} {} {} {} {} {} {} {} {}".format(self.__order_id, self.__order_date, 
@@ -78,3 +78,10 @@ class Order:
         
     def set_additional_insurance(self, additional_insurance):
         self.__additional_insurance = additional_insurance
+
+    def get_additional_cost(self):
+        return self.__additional_cost
+
+    def set_additional_cost(self, additional_cost):
+        self.__additional_cost = additional_cost
+
