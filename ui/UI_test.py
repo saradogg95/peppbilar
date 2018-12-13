@@ -684,6 +684,7 @@ class UserInterface:
                         additional_insurance = input("Add additional insurance?\n1. Yes.\n2. No.\n")
                         if additional_insurance == '1':
                             additional_insurance_column = 'TRUE'
+                            print(licence_plate)
                             additional_insurance_cost = self.get_additional_insuarance_cost(licence_plate)
                             price = price + additional_insurance_cost
                             valid_insurance_decision = True
@@ -695,19 +696,20 @@ class UserInterface:
                             print("Invalid input!")
 
 
-                    valid_credit_card = False
-                    while valid_credit_card == False:
-                        credit_card_info = input("Please provide credit card info: ")
-                        if len(credit_card_info) == 16:
-                            try:
-                                int(credit_card_info)
-                                valid_credit_card == True
-                            except ValueError:
-                                print("Invalid card number (16 digits required).")
-                                pass
-                    valid_credit_card == True
+#                    valid_credit_card = False
+#                    while valid_credit_card == False:
+                    credit_card_info = input("Please provide credit card info: ")
+#                        try:
+#                            int(credit_card_info)
+#                            valid_credit_card == True
+#                        except ValueError:
+#                            print("Invalid card number (16 digits required).")
+#                            pass
+#                        if len(credit_card_info) == 16:
+#                            valid_credit_card == True
+#                    valid_credit_card == True
                     valid_confirmation == True
-                    new_order_id = CustomerServices.automatic_id_generation()
+                    new_order_id = CustomerServices.automatic_id_generation(proper_customer)
                     date_of_order = date.today()
                     included_km = total_days * 100
                     new_order = Order(new_order_id, date_of_order, start_date, end_date, credit_card_info, included_km, additional_insurance_column, billing_customer, licence_plate, additional_insurance_cost)
