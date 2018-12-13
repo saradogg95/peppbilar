@@ -899,9 +899,9 @@ class UserInterface:
         while self.__menu_action.lower() != "b":
             self.print_header()
             order_to_return_id = input("{:>100}".format("Enter order number: "))
-            print(order_to_return_id)
+            order_to_return_id = order_to_return_id.upper()
             print(type(order_to_return_id))
-            order_to_return = self.__order_service.get_order(order_to_return_id)
+            order_to_return = self.__order_service.get_order("201801576")
             car_to_return = self.__car_service.get_car(order_to_return_id)
             print(car_to_return)
             print(order_to_return)
