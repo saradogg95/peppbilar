@@ -949,7 +949,7 @@ class UserInterface:
         valid_input = False
         while self.__menu_action.lower() != "b":
             self.print_header()
-            order_to_return_id = input("{:>100}".format("Enter order number: "))
+            order_to_return_id = input("{:>96}".format("Enter order number: "))
             while not valid_input:
                 try:
                     int(order_to_return_id)
@@ -957,25 +957,32 @@ class UserInterface:
                     valid_input = True
                 except ValueError:
                     print("Invalid order number. Please enter a new order number.")
-                    order_to_return_id = input("{:>100}".format("Enter order number: "))
+                    order_to_return_id = input("{:>96}".format("Enter order number: "))
             order_to_return = self.__order_service.get_order(order_to_return_id)
             if isinstance(order_to_return, str):
-                print(order_to_return)
+                print()
+                print("{:>111}".format(order_to_return))
+                print()
             else:
                 valid_input = False
-                mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+                mileage_at_return = input("{:>113}".format("Enter car's total mileage at return: "))
                 while not valid_input:
                     try:
                         mileage_at_return = int(mileage_at_return)
                         valid_input = True
                     except ValueError:
                         print("Invalid mileage entered. Please enter a valid mileage number.")
-                        mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+                        mileage_at_return = input("{:>113}".format("Enter car's total mileage at return: "))
                 car_to_return = self.__car_service.get_car(order_to_return.get_car_id())
                 mileage_at_departure = int(car_to_return.get_mileage())
                 extra_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_at_return, mileage_at_departure)
-                print("Extra cost to be paid for additional kilometers driven: ", extra_cost, " ISK")
-            print("{:>96}".format("R. Return to previous menu"))
+                print()
+                print("{:>132}{}{}".format("Extra cost to be paid for additional kilometers driven: ", extra_cost, " ISK"))
+                print()
+                #SETJA NÝJA MILAGEIÐ Á BÍLINN
+                #SETJA EXTRA COST Á ORDER
+                #SAVEA BÁÐA DB
+            print("{:>102}".format("R. Return to previous menu"))
             print("{:>96}".format("B. Back to main menu"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
