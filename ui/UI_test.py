@@ -696,11 +696,12 @@ class UserInterface:
 #                            valid_credit_card == True
 #                    valid_credit_card == True
                     valid_confirmation == True
-                    new_order_id = CustomerServices.automatic_id_generation(proper_customer)
+                    new_order_id = self.__customer_service.automatic_id_generation()
                     date_of_order = date.today()
                     included_km = total_days * 100
-                    new_order = Order(new_order_id, date_of_order, start_date, end_date, credit_card_info, included_km, additional_insurance_column, billing_customer, licence_plate, additional_insurance_cost)
-                    OrderServices.add_order(new_order)
+                    print(date_of_order)
+                    new_order = Order(str(new_order_id), str(date_of_order), str(start_date), str(end_date), str(credit_card_info), str(included_km), str(additional_insurance_column), str(billing_customer), str(licence_plate), str(additional_insurance_cost))
+                    self.__order_service.add_order(new_order)
                     return False
 
                 elif final_confirmation == "2":
