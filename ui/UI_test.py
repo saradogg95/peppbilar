@@ -922,6 +922,15 @@ class UserInterface:
                 
         def delete_customer(customer_to_change):
             """ Takes in a customer and removes them from the database. """
+            while self.__submenu_action.lower() != "b":
+                customer_id = customer_to_change.get_customer_id()
+                print(self.__customer_service.delete_customer(customer_id))
+                self.__customer_service.write_db_to_file()
+                
+                
+                print("{:>101}".format("R. Back to previous menu"))
+                print("{:>97}".format("B. Back to main menu"))
+                self.__submenu_action = input("{:>95}".format("Enter menu action: "))
 
 
         def print_bottom_menu():
