@@ -761,11 +761,11 @@ class UserInterface:
                 if this_is_today >= date_from_string(str(order.get_rent_date_from())) and date_from_string(str(order.get_rent_date_to())) >= this_is_today:
                     clashing_orders_list.append(order.get_car_id())
                 clashing_orders_set = set(clashing_orders_list)
-                for car in self.__car_service.get_all_cars():
-                    if car.get_reg_num() in clashing_orders_set:
-                            unavailable_cars.append(car)
-                for car in unavailable_cars:
-                    print(car)
+            for car in self.__car_service.get_all_cars():
+                if car.get_reg_num() in clashing_orders_set:
+                    unavailable_cars.append(car)
+            for car in unavailable_cars:
+                print(car)
             print("{:>100}".format("B. Back to main menu."))
             self.__menu_action = input("Enter menu action: ")
 
