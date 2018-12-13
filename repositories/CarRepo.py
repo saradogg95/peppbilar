@@ -26,10 +26,7 @@ class CarRepository:
                 csv_dict = csv.DictReader(cars_db)
                 for line in csv_dict:
                     new_car = Car(line["reg_num"],line["brand"], 
-                                  line["model"], line["category"],                                    
-                                  line["category_price"],
-                                  line["registration_date"],
-                                  line["mileage"])
+                                  line["model"],line["category"],line["category_price"],line["registration_date"],line["mileage"])
                     self.__cars.append(new_car)
         except FileNotFoundError:
             with open("./data/cars.csv", "w") as cars_db:
@@ -45,7 +42,7 @@ class CarRepository:
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/cars.csv", "w") as cars_db:
-                cars_db.write("reg_num, brand, model, category, category_price, registration_date, mileage\n")
+                cars_db.write("reg_num,brand,model,category,category_price,registration_date,mileage\n")
                 for car in self.__cars:
                     reg_num = car.get_reg_num()
                     brand = car.get_brand()
