@@ -82,6 +82,14 @@ class UserInterface:
 #        def place_order():
 #            """ Menu method for placing a new order. """ 
 
+    def get_additional_insuarance_cost(self, reg_num):
+        """ Takes in the car registration number and gets the cost of daily rental
+        and calculates the cost of additional insurance"""        
+        car = self.__car_service.get_car(reg_num)                 
+        #The cost of insurance is the 75% of the price of a days rental
+        return int(car.get_category_price()) * float(0.75)
+
+
 
     def show_available_cars(self):
 
@@ -669,14 +677,14 @@ class UserInterface:
                 brand, model, category, start_date, end_date, total_days, price, customer_first_names, customer_surname)))
             valid_confirmation = False
             while valid_confirmation == False:
-                final_confirmation = input("Confirm?\n1. Yes.\n2. No, cancel order.")
-                if final_confirmation == 1:
+                final_confirmation = input("Confirm?\n1. Yes.\n2. No, cancel order.\n")
+                if final_confirmation == "1":
                     valid_insurance_decision = False
                     while valid_insurance_decision == False:
-                        additional_insurance = input("Add additional insurance?\n1. Yes.\n2. No.")
+                        additional_insurance = input("Add additional insurance?\n1. Yes.\n2. No.\n")
                         if additional_insurance == '1':
                             additional_insurance_column = 'TRUE'
-                            additional_insurance_cost = get_additional_insuarance_cost(licence_plate)
+                            additional_insurance_cost = self.get_additional_insuarance_cost(licence_plate)
                             price = price + additional_insurance_cost
                             valid_insurance_decision = True
                         elif additional_insurance == '2':
@@ -697,6 +705,7 @@ class UserInterface:
                             except ValueError:
                                 print("Invalid card number (16 digits required).")
                                 pass
+                    valid_credit_card == True
                     valid_confirmation == True
                     new_order_id = CustomerServices.automatic_id_generation()
                     date_of_order = date.today()
@@ -705,7 +714,7 @@ class UserInterface:
                     OrderServices.add_order(new_order)
                     return False
 
-                elif final_confirmation == 2:
+                elif final_confirmation == "2":
                     valid_confirmation == True
                     order.clear()
                     return False
@@ -1141,12 +1150,7 @@ class UserInterface:
                 break
 
                 
-    def get_additional_insuarance_cost(self, reg_num):
-        """ Takes in the car registration number and gets the cost of daily rental
-        and calculates the cost of additional insurance"""        
-        car = self.__car_service.get_car(reg_num)                 
-        #The cost of insurance is the 75% of the price of a days rental
-        return int(car.get_category_price()) * float(0.75)
+
 
 
             
