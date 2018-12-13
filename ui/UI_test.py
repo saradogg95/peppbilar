@@ -713,6 +713,7 @@ class UserInterface:
     def show_unavailable_cars(self):
         pass
 
+
     def find_order(self):
         done = False
         while not done:
@@ -895,11 +896,11 @@ class UserInterface:
                 
         def print_bottom_menu():
             print("\n" * 2)
-            print("{:>94}".format("Change customer options:\n"))
-            print("{:>107}".format("1. Update first name"))
+            print("{:>102}".format("Change customer options:\n"))
+            print("{:>97}".format("1. Update first name"))
             print("{:>94}".format("2. Update surname"))
-            print("{:>94}".format("3. Update passport number"))
-            print("{:>94}".format("4. Update credit card number"))
+            print("{:>102}".format("3. Update passport number"))
+            print("{:>105}".format("4. Update credit card number"))
             
             
         def find_customer_by_icelandic_id():
@@ -907,11 +908,11 @@ class UserInterface:
             self.__submenu_action = ""
             while self.__submenu_action.lower() != "b":
                 self.print_header()
-                icelandic_registration_number = input("{:>100}".format("Enter Icelandic registration number: "))
+                icelandic_registration_number = input("{:>113}".format("Enter Icelandic registration number: "))
                 if len(self.__customer_service.get_customer_by_icelandic_id(icelandic_registration_number)) == 0:
-                    print("{:>100} {} {}".format("No customer with registration number", 
+                    print("{:>114} {} {}".format("No customer with registration number", 
                                                  icelandic_registration_number, "found."))
-                    print("{:>96}".format("R. Back to previous menu"))
+                    print("{:>105}".format("R. Back to previous menu"))
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
@@ -926,10 +927,10 @@ class UserInterface:
                             customer_to_change = customer
                             print("{:>100}".format(customer_to_change.__str__()))
                     print_bottom_menu()
-                    print("{:>96}".format("R. Back to previous menu"))
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>101}".format("R. Back to previous menu"))
+                    print("{:>97}".format("B. Back to main menu"))
                     print("\n" * 2)
-                    self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                    self.__submenu_action = input("{:>96}".format("Enter menu action: "))
                     if self.__submenu_action.lower() == "r":
                         break
                     if self.__submenu_action == "1":
@@ -953,8 +954,8 @@ class UserInterface:
                 passport_number = input("{:>100}".format("Enter passport number: "))
                 if len(self.__customer_service.get_customer_by_passport_no(passport_number)) == 0:
                     print("{:>100} {} {}".format("No customer with passport number", passport_number, "found."))
-                    print("{:>96}".format("R. Back to previous menu"))
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>101}".format("R. Back to previous menu"))
+                    print("{:>97}".format("B. Back to main menu"))
                     print("\n" * 2)
                     if self.__submenu_action.lower() == "r":
                         break
@@ -967,8 +968,8 @@ class UserInterface:
                             customer_to_change = customer
                             print("{:>100}".format(customer.__str__()))
                     print_bottom_menu()
-                    print("{:>96}".format("R. Back to previous menu"))
-                    print("{:>96}".format("B. Back to main menu"))
+                    print("{:>101}".format("R. Back to previous menu"))
+                    print("{:>97}".format("B. Back to main menu"))
                     print("\n" * 2)
                     self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                     if self.__submenu_action.lower() == "r":
