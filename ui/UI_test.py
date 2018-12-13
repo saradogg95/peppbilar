@@ -93,10 +93,6 @@ class UserInterface:
         input("{:>90}".format("*. Any buttom: "))
 
                 
-#    def show_available_cars(self):
-#        """ Order menu for the system. Its sub menus are nested functions within this function. """
-#        def place_order():
-#            """ Menu method for placing a new order. """ 
 
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
@@ -275,11 +271,6 @@ class UserInterface:
                         order.clear()
                         return False
 
-
-        #For a list of all cars:
-        self.__car_service = CarServices()
-        #For a list of all orders:
-        self.__order_service = OrderServices()
 
         def date_from_string(date_as_string):
             date_as_list = date_as_string.split('-')
@@ -702,6 +693,7 @@ class UserInterface:
                     print(date_of_order)
                     new_order = Order(str(new_order_id), str(date_of_order), str(start_date), str(end_date), str(credit_card_info), str(included_km), str(additional_insurance_column), str(billing_customer), str(licence_plate), str(additional_insurance_cost))
                     self.__order_service.add_order(new_order)
+                    self.__order_service.write_db_to_file()
                     return False
 
                 elif final_confirmation == "2":
@@ -750,8 +742,32 @@ class UserInterface:
         else:
             return False
 
+    
     def show_unavailable_cars(self):
-        pass
+        
+        def date_from_string(date_as_string):
+            date_as_list = date_as_string.split('-')
+            date_format = date(int(date_as_list[0]),int(date_as_list[1]),int(date_as_list[2]))
+            return date_format
+
+
+        while self.__menu_action.lower() != "b":
+            self.print_header()
+            unavailable_cars = []
+            clashing_orders_list = []
+            list_of_all_order_objects = self.__order_service.get_all_orders()
+            this_is_today = date.today()
+            for order in list_of_all_order_objects:
+                if this_is_today >= date_from_string(str(order.get_rent_date_from())) and date_from_string(str(order.get_rent_date_to())) >= this_is_today:
+                    clashing_orders_list.append(order.get_car_id())
+                clashing_orders_set = set(clashing_orders_list)
+                for car in self.__car_service.get_all_cars():
+                    if car.get_reg_num() in clashing_orders_set:
+                            unavailable_cars.append(car)
+                for car in unavailable_cars:
+                    print(car)
+            print("{:>100}".format("B. Back to main menu."))
+            self.__menu_action = input("Enter menu action: ")
 
     def find_order(self):
         done = False
