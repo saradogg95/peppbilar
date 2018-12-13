@@ -20,7 +20,7 @@ class OrderServices:
         """ Takes in an order id and gets that order from the database and 
         returns it. If no order is found returns a string """
         for order in self.__order_db.get_all_orders():
-            if order.get_order_id() == order_id:
+            if order.get_order_id().upper() == order_id.upper():
                 return order
         return "No order with order number {} found.".format(order_id)
 
