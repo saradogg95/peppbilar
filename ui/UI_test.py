@@ -59,7 +59,8 @@ class UserInterface:
             print("{:>89}".format("3. Find order"))
             print("{:>92}".format("4. Find customer"))
             print("{:>89}".format("5. Return car"))
-            print("{:>94}".format("6. Show price list"))
+            print("{:>92}".format("6. Usage history"))
+            print("{:>94}".format("7. Show price list"))
             print("{:>91}".format("Q. Quit program"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -75,6 +76,8 @@ class UserInterface:
             if self.__menu_action == "5":
                 self.return_car()
             if self.__menu_action == "6":
+                self.usage_history()
+            if self.__menu_action == "7":
                 self.show_price_list()
 
     def show_price_list(self):
@@ -641,7 +644,10 @@ class UserInterface:
                 order.clear()
                 return False
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5078e6bb4248ac7d777d3532a5e81f78db5b0dad
         """Printout function, to confirm order."""
         def confirmation_to_save_order(order):
             start_date = order[0]
@@ -706,13 +712,6 @@ class UserInterface:
                 else:
                     print("Invalid input!")
             
-
-
-
-
-
-        
-
 
         order_X = [] #Here, order details will gradually be inserted.
         ongoing_order = True #Control variable.
@@ -1111,22 +1110,102 @@ class UserInterface:
                 order_to_return.set_additional_cost(str(extra_cost)) #SETJA EXTRA COST Á ORDER
                 self.__order_service.write_db_to_file() #SAVEA BÁÐA DB
                 self.__car_service.write_db_to_file()
-            print("{:>102}".format("R. Return to previous menu"))
             print("{:>96}".format("B. Back to main menu"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
             if self.__menu_action.lower() == "b":
                 self.__menu_action = "b"
                 break
-            if self.__menu_action.lower() == "r":
-                self.return_car()
-                break
-
-                
 
 
 
+    def usage_history(self):
+        """ Menu for showing usage history for cars/customers. """
+        def usage_history_customer():
+            """ Shows the usage history for a customer. """
+            while self.__submenu_action.lower() != "b":
+                self.print_header()
+                customer_id = input("{:>103}".format("Please enter a customer id: "))
+                valid_input = False
+                while not valid_input:
+                    try:
+                        int(customer_id)
+                        customer_orders_list = self.__order_service.get_all_orders_for_customer(customer_id)
+                        valid_input = True
+                    except ValueError:
+                        print("Invalid customer id. Please try again.")
+                        customer_id = input("{:>103}".format("Please enter a customer id: "))
+                print("\n" * 2)
+                if len(customer_orders_list) == 0:
+                    print("{:>100}".format("No orders for customer found."))
+                else:
+                    for order in customer_orders_list:
+                        print("{:>100}".format(order.__str__()))
+                print("\n" * 2)
+                print("{:>99}".format("R. Back to previous menu"))
+                print("{:>95}".format("B. Back to main menu"))
+                print("\n" * 2)
+                self.__submenu_action = input("{:>94}".format("Enter menu action: "))
+                if self.__submenu_action.lower() == "r":
+                    break
+                if self.__submenu_action.lower() == "b":
+                    self.__menu_action = "b"
+                    break
+
+
+
+        def usage_history_car():
+            """ Shows the usage history for a car. """
+            while self.__submenu_action.lower() != "b":
+                self.print_header()
+                car_id = input("{:>98}".format("Please enter a car id: "))
+                valid_input = False
+                while not valid_input:
+                    try:
+                        str(car_id)
+                        car_orders_list = self.__order_service.get_all_orders_for_car(car_id)
+                        valid_input = True
+                    except ValueError:
+                        print("{:>100}".format("Invalid customer id. Please try again."))
+                        car_id = input("{:>98}".format("Please enter a car id: "))
+                print("\n" * 2)
+                if len(car_orders_list) == 0:
+                    print("{:>100}".format("No orders for car found."))
+                else:
+                    for order in car_orders_list:
+                        print("{:>120}".format(order.__str__()))
+                print("\n" * 2)
+                print("{:>99}".format("R. Back to previous menu"))
+                print("{:>95}".format("B. Back to main menu"))
+                print("\n" * 2)
+                self.__submenu_action = input("{:>94}".format("Enter menu action: "))
+                if self.__submenu_action.lower() == "r":
+                    break
+                if self.__submenu_action.lower() == "b":
+                    self.__menu_action = "b"
+                    break
+
+        while self.__menu_action.lower() != "b":
+            self.print_header()
+
+            print("{:>111}".format("1. Show usage history for a customer"))
+            print("{:>106}".format("2. Show usage history for a car"))
+            print("{:>95}".format("B. Back to main menu"))
+            print("\n" * 2)
+            self.__menu_action = input("{:>94}".format("Enter menu action: "))
+            if self.__menu_action.lower() == "1":
+                usage_history_customer()
+            if self.__menu_action.lower() == "2":
+                usage_history_car()
             
+    def get_additional_insuarance_cost(self, reg_num):
+        """ Takes in the car registration number and gets the cost of daily rental
+        and calculates the cost of additional insurance"""        
+        car = self.__car_service.get_car(reg_num)                 
+        #The cost of insurance is the 75% of the price of a days rental
+        return int(car.get_category_price()) * float(0.75)
+     
+     
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database 
         and calculates the cost without additions"""        
