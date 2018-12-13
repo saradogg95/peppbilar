@@ -242,7 +242,7 @@ class UserInterface:
                 while valid_to_date_month == False:
                     try:
                         to_date_month = int(input("TO (set month): "))
-                        if to_date_month < 100:
+                        if to_date_month < 13:
                             valid_to_date_month = True
                     except ValueError:
                         pass
@@ -250,15 +250,15 @@ class UserInterface:
                 while valid_to_date_year == False:
                     try:
                         to_date_year = int(input("TO (set year): "))
-                        if to_date_month < 100:
+                        if to_date_month < 2019:
                             valid_to_date_year = True
                     except ValueError:
                         pass
-                try:
-                    return_date = datetime.date(to_date_year, to_date_month, to_date_day)
-                    valid_input = True
-                except ValueError:
-                    print("Invalid input.")
+                    try:
+                        return_date = datetime.date(to_date_year, to_date_month, to_date_day)
+                        valid_input = True
+                    except ValueError:
+                        print("Invalid input.")
                 if outdate >= return_date:
                     self.print_header()
                     print("Invalid input. Check starting date.")
