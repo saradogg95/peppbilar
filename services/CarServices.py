@@ -33,7 +33,7 @@ class CarServices():
 
     
     def get_unavailable_cars(self):
-        """ Gets all cars from the database and returns as a list """
+        """ Gets all unavailable cars from the database and returns as a list """
         cars = []
         for line in self.__repository.get_cars():
             if line.get_availability().upper() == "False":
@@ -42,7 +42,7 @@ class CarServices():
 
     
     def get_price_by_category(self):
-        """ Gets all cars from the database and returns as a list """
+        """ Gets all cars from the database and returns prices as a list """
         all_cars = self.__repository.get_cars()
         cars = []
         for line in all_cars:
@@ -52,7 +52,7 @@ class CarServices():
 
     
     def get_brands(self):
-        """ Gets all cars from the database and returns as a list """
+        """ Gets all cars from the database and returns brands as a list """
         all_cars = self.__repository.get_cars()
         cars = []
         for line in all_cars:

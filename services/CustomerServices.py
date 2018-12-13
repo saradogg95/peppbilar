@@ -87,6 +87,7 @@ class CustomerServices:
                 get_customer.append(customer)
         return get_customer
 
+    
     def automatic_id_generation(self):
         all_customers_list = self.__customer_db.get_all_customers()
         highest_customer_id = 0

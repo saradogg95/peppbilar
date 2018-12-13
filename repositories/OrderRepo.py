@@ -19,7 +19,7 @@ class OrderRepository:
                 for line in csv_dict:
                     new_order = Order(line["Order_id"], line["Order_date"], 
                                       line["Rent_date_from"], line["Rent_date_to"],                                    
-                                      line["Insurnace_with_credit_card"],
+                                      line["Insurance_with_credit_card"],
                                       line["Bought_km"],
                                       line["Additional_Insurance"],
                                       line["Customer_id"], line["Car_id"])
@@ -27,7 +27,7 @@ class OrderRepository:
         except FileNotFoundError:
             with open("./data/orders.csv", "a+") as orders_db:
                 orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to," + 
-                "Insurnace_with_credit_card,Bought_km,Additional_Insurance,Customer_id,Car_id\n")
+                "Insurance_with_credit_card,Bought_km,Additional_Insurance,Customer_id,Car_id\n")
 
             
     def check_empty(self):
@@ -72,7 +72,8 @@ class OrderRepository:
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/orders.csv", "w") as orders_db:
-            orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to, Insurnace_with_credit_card, Mileage_out, Mileage_in, Additional_Insurance, Customer_id, Car_id\n")
+            orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to, Insurance_with_credit_card," +
+                            "Mileage_out, Mileage_in, Additional_Insurance, Customer_id, Car_id\n")
             for order in self.__orders:
                 order_id = order.get_order_id().upper()
                 order_date = order.get_order_date().upper()
@@ -84,8 +85,8 @@ class OrderRepository:
                 customer_id = order.get_customer_id().upper()
                 car_id = order.get_car_id().upper()
                 orders_db.write("{},{},{},{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
-                                                                   rent_date_to, 
-                                                                   insurance_with_credit_card,
-                                                                   bought_km,
-                                                                   additional_insurance,
-                                                                   customer_id, car_id))
+                                                                         rent_date_to, 
+                                                                         insurance_with_credit_card,
+                                                                         bought_km,
+                                                                         additional_insurance,
+                                                                         customer_id, car_id))
