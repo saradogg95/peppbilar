@@ -37,8 +37,8 @@ class EmployeeRepository:
                     password = employee.get_password()
                     admin = employee.get_admin_status()
                     employee_file.write("{},{},{},{},{},{},{} \n".format
-                                        (name, ssn, age, address, username, 
-                                         password, admin))
+                                       (name, ssn, age, address, username, 
+                                        password, admin))
                     return None
                 except:
                     print("Something wrong")
