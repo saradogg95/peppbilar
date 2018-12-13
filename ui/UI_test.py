@@ -771,6 +771,7 @@ class UserInterface:
             print("{:>92}".format("3. Rent rate from"))
             print("{:>90}".format("4. Rent date to"))
             print("{:>98}".format("5. Additional insurance"))
+            print("{:>89}".format("6. Delet order"))
             print("{:>95}".format("B. Back to main menu"))
 
             
@@ -792,10 +793,11 @@ class UserInterface:
         while self.__menu_action.lower() != "b":
             if self.__menu_action == "1":
                 self.print_header()
-                change_order_id = input("{:>92}".format("Order id change: "))
-
-                order.set_order_id(change_order_id)
+                order_id = input("{:>92}".format("Order id change: "))
+                order.set_order_id(order_id)
+                self.__order_service.write_db_to_file()
                 print(order)
+                print()
             if self.__menu_action == "2":
                 done = False
                 while not done:
@@ -812,6 +814,7 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_order_date(change_order_date)
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
             if self.__menu_action == "3":
@@ -830,6 +833,7 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_rent_date_from(change_rent_date_from)
+                self.__order_service.write_db_to_file()
                 print(order) 
                 print()   
             if self.__menu_action == "4":
@@ -848,16 +852,26 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_rent_date_to(change_rent_date_to)
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
             if self.__menu_action == "5":
                 self.print_header()
                 change_additional_insurance = input("{:>117}".format("Please input additional insurance change: "))
                 order.set_additional_insurance(change_additional_insurance)
-
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
-
+            if self.__menu_action == "6":
+                self.print_header()
+                deleted_order_msg = self.__order_service.delete_order(order_id)
+                print("{:>109}".format(deleted_order_msg))
+                print()
+                self.__order_service.write_db_to_file()
+                print("{:>104}".format("Press any button to continue\n"))
+                input("{:>90}".format("*. Any buttom: "))
+                break
+                
             print_choices()
             self.__menu_action = choice()
 
@@ -1100,19 +1114,13 @@ class UserInterface:
                 break
 
                 
-    def get_additional_insuarance_cost(self, order_id):
-        """ Takes in an order id and gets that order from the database 
+    def get_additional_insuarance_cost(self, reg_num):
+        """ Takes in the car registration number and gets the cost of daily rental
         and calculates the cost of additional insurance"""        
-        order = self.__order_service.get_order(order_id)        
-        #Check if additional inusarance was ordered
-        if order.get_additional_insurance() == "TRUE":                
-            #From the order object, we obtain the registration number for the car and 
-            #send it into get_car_by_regnum to get car category price
-            car = self.__car_service.get_car(order.get_car_id())                 
-            #The cost of insurance is the 75% of the price of a days rental
-            return int(car.get_category_price()) * float(0.75)
-        else:
-            return None 
+        car = self.__car_service.get_car(reg_num)                 
+        #The cost of insurance is the 75% of the price of a days rental
+        return int(car.get_category_price()) * float(0.75)
+
 
             
     def get_cost_without_additions(self, order_id):
