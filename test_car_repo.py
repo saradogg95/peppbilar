@@ -2,20 +2,20 @@ from repositories.CarRepo import CarRepository
 
 from services.CarServices import CarServices
 from services.OrderServices import OrderServices
-
 from ui.UI_test import UserInterface
 
 
 def main():
     car_db = CarRepository()
-    car_service = CarServices()
+    #car_service = CarServices()
     order_service = OrderServices()
-    brands = car_service.get_brands()
+    #brands = car_service.get_brands()
     ui_test = UserInterface()
     all_orders = order_service.get_all_orders()
 
-
-    history = ui_test.get_car_rent_history("RM198B\t")
+    upd_car = ui_test.update_car_mileage("FL447R","909")
+    print(upd_car)
+    history = ui_test.get_car_rent_history("RM198B")
     print(history)
     customer_history = ui_test.get_customer_rent_history("201710021")
     print(customer_history)
