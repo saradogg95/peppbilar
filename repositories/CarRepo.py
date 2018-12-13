@@ -91,4 +91,5 @@ class CarRepository:
                                                                     registration_date,
                                                                     mileage))
             except:
-                Print("Error occured in writing to database. Please try again")
+                return None
+                
