@@ -13,7 +13,7 @@ class CarServices():
         """ Takes in a registration number and asks the database to get it. 
         If no such car is found it returns None otherwise return the car """     
         for car in self.__repository.get_cars():
-            if car.get_reg_num().upper() == reg_num.upper():
+            if car.get_reg_num() == reg_num:
                 return car 
         return None
 
