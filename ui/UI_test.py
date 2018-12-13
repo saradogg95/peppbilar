@@ -920,7 +920,10 @@ class UserInterface:
                 print("\n" * 2)
                 self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                 
-                
+        def delete_customer(customer_to_change):
+            """ Takes in a customer and removes them from the database. """
+
+
         def print_bottom_menu():
             print("\n" * 2)
             print("{:>102}".format("Change customer options:\n"))
@@ -928,6 +931,7 @@ class UserInterface:
             print("{:>94}".format("2. Update surname"))
             print("{:>102}".format("3. Update passport number"))
             print("{:>105}".format("4. Update credit card number"))
+            print("{:>95}".format("5. Delete customer"))
             
             
         def find_customer_by_icelandic_id():
@@ -968,6 +972,8 @@ class UserInterface:
                         update_passport_number(customer_to_change)
                     if self.__submenu_action == "4":
                         update_cc_number(customer_to_change)
+                    if self.__submenu_action == "5":
+                        delete_customer(customer_to_change)
                     if self.__submenu_action.lower() == "b":
                         self.__menu_action = "b"
                         break
@@ -1009,6 +1015,8 @@ class UserInterface:
                         update_passport_number(customer_to_change)
                     if self.__submenu_action == "4":
                         update_cc_number(customer_to_change)
+                    if self.__submenu_action == "5":
+                        delete_customer(customer_to_change)
                     if self.__submenu_action.lower() == "b":
                         self.__menu_action = "b"
                         break
