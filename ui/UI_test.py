@@ -95,8 +95,6 @@ class UserInterface:
 #        def place_order():
 #            """ Menu method for placing a new order. """ 
 
-<<<<<<< HEAD
-=======
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
         and calculates the cost of additional insurance"""        
@@ -106,7 +104,6 @@ class UserInterface:
 
 
 
->>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
     def show_available_cars(self):
 
         #Set a day this month as starting date:
@@ -644,13 +641,6 @@ class UserInterface:
                 order.clear()
                 return False
 
-<<<<<<< HEAD
-            #else:
-            #    return False        
-
-            #found_customer = add_or_find_customer()
-=======
->>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
 
         """Printout function, to confirm order."""
         def confirmation_to_save_order(order):
@@ -715,8 +705,6 @@ class UserInterface:
                     return False
                 else:
                     print("Invalid input!")
-<<<<<<< HEAD
-=======
             
 
 
@@ -725,7 +713,6 @@ class UserInterface:
 
         
 
->>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
 
         order_X = [] #Here, order details will gradually be inserted.
         ongoing_order = True #Control variable.
@@ -1134,23 +1121,12 @@ class UserInterface:
             if self.__menu_action.lower() == "r":
                 self.return_car()
                 break
-<<<<<<< HEAD
-     
-    def get_additional_insuarance_cost(self, reg_num):
-        """ Takes in the car registration number and gets the cost of daily rental
-        and calculates the cost of additional insurance"""        
-        car = self.__car_service.get_car(reg_num)                 
-        #The cost of insurance is the 75% of the price of a days rental
-        return int(car.get_category_price()) * float(0.75)
-     
-=======
 
                 
 
 
 
             
->>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database 
         and calculates the cost without additions"""        
