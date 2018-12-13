@@ -57,10 +57,10 @@ class UserInterface:
         while self.__menu_action.lower() != "q":
             self.print_header()
             print("{:>98}".format("1. Show available cars"))
-            print("{:>89}".format("2. Find order"))
-            print("{:>92}".format("3. Find customer"))
-            print("{:>96}".format("4. Open car database"))
-            print("{:>96}".format("5. Return car"))
+            print("{:>100}".format("2. Show unavailable cars"))
+            print("{:>89}".format("3. Find order"))
+            print("{:>92}".format("4. Find customer"))
+            print("{:>89}".format("5. Return car"))
             print("{:>91}".format("Q. Quit program"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -68,11 +68,11 @@ class UserInterface:
             if self.__menu_action == "1":
                 self.show_available_cars()
             if self.__menu_action == "2":
-                self.find_order()
+                self.show_unavailable_cars()
             if self.__menu_action == "3":
-                self.find_customer()
+                self.find_order()
             if self.__menu_action == "4":
-                self.open_car_database()
+                self.find_customer()
             if self.__menu_action == "5":
                 self.return_car()
 
@@ -556,7 +556,7 @@ class UserInterface:
 
             print_options_for_user() 
             user_choice = get_user_input()
-#            while user_choice != "c":
+            #while user_choice != "c":
             if user_choice == "1":
                 customer_id = self.__customer_service.automatic_id_generation()
                 self.print_header()
@@ -650,10 +650,10 @@ class UserInterface:
                 order.clear()
                 return False
 
-#            else:
-#                return False        
+            #else:
+            #    return False        
 
-#            found_customer = add_or_find_customer()
+            #found_customer = add_or_find_customer()
 
 
 
@@ -706,7 +706,8 @@ class UserInterface:
             return False
 
 
-
+    def show_unavailable_cars(self):
+        pass
 
     def find_order(self):
         done = False
@@ -936,47 +937,6 @@ class UserInterface:
         self.__menu_action = ""
 
                 
-    def open_car_database(self):
-        """ Car database options. Its sub menus are nested within this function. """
-        def print_all_available_cars():
-            """ Prints a list of all available cars. """
-            while self.__menu_action.lower() != "b":
-                self.print_header()
-                all_cars = self.__car_service.get_all_cars()
-                for car in all_cars:
-                    if car.get_availability().upper() == "TRUE":
-                        print("{:>150}".format(car.__str__()))
-                print("\n" * 2)
-                print("{:>96}".format("B. Back to main menu"))
-                print("\n" * 2)
-                self.__menu_action = input("{:>95}".format("Enter menu action: "))
-        def print_all_unavailable_cars():
-            """ Prints a list of all cars currently out. """
-            while self.__menu_action.lower() != "b":
-                self.print_header()
-                all_cars = self.__car_service.get_all_cars()
-                for car in all_cars:
-                    if car.get_availability().upper() == "FALSE":
-                        print("{:>100}".format(car.__str__()))
-                print("\n" * 2)
-                print("{:>96}".format("B. Back to main menu"))
-                print("\n" * 2)
-                self.__menu_action = input("{:>95}".format("Enter menu action: "))
-                
-                
-        while self.__menu_action.lower() != "b":
-            self.print_header()
-            print("{:>100}".format("Car options:\n"))
-            print("{:>113}".format("1. Print a list of all available cars"))
-            print("{:>117}".format("2. Print a list of all cars currently out"))
-            print("{:>96}".format("B. Back to main menu"))
-            print("\n" * 2)
-            self.__menu_action = input("{:>95}".format("Enter menu action: "))
-
-            if self.__menu_action == "1":
-                print_all_available_cars()
-            if self.__menu_action == "2":
-                print_all_unavailable_cars()
 
                 
     def return_car(self):
@@ -1007,7 +967,6 @@ class UserInterface:
                     except ValueError:
                         print("Invalid mileage entered. Please enter a valid mileage number.")
                         mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
-                
                 car_to_return = self.__car_service.get_car(order_to_return.get_car_id())
                 mileage_at_departure = int(car_to_return.get_mileage())
                 extra_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_at_return, mileage_at_departure)
