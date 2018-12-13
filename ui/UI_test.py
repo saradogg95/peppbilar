@@ -906,7 +906,9 @@ class UserInterface:
                             total_mileage =  input("{:>100}".format("Enter total mileage of car at return: "))
                     except ValueError:
                         print("{:>100}".format("Invalid mileage entered. Please try again"))
-            
+            mileage_driven = total_mileage - car_to_return.get_mileage()
+            additional_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_driven)
+            car_to_return.set_mileage(total_mileage)
             self.print_back_to_main_menu()
 
                 
@@ -984,8 +986,7 @@ class UserInterface:
         return orders
 
     
-    def get_total_cost_for_extra_kilometers(self, order_id):
-        orders = []
+    def get_total_cost_for_extra_kilometers(self, order_id, mileage_driven):
         for order in self.__order_service.get_all_orders():
             if order.get_order_id() == order_id:
                 #get total number of days rented for
@@ -994,24 +995,15 @@ class UserInterface:
                 number_of_days = abs((end_date-start_date).days)
                 
                 #get total number of kilometers driven on rental period
-                number_of_kilometers_driven = int(order.get_mileage_in()) - int(order.get_mileage_out()) 
-                #get max number of kilometers allowed to be driven
-                max_driven = self.__max_kilometer_per_day * number_of_days
+                number_of_kilometers_included = number_of_days * self.__max_kilometer_per_day
 
                 #calculate the cost of extra kilometers
-                if number_of_kilometers_driven > max_driven:
-                    extra_kilometers = number_of_kilometers_driven - max_driven
+                if mileage_driven > number_of_kilometers_included:
+                    extra_kilometers = mileage_driven - number_of_kilometers_included
                     return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
     
-<<<<<<< HEAD
     def get_additional_cost_extra_mileage(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
-=======
-    
-    def get_additional_cost_extra_millage(self, order_id):
-        """ Takes in an order id and gets that order from the database 
-        and calculates the cost of additional insurance"""        
->>>>>>> d6e1b3a102ef22803ea6471ba699bcca19189f7c
         order = self.__order_service.get_order(order_id)                   
         #From the order object, we obtain the registration number for the car and send 
         #it into get_car_by_regnum to get car category price
