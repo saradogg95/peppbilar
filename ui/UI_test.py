@@ -823,7 +823,8 @@ class UserInterface:
                 order_id = input("{:>92}".format("Order id change: "))
                 order.set_order_id(order_id)
                 self.__order_service.write_db_to_file()
-                print(order)
+                print()
+                print("{:>130}".format(order.__str__()))
                 print()
             if self.__menu_action == "2":
                 done = False
@@ -842,7 +843,8 @@ class UserInterface:
 
                 order.set_order_date(change_order_date)
                 self.__order_service.write_db_to_file()
-                print(order)
+                print()
+                print("{:>130}".format(order.__str__()))
                 print()
             if self.__menu_action == "3":
                 done = False
@@ -861,8 +863,9 @@ class UserInterface:
 
                 order.set_rent_date_from(change_rent_date_from)
                 self.__order_service.write_db_to_file()
-                print(order) 
-                print()   
+                print()
+                print("{:>130}".format(order.__str__()))
+                print()  
             if self.__menu_action == "4":
                 done = False
                 while not done:
@@ -880,14 +883,16 @@ class UserInterface:
 
                 order.set_rent_date_to(change_rent_date_to)
                 self.__order_service.write_db_to_file()
-                print(order)
+                print()
+                print("{:>130}".format(order.__str__()))
                 print()
             if self.__menu_action == "5":
                 self.print_header()
                 change_additional_insurance = input("{:>117}".format("Please input additional insurance change: "))
                 order.set_additional_insurance(change_additional_insurance)
                 self.__order_service.write_db_to_file()
-                print(order)
+                print()
+                print("{:>130}".format(order.__str__()))
                 print()
             if self.__menu_action == "6":
                 self.print_header()
