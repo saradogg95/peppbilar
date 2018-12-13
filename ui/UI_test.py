@@ -114,7 +114,7 @@ class UserInterface:
 
             
         #Printout of date for confirmation prompt:
-        def outdate_confirmation(working_date):    
+        def outdate_confirmation(working_date):
             outdate = datetime.date(working_date[2], working_date[1], working_date[0])
             outdate_weekday = calendar.day_name[outdate.weekday()]
             outdate_month = calendar.month_name[outdate.month]
@@ -476,7 +476,8 @@ class UserInterface:
                 all_categories = get_all_categories(list_of_all_cars)
                 all_registration_dates = get_all_registration_dates(list_of_all_cars)
 
-                specifications = search_filters(list_of_all_cars,filter_option,all_brands, all_categories, all_registration_dates)
+                specifications = search_filters(list_of_all_cars,filter_option,all_brands, 
+                                                all_categories, all_registration_dates)
                 list_of_available = get_clean_list(list_of_all_cars, clashing_orders)
                 filtered_list = filter_list(list_of_available, brand=specifications[0], category=specifications[1], 
                                             registration_date=specifications[2])
@@ -567,7 +568,8 @@ class UserInterface:
                         passport_id = input("Please input passport id: ")        
                         credit_card_no = input("Please input credit card number: ")
                         new_customer = Customer(customer_id, identity_number, 
-                                                first_names, surname, citizenship, passport_id, credit_card_no) 
+                                                first_names, surname, citizenship, 
+                                                passport_id, credit_card_no) 
                         self.__customer_service.add_customer(new_customer)
                         customer = new_customer
                         print(new_customer)
@@ -737,7 +739,8 @@ class UserInterface:
                 self.print_header()
                 icelandic_registration_number = input("{:>100}".format("Enter Icelandic registration number: "))
                 if len(self.__customer_service.get_customer_by_icelandic_id(icelandic_registration_number)) == 0:
-                    print("{:>100} {} {}".format("No customer with registration number", icelandic_registration_number, "found."))
+                    print("{:>100} {} {}".format("No customer with registration number", 
+                                                 icelandic_registration_number, "found."))
                     print("{:>96}".format("R. Back to previous menu"))
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
@@ -1000,10 +1003,18 @@ class UserInterface:
                     extra_kilometers = number_of_kilometers_driven - max_driven
                     return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
     
+<<<<<<< HEAD
     def get_additional_cost_extra_mileage(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+=======
+    
+    def get_additional_cost_extra_millage(self, order_id):
+        """ Takes in an order id and gets that order from the database 
+        and calculates the cost of additional insurance"""        
+>>>>>>> d6e1b3a102ef22803ea6471ba699bcca19189f7c
         order = self.__order_service.get_order(order_id)                   
-        #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+        #From the order object, we obtain the registration number for the car and send 
+        #it into get_car_by_regnum to get car category price
         car = self.__car_service.get_car(order.get_car_id())                 
         #The cost of additional millage over 100km is 1% of daily rental cost
         return int(car.get_category_price()) * 0.01
