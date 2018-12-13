@@ -574,7 +574,8 @@ class UserInterface:
     def find_order(self):
         done = False
         while not done:
-            order_id = input("Please input the order id (q to quite): ")
+            self.print_header()
+            order_id = input("{:>115}".format("Please input the order id (q to quite): "))
             order = self.__order_service.get_order(order_id)
             if order == type(Order):
                 print(order)
@@ -584,12 +585,13 @@ class UserInterface:
                 done = True
 
         def print_choices():
-            print("Press 1 to change order id.")
-            print("Press 2 to change order date.")
-            print("Press 3 to change rent rate from.")
-            print("Press 4 to change rent date to.")
-            print("Press 5 to change additional insurance.")
-            print("Press b for back.")
+            print("{:>94}".format("Change order by:\n"))
+            print("{:>94}".format("1. Order id"))
+            print("{:>94}".format("2. Order date"))
+            print("{:>94}".format("3. Rent rate from"))
+            print("{:>94}".format("4. Rent date to"))
+            print("{:>94}".format("5. Additional insurance"))
+            print("{:>94}".format("B. Back to main menu"))
 
         def choice():
             while True:
