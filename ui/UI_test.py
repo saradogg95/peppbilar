@@ -666,7 +666,6 @@ class UserInterface:
                         additional_insurance = input("Add additional insurance?\n1. Yes.\n2. No.\n")
                         if additional_insurance == '1':
                             additional_insurance_column = 'TRUE'
-                            print(licence_plate)
                             additional_insurance_cost = self.get_additional_insuarance_cost(licence_plate)
                             price = price + additional_insurance_cost
                             valid_insurance_decision = True
@@ -680,7 +679,7 @@ class UserInterface:
 
                     #valid_credit_card = False
                     #while valid_credit_card == False:
-                    #credit_card_info = input("Please provide credit card info: ")
+                    credit_card_info = input("Please provide credit card info: ")
                         #try:
                             #int(credit_card_info)
                             #valid_credit_card == True
