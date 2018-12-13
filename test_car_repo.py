@@ -14,7 +14,8 @@ def main():
     ui_test = UserInterface()
     all_orders = order_service.get_all_orders()
 
-
+    upd_car = ui_test.update_car_mileage("OR123T\t","909")
+    print(upd_car)
     history = ui_test.get_car_rent_history("RM198B\t")
     print(history)
     customer_history = ui_test.get_customer_rent_history("201710021")
