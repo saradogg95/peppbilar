@@ -876,39 +876,26 @@ class UserInterface:
                 
     def return_car(self):
         """ Function to return a car. """
+        mileage_driven = 0
+        total_mileage = 0
+        order_to_return = ""
 
         while self.__menu_action.lower() != "b":
             self.print_header()
             order_to_return_id = input("{:>100}".format("Enter order number: "))
-            valid_input = False
-            while not valid_input:
-                try:
-                    int(order_to_return_id)
-                    order_to_return = self.__order_service.get_order(order_to_return_id)
-                    valid_input = True
-                except ValueError:
-                    print("{} is not a valid order number.")
-                    order_to_return_id = input("{:>100}".format("Enter order number: "))
-            print("\n" * 2)
-            car_to_return = self.__car_service.get_car(order_to_return.get_car_id())
-            if not car_to_return:
-                print("{:>100} {} {}".format("No car with licence plate", order_to_return.get_car_id(), "found."))
-                print("\n" * 2)
-            else:
-                mileage_complete = False
-                while not mileage_complete:
-                    total_mileage = input("{:>100}".format("Enter total mileage of car at return: "))
-                    try:
-                        total_mileage = int(total_mileage)
-                        mileage_too_low = False
-                        while not mileage_too_low:
-                            print("Mileage entered is lower than when car went out. Please enter again.")
-                            total_mileage =  input("{:>100}".format("Enter total mileage of car at return: "))
-                    except ValueError:
-                        print("{:>100}".format("Invalid mileage entered. Please try again"))
+            print(order_to_return_id)
+            print(type(order_to_return_id))
+            order_to_return = self.__order_service.get_order(order_to_return_id)
+            car_to_return = self.__car_service.get_car(order_to_return_id)
+            print(car_to_return)
+            print(order_to_return)
+
+
+
             mileage_driven = total_mileage - car_to_return.get_mileage()
             additional_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_driven)
             car_to_return.set_mileage(total_mileage)
+            order_to_return.set_additional_cost(additional_cost)
             self.print_back_to_main_menu()
 
                 
