@@ -1,4 +1,4 @@
-reg_num, brand, model, category, category_price, registration_date, mileage
+reg_num,brand,model,category,category_price,registration_date,mileage
 FL447R,AUDI,Q7,JEEP,15000,2016,7668
 JJ533G,AUDI,Q7,JEEP,10000,2016,5190
 LW888G,AUDI,SQ5,FAMILY,20000,2017,15635
