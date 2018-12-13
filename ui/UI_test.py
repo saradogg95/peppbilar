@@ -44,14 +44,12 @@ class UserInterface:
         print("{:>115}".format("-" * 40))
         print("{:>106}".format(self.__today.strftime("%A, %B %d, %Y")))
         print()
-
-        
+      
     def print_back_to_main_menu(self):
         print("{:>96}".format("B. Back to main menu"))
         print("\n" * 2)
         self.__menu_action = input("{:>95}".format("Enter menu action: "))
-
-        
+    
     def main_menu(self):
         """ Main menu. """
         while self.__menu_action.lower() != "q":
@@ -61,6 +59,8 @@ class UserInterface:
             print("{:>89}".format("3. Find order"))
             print("{:>92}".format("4. Find customer"))
             print("{:>89}".format("5. Return car"))
+            print("{:>92}".format("6. Usage history"))
+            print("{:>94}".format("7. Show price list"))
             print("{:>91}".format("Q. Quit program"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -75,6 +75,22 @@ class UserInterface:
                 self.find_customer()
             if self.__menu_action == "5":
                 self.return_car()
+            if self.__menu_action == "6":
+                self.usage_history()
+            if self.__menu_action == "7":
+                self.show_price_list()
+
+    def show_price_list(self):
+        self.print_header()
+        print("{:>87}".format("Car prices:\n"))
+        print("{:>103}".format("Compact car price: 10000 ISK"))
+        print("{:>100}".format("Jeep car price: 20000 ISK"))
+        print("{:>103}".format("Family car price: 15000 ISK\n"))
+        print("{:>93}".format("Insurance prices:\n"))
+        print("{:>116}".format("Base insurance cost: 75% of one days rent"))
+        print("{:>111}".format("Additional insurance cost: 2000 ISK\n"))
+        print("{:>104}".format("Press any button to continue\n"))
+        input("{:>90}".format("*. Any buttom: "))
 
                 
 #    def show_available_cars(self):
@@ -97,16 +113,14 @@ class UserInterface:
         def change_working_date_day(working_date, logic="STARTING"):
             set_outday = int(input("Set a day this month as {} date: ".format(logic)))
             working_date[0] = set_outday
-
-            
+          
         #Set a day of a month this year as a starting date:
         def change_working_date_day_month(working_date, logic="STARTING"):
             set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
             working_date[0] = set_out_day
             set_out_month = int(input("Set month as {} date: ".format(logic)))
             working_date[1] = set_out_month
-
-            
+        
         #Set a day next year as a starting date:
         def change_working_date_day_month_year(working_date, logic="STARTING"):
             set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
@@ -114,8 +128,7 @@ class UserInterface:
             set_out_month = int(input("Set month as {} date: ".format(logic)))
             working_date[1] = set_out_month
             working_date[2] = working_date[2]+1
-
-            
+        
         #Printout of date for confirmation prompt:
         def outdate_confirmation(working_date):
             outdate = datetime.date(working_date[2], working_date[1], working_date[0])
@@ -135,10 +148,8 @@ class UserInterface:
                 elif confirmation == '2':
                     valid_confirmation == True
                     return False
-
-                
+           
         def start_and_return_confirmation(start_date, return_date):
-            #    from datetime import datetime
             length = abs((return_date - start_date).days)
             valid_confirmation = False
             while valid_confirmation == False:
@@ -153,8 +164,7 @@ class UserInterface:
                     return False
                 else:
                     print("Invalid input.")
-    
-    
+       
         def date_validation(working_date, reference_date, working_date_saved):
             date_to_validate = datetime.date(working_date[2], working_date[1], working_date[0])
             if date_to_validate <= reference_date:
@@ -163,8 +173,7 @@ class UserInterface:
                 return False
             else:
                 return True
-
-            
+        
         def get_starting_date(order, working_date_out, this_is_today):
             starting_date_registered = False
             working_date_out_saved = working_date_out.copy()
@@ -211,8 +220,7 @@ class UserInterface:
                     return True
                 else:
                     starting_date_registered = False
-
-                    
+                  
         def get_return_date(order, working_date):
             outdate = datetime.date(working_date[2], working_date[1], working_date[0])
             outdate_weekday = calendar.day_name[outdate.weekday()]
@@ -273,29 +281,22 @@ class UserInterface:
         #For a list of all orders:
         self.__order_service = OrderServices()
 
-
         def date_from_string(date_as_string):
-            #from datetime import date
             date_as_list = date_as_string.split('-')
             date_format = date(int(date_as_list[0]),int(date_as_list[1]),int(date_as_list[2]))
             return date_format
-
-        
+  
         def get_clashing_orders(list_of_order_objects, out_date_car1, return_date_car1):
-            #Car1 is the car that's being ordered, while car0 would be whichever car in database.
+            '''Car1 is the car that's being ordered, while car0 would be whichever car in database.'''
             clashing_orders_list = []
             for order in list_of_order_objects:
                 if return_date_car1 >= date_from_string(str(order.get_rent_date_from())) and date_from_string(str(order.get_rent_date_to())) >= out_date_car1:
                     clashing_orders_list.append(order.get_car_id())
             clashing_orders_set = set(clashing_orders_list)
-            return clashing_orders_set
+            return clashing_orders_set  
 
-        #from datetime import date
-        #from datetime import timedelta
-
-        
-        #Listi yfir bíla sem eru lausir:
         def get_clean_list(list_of_all_cars, clashing_orders):
+            '''List of available cars'''
             working_list =  []
             for licence_plate in clashing_orders:
                 for car in list_of_all_cars:
@@ -306,10 +307,9 @@ class UserInterface:
                 if car not in working_list:
                     working_list_available.append(car) 
             return working_list_available
-
-        
-        #A new list for cars that meet criteria:
+     
         def filter_list(working_list, brand="", category="", registration_date=""):
+            '''A new list for cars that meet criteria:'''
             if brand == "" and category == "" and registration_date == "":
                 filtered_working_list = working_list.copy()
             else:
@@ -343,7 +343,6 @@ class UserInterface:
                     if car.get_registration_date() == registration_date:
                         filtered_working_list.append(car)
             return filtered_working_list
-
         
         def available_car_printout(filtered_working_list):
             if filtered_working_list == []:
@@ -351,8 +350,7 @@ class UserInterface:
             else:
                 for index, line in enumerate(filtered_working_list):
                     print(index+1, line)
-
-                    
+                
         def choose_car_from_list(filtered_working_list):
             if filtered_working_list == []:
                 selection = input("Press any key to go back.")
@@ -369,7 +367,6 @@ class UserInterface:
                     except ValueError:
                         print("Invalid input.")
 
-
         def car_confirmation_prompt(order, final_list, selection_as_index):
             print(final_list[selection_as_index])
             valid_confirmation = False
@@ -381,8 +378,7 @@ class UserInterface:
                 elif confirmation.lower() == "n":
                     order.clear()
                     return False
-
-                
+           
         def filter_prompt():
             valid_input = False
             self.print_header()
@@ -394,7 +390,6 @@ class UserInterface:
                     return 0
                 else:
                     print("Invalid input.")
-
                     
         def search_filters(list_of_all_cars,filter_dummy,all_brands, all_categories, all_registration_dates):
             filter_values = []
@@ -404,21 +399,18 @@ class UserInterface:
                 filter_values = filter_menu(all_brands, all_categories, all_registration_dates)
             return filter_values
     
-
         def get_all_brands(list_of_all_cars):
             brand_set = set()
             for car in list_of_all_cars:
                 brand_set.add(car.get_brand())
             return brand_set
-
         
         def get_all_categories(list_of_all_cars):
             category_set = set()
             for car in list_of_all_cars:
                 category_set.add(car.get_category())
             return category_set
-
-        
+       
         def get_all_registration_dates(list_of_all_cars):
             registration_date_set = set()
             for car in list_of_all_cars:
@@ -428,7 +420,6 @@ class UserInterface:
         
         def filter_menu(brands, categories, registration_dates):
             filter_list = []
-
             valid_brand = False
             while valid_brand == False:
                 print("\nFilter option 1/3:\nAvailable brands:")
@@ -478,8 +469,7 @@ class UserInterface:
                         print("{} not available.".format(registration_date))
 
             return filter_list
-
-        
+      
         def get_cars(order):
             full_order_confirmed = False
             while full_order_confirmed == False:
@@ -506,7 +496,6 @@ class UserInterface:
                     car_confirmation_prompt(order,filtered_list, index_num_or_quit)
                     full_order_confirmed = True
                     return True
-
 
         def add_or_find_customer(order):
             customer = None
@@ -553,8 +542,7 @@ class UserInterface:
                         return False
                     else:
                         print("Please choose one of the two options.")
-                        
-                        
+                                             
             def print_options_for_user():
                 self.print_header()
                 print("Please provide customer details:\n\n")
@@ -656,7 +644,6 @@ class UserInterface:
                 order.clear()
                 return False
 
-
         """Printout function, to confirm order."""
         def confirmation_to_save_order(order):
             start_date = order[0]
@@ -724,13 +711,6 @@ class UserInterface:
                     print("Invalid input!")
             
 
-
-
-
-
-        
-
-
         order_X = [] #Here, order details will gradually be inserted.
         ongoing_order = True #Control variable.
 
@@ -769,10 +749,8 @@ class UserInterface:
         else:
             return False
 
-
     def show_unavailable_cars(self):
         pass
-
 
     def find_order(self):
         done = False
@@ -807,7 +785,6 @@ class UserInterface:
             print("{:>89}".format("6. Delet order"))
             print("{:>95}".format("B. Back to main menu"))
 
-            
         def choice():
             while True:
                 try:
@@ -907,8 +884,7 @@ class UserInterface:
                 
             print_choices()
             self.__menu_action = choice()
-
-            
+      
     def find_customer(self):
         """ Customer options. All sub menus are nested functions within this function. """
     
@@ -925,7 +901,6 @@ class UserInterface:
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
                 
-                
         def update_surname(customer_to_change):
             """ Takes in a customer, asks the user to input a new surname and 
             then updates the customer with the new surname. """
@@ -938,8 +913,7 @@ class UserInterface:
                 print("{:>96}".format("B. Back to previous menu"))
                 print("\n" * 2)
                 self.__submenu_action = input("{:>95}".format("Enter menu action: "))
-                
-                
+                          
         def update_passport_number(customer_to_change):
             """ Takes in a customer, asks the user to input a new passport number and 
             then updates the customer with the new passport number. """
@@ -952,8 +926,7 @@ class UserInterface:
                 print("{:>96}".format("B. Back to previous menu"))
                 print("\n" * 2)
                 self.__submenu_action = input("{:>95}".format("Enter menu action: "))
-                
-                
+                      
         def update_cc_number(customer_to_change):
             """ Takes in a customer, asks the user to input a new credit card number and 
             then updates the customer with the new credit card number. """
@@ -985,7 +958,6 @@ class UserInterface:
                     self.__menu_action = "b"
                     break
 
-
         def print_bottom_menu():
             print("\n" * 2)
             print("{:>102}".format("Change customer options:\n"))
@@ -993,8 +965,7 @@ class UserInterface:
             print("{:>94}".format("2. Update surname"))
             print("{:>102}".format("3. Update passport number"))
             print("{:>105}".format("4. Update credit card number"))
-            print("{:>95}".format("5. Delete customer"))
-            
+            print("{:>95}".format("5. Delete customer"))        
             
         def find_customer_by_icelandic_id():
             """ Operations for looking for a customer using and Icelandic id number. """
@@ -1039,8 +1010,7 @@ class UserInterface:
                     if self.__submenu_action.lower() == "b":
                         self.__menu_action = "b"
                         break
-
-                        
+                    
         def find_customer_by_passport_id():
             """ Available operations when customer has been looked up by passport id. """
             self.__submenu_action = ""
@@ -1084,7 +1054,6 @@ class UserInterface:
                         self.__menu_action = "b"
                         break
 
-        
         while self.__menu_action.lower() != "b":
             self.print_header()
             print("{:>93}".format("Find customer by:\n"))
@@ -1098,7 +1067,6 @@ class UserInterface:
             if self.__menu_action == "2":
                 find_customer_by_passport_id()
         self.__menu_action = ""
-
 
     def return_car(self):
         """ Function to return a car. """
@@ -1140,22 +1108,102 @@ class UserInterface:
                 order_to_return.set_additional_cost(str(extra_cost)) #SETJA EXTRA COST Á ORDER
                 self.__order_service.write_db_to_file() #SAVEA BÁÐA DB
                 self.__car_service.write_db_to_file()
-            print("{:>102}".format("R. Return to previous menu"))
             print("{:>96}".format("B. Back to main menu"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
             if self.__menu_action.lower() == "b":
                 self.__menu_action = "b"
                 break
-            if self.__menu_action.lower() == "r":
-                self.return_car()
-                break
-
-                
 
 
 
+    def usage_history(self):
+        """ Menu for showing usage history for cars/customers. """
+        def usage_history_customer():
+            """ Shows the usage history for a customer. """
+            while self.__submenu_action.lower() != "b":
+                self.print_header()
+                customer_id = input("{:>103}".format("Please enter a customer id: "))
+                valid_input = False
+                while not valid_input:
+                    try:
+                        int(customer_id)
+                        customer_orders_list = self.__order_service.get_all_orders_for_customer(customer_id)
+                        valid_input = True
+                    except ValueError:
+                        print("Invalid customer id. Please try again.")
+                        customer_id = input("{:>103}".format("Please enter a customer id: "))
+                print("\n" * 2)
+                if len(customer_orders_list) == 0:
+                    print("{:>100}".format("No orders for customer found."))
+                else:
+                    for order in customer_orders_list:
+                        print("{:>100}".format(order.__str__()))
+                print("\n" * 2)
+                print("{:>99}".format("R. Back to previous menu"))
+                print("{:>95}".format("B. Back to main menu"))
+                print("\n" * 2)
+                self.__submenu_action = input("{:>94}".format("Enter menu action: "))
+                if self.__submenu_action.lower() == "r":
+                    break
+                if self.__submenu_action.lower() == "b":
+                    self.__menu_action = "b"
+                    break
+
+
+
+        def usage_history_car():
+            """ Shows the usage history for a car. """
+            while self.__submenu_action.lower() != "b":
+                self.print_header()
+                car_id = input("{:>98}".format("Please enter a car id: "))
+                valid_input = False
+                while not valid_input:
+                    try:
+                        str(car_id)
+                        car_orders_list = self.__order_service.get_all_orders_for_car(car_id)
+                        valid_input = True
+                    except ValueError:
+                        print("{:>100}".format("Invalid customer id. Please try again."))
+                        car_id = input("{:>98}".format("Please enter a car id: "))
+                print("\n" * 2)
+                if len(car_orders_list) == 0:
+                    print("{:>100}".format("No orders for car found."))
+                else:
+                    for order in car_orders_list:
+                        print("{:>120}".format(order.__str__()))
+                print("\n" * 2)
+                print("{:>99}".format("R. Back to previous menu"))
+                print("{:>95}".format("B. Back to main menu"))
+                print("\n" * 2)
+                self.__submenu_action = input("{:>94}".format("Enter menu action: "))
+                if self.__submenu_action.lower() == "r":
+                    break
+                if self.__submenu_action.lower() == "b":
+                    self.__menu_action = "b"
+                    break
+
+        while self.__menu_action.lower() != "b":
+            self.print_header()
+
+            print("{:>111}".format("1. Show usage history for a customer"))
+            print("{:>106}".format("2. Show usage history for a car"))
+            print("{:>95}".format("B. Back to main menu"))
+            print("\n" * 2)
+            self.__menu_action = input("{:>94}".format("Enter menu action: "))
+            if self.__menu_action.lower() == "1":
+                usage_history_customer()
+            if self.__menu_action.lower() == "2":
+                usage_history_car()
             
+    def get_additional_insuarance_cost(self, reg_num):
+        """ Takes in the car registration number and gets the cost of daily rental
+        and calculates the cost of additional insurance"""        
+        car = self.__car_service.get_car(reg_num)                 
+        #The cost of insurance is the 75% of the price of a days rental
+        return int(car.get_category_price()) * float(0.75)
+     
+     
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database 
         and calculates the cost without additions"""        
@@ -1168,7 +1216,6 @@ class UserInterface:
         #send it into get_car_by_regnum to get car category price
         car = self.__car_service.get_car(order.get_car_id())
         return int(car.get_category_price()) * number_of_days                     
-
 
     def write_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
@@ -1187,15 +1234,13 @@ class UserInterface:
         self.__car_service.write_db_to_file()
         return car
 
-
     def update_order_mileage(self, order_id, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
         order = self.__order_service.get_order(order_id)
         #update mileage
         order.set_mileage_in(mileage)
         return order
-
-    
+ 
     def get_car_rent_history(self, reg_num):
         orders = []
         for order in self.__order_service.get_all_orders():
