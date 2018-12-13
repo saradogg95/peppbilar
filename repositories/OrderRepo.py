@@ -61,7 +61,7 @@ class OrderRepository:
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/orders.csv", "w") as orders_db:
-                orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to,Insurance_with_credit_card,Bought_km,Additional_Insurance,Customer_id,Car_id, Additional_Cost\n")
+                orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to,Insurance_with_credit_card,Bought_km,Additional_Insurance,Customer_id,Car_id,Additional_Cost\n")
                 for order in self.__orders:
                     order_id = order.get_order_id().upper()
                     order_date = order.get_order_date().upper()
