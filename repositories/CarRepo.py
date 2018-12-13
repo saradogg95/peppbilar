@@ -73,19 +73,23 @@ class CarRepository:
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/cars.csv", "w") as cars_db:
-            cars_db.write("reg_num, brand, model, category, category_price, registration_date, mileage\n")
-            for car in self.__cars:
-                reg_num = car.get_reg_num().upper()
-                brand = car.get_brand().upper()
-                model = car.get_model().upper()
-                category = car.get_category().upper()
-                category_price = car.get_category_price().upper()
-                registration_date = car.get_bought_km().upper()
-                mileage = car.get_additional_insurance().upper()
-                cars_db.write("{}, {}, {}, {}, {}, {}, {}\n".format(reg_num,
-                                                                brand, 
-                                                                model, 
-                                                                category, 
-                                                                category_price,
-                                                                registration_date,
-                                                                mileage))
+            try:
+                cars_db.write("reg_num, brand, model, category, category_price, registration_date, mileage\n")
+                for car in self.__cars:
+                    reg_num = car.get_reg_num()
+                    brand = car.get_brand()
+                    model = car.get_model()
+                    category = car.get_category()
+                    category_price = car.get_category_price()
+                    registration_date = car.get_registration_date()
+                    mileage = car.get_mileage()
+                    cars_db.write("{},{},{},{},{},{},{}\n".format(reg_num,
+                                                                    brand, 
+                                                                    model, 
+                                                                    category, 
+                                                                    category_price,
+                                                                    registration_date,
+                                                                    mileage))
+            except:
+                return None
+                

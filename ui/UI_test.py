@@ -976,11 +976,11 @@ class UserInterface:
         ''' Updates milage of a car, with mileage driven by customer'''
         car = self.__car_service.get_car(reg_num)
         #gets current mileage stauts and adds to mileage driven by customer
-        new_mileage = int(car[0].get_mileage()) + int(mileage)
-        car[0].set_mileage(new_mileage)
+        new_mileage = int(car.get_mileage()) + int(mileage)
+        car.set_mileage(new_mileage)
         #Write changes to db
-        write_car_to_db()
-        return car[0]
+        self.write_car_to_db()
+        return car
 
 
     def update_order_mileage(self, order_id, mileage):
