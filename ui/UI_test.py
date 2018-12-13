@@ -311,18 +311,34 @@ class UserInterface:
                 filtered_working_list = working_list.copy()
             else:
                 filtered_working_list = []
-                if brand != "":
-                    for car in working_list:
-                        if car.get_brand() == brand:
-                            filtered_working_list.append(car)
-                if category != "":
-                    for car in working_list:
-                        if car.get_category().lower() == category.lower():
-                            filtered_working_list.append(car)
-                if registration_date != "":
-                    for car in working_list:
-                        if car.get_registration_date().lower() == registration_date.lower():
-                            filtered_working_list.append(car)
+            if brand != "" and category != "" and registration_date != "":
+                for car in working_list:
+                    if car.get_brand() == brand and car.get_category() == category and car.get_registration_date() == registration_date:
+                        filtered_working_list.append(car)
+            elif brand == "" and category != "" and registration_date != "":
+                for car in working_list:
+                    if car.get_category() == category and car.get_registration_date() == registration_date:
+                        filtered_working_list.append(car)
+            elif brand != "" and category == "" and registration_date != "":
+                for car in working_list:
+                    if car.get_brand() == brand and car.get_registration_date() == registration_date:
+                        filtered_working_list.append(car)
+            elif brand != "" and category != "" and registration_date == "":
+                for car in working_list:
+                    if car.get_brand() == brand and car.get_category() == category:
+                        filtered_working_list.append(car)
+            elif brand != "":
+                for car in working_list:
+                    if car.get_brand() == brand:
+                        filtered_working_list.append(car)
+            elif category != "":
+                for car in working_list:
+                    if car.get_category() == category:
+                        filtered_working_list.append(car)
+            elif registration_date != "":
+                for car in working_list:
+                    if car.get_registration_date() == registration_date:
+                        filtered_working_list.append(car)
             return filtered_working_list
 
         
@@ -436,8 +452,8 @@ class UserInterface:
                     filter_list.append("")
                     valid_category = True
                 else: 
-                    if category in categories:
-                        filter_list.append(category)
+                    if category.upper() in categories:
+                        filter_list.append(category.upper())
                         valid_category = True
                     else:
                         print("{} not available.".format(category))
@@ -928,19 +944,25 @@ class UserInterface:
         return int(car.get_category_price()) * number_of_days                     
 
 
-    def write_to_db(self):
+    def write_order_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         #KLÁRA AÐ SKRIFA ÞESSI METHOD FYRIR ALLA KLASA OG BÆTA VIÐ HÉR SVO DRASLIÐ SAVEIST ÞEGAR FORRITIÐ HÆTTIR
         self.__order_service.write_db_to_file()
+
+    def write_car_to_db(self):
+        """ Writes all databases to files. Call this method before program ends. """
+        self.__car_service.write_db_to_file()
 
 
     def update_car_mileage(self, reg_num, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
         car = self.__car_service.get_car(reg_num)
         #gets current mileage stauts and adds to mileage driven by customer
-        new_mileage = int(car.get_mileage()) + int(mileage)
-        car.set_mileage(new_mileage)
-        return car
+        new_mileage = int(car[0].get_mileage()) + int(mileage)
+        car[0].set_mileage(new_mileage)
+        #Write changes to db
+        write_car_to_db()
+        return car[0]
 
 
     def update_order_mileage(self, order_id, mileage):
