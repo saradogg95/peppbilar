@@ -60,5 +60,6 @@ class CarServices():
                 cars.append(line.get_brand())
         return cars
 
+    
     def write_db_to_file(self):
         self.__repository.write_db_to_file()
