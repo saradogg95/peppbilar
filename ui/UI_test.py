@@ -93,10 +93,10 @@ class UserInterface:
         input("{:>90}".format("*. Any buttom: "))
 
                 
-#    def show_available_cars(self):
-#        """ Order menu for the system. Its sub menus are nested functions within this function. """
-#        def place_order():
-#            """ Menu method for placing a new order. """ 
+
+
+
+
 
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
@@ -1194,12 +1194,7 @@ class UserInterface:
             if self.__menu_action.lower() == "2":
                 usage_history_car()
             
-    def get_additional_insuarance_cost(self, reg_num):
-        """ Takes in the car registration number and gets the cost of daily rental
-        and calculates the cost of additional insurance"""        
-        car = self.__car_service.get_car(reg_num)                 
-        #The cost of insurance is the 75% of the price of a days rental
-        return int(car.get_category_price()) * float(0.75)
+
      
      
     def get_cost_without_additions(self, order_id):
@@ -1220,6 +1215,7 @@ class UserInterface:
         #KLÁRA AÐ SKRIFA ÞESSI METHOD FYRIR ALLA KLASA OG BÆTA VIÐ HÉR SVO DRASLIÐ SAVEIST ÞEGAR FORRITIÐ HÆTTIR
         self.__order_service.write_db_to_file()
         self.__car_service.write_db_to_file()
+        self.__customer_service.write_db_to_file()
 
 
     def update_car_mileage(self, reg_num, mileage):
