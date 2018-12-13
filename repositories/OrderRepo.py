@@ -19,7 +19,7 @@ class OrderRepository:
                 for line in csv_dict:
                     new_order = Order(line["Order_id"], line["Order_date"], 
                                       line["Rent_date_from"], line["Rent_date_to"],                                    
-                                      line["Insurnace_with_credit_card"],
+                                      line["Insurance_with_credit_card"],
                                       line["Bought_km"],
                                       line["Additional_Insurance"],
                                       line["Customer_id"], line["Car_id"])
