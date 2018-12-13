@@ -1,12 +1,5 @@
 Name ,SSN,Age,Address,Username,Password,Admin
-<<<<<<< HEAD
 Guï¿½mundur Guï¿½mundsson,,35,Skutuvogur 5,Gummi1,Hackme,1
 Sigurjon Albertsson,,20,Kjarrvogi 2,SiggiA,DontHackme,0
 Vilhelmina Vilhemlsdottir,,22,Sigurlundi 15,VillaVill,PleaseDontHackmeAgain,0
 kjkj,2302895639123,0,29,kjkj,Halli da pimp,False 
-=======
-GuÐmundur GuÐmundsson,,35,Skutuvogur 5,Gummi1,Hackme,1
-Sigurjon Albertsson,,20,Kjarrvogi 2,SiggiA,DontHackme,0
-Vilhelmina Vilhemlsdottir,,22,Sigurlundi 15,VillaVill,PleaseDontHackmeAgain,0
-kjkj,2302895639123,0,29,kjkj,Halli da pimp,False 
->>>>>>> b4878ec26d15c181addc9787b4c3501de4c15191

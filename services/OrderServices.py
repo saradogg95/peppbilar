@@ -18,7 +18,7 @@ class OrderServices:
         for order in self.__order_db.get_all_orders():
             if order.get_order_id().upper() == order_id.upper():
                 return order
-        return "No order with order number {} found.".format(order_id)
+        return "No order with order number {} found".format(order_id)
   
     def get_customer_orders(self, customer_id):
         """ Takes in a customer id and returns a list with all orders for 
@@ -47,8 +47,8 @@ class OrderServices:
         for index, order in enumerate(self.__order_db.get_all_orders()):
             if order.get_order_id() == order_number:
                 self.__order_db.delete_order(index)
-                return "Order number {} was deleted.".format(order_number)
-        return "No order number {} found.".format(order_number)
+                return "Order number {} was deleted".format(order_number)
+        return "No order number {} found".format(order_number)
 
     def write_db_to_file(self):
         self.__order_db.write_db_to_file()

@@ -759,7 +759,7 @@ class UserInterface:
             elif order_id.lower() == "b":
                 return None
             elif type(order) == str:
-                print("{:>110}".format(order))
+                print("{:>109}".format(order))
                 print()
                 print("{:>104}".format("Press any button to continue\n"))
                 input("{:>90}".format("*. Any buttom: "))
@@ -784,7 +784,7 @@ class UserInterface:
                     value_error_check = int(self.__menu_action)
                     return self.__menu_action
                 except ValueError:
-                    print("Wrong input.")
+                    print("Wrong input")
 
         self.print_header()            
         print_choices()
@@ -792,7 +792,7 @@ class UserInterface:
         while self.__menu_action.lower() != "b":
             if self.__menu_action == "1":
                 self.print_header()
-                change_order_id = input("{:>105}".format("Order id change: "))
+                change_order_id = input("{:>92}".format("Order id change: "))
 
                 order.set_order_id(change_order_id)
                 print(order)
@@ -819,7 +819,7 @@ class UserInterface:
                 while not done:
                     try:
                         self.print_header()
-                        change_rent_date_from = input("{:>111}".format("Rent rate from change (YYYY-MM-DD): "))
+                        change_rent_date_from = input("{:>111}".format("Rent date from change (YYYY-MM-DD): "))
                         print()
                         year, month, day = change_order_date.split("-")
                         datetime.datetime(int(year), int(month), int(day))
