@@ -2,12 +2,11 @@ from repositories.CarRepo import CarRepository
 
 from services.CarServices import CarServices
 from services.OrderServices import OrderServices
-
 from ui.UI_test import UserInterface
 
 
 def main():
-    #car_db = CarRepository()
+    car_db = CarRepository()
     #car_service = CarServices()
     order_service = OrderServices()
     #brands = car_service.get_brands()
