@@ -18,7 +18,6 @@ class CarRepository:
         self.check_empty()
         self.__cars.append(car)
 
-            
     def populate_car_list(self):
         """ Opens the database (csv) file and reads its contents. 
         If the file doesn't exist it is created with the columns of the file. """
@@ -35,21 +34,17 @@ class CarRepository:
         except FileNotFoundError:
             with open("./data/cars.csv", "w") as cars_db:
                 cars_db.write("reg_num,brand,model,category,category_price,registration_date,mileage")
-            
 
     def get_cars(self):
         """ Returns a list of all cars in the database """
         self.check_empty()
         return self.__cars
 
-
-            
     def write_db_to_file(self):
         """ Writes the database (self.__cars) to file. 
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/cars.csv", "w") as cars_db:
-            try:
                 cars_db.write("reg_num, brand, model, category, category_price, registration_date, mileage\n")
                 for car in self.__cars:
                     reg_num = car.get_reg_num()
@@ -59,8 +54,4 @@ class CarRepository:
                     category_price = car.get_category_price()
                     registration_date = car.get_registration_date()
                     mileage = car.get_mileage()
-                    cars_db.write("{},{},{},{},{},{},{}\n".format(reg_num, brand, model, category, category_price,
-                                                                  registration_date, mileage))
-            except:
-                return None
-                
+                    cars_db.write("{},{},{},{},{},{},{}\n".format(reg_num, brand, model, category, category_price, registration_date, mileage))
