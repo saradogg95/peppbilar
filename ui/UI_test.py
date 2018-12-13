@@ -122,8 +122,9 @@ class UserInterface:
             valid_confirmation = False
             while valid_confirmation == False:
                 self.print_header()
-                print(("Date of car going out is: {}, {} {}, {}?".format(outdate_weekday.upper(), outdate_month.upper(), 
-                working_date[0], working_date[2])))
+                print(("Date of car going out is: {}, {} {}, {}?".format(outdate_weekday.upper(), 
+                                                                         outdate_month.upper(), 
+                                                                         working_date[0], working_date[2])))
                 confirmation = input("1. Confirm\n2. Change\n")
                 if confirmation == '1':
                     valid_confirmation == True
@@ -166,7 +167,8 @@ class UserInterface:
             working_date_out_saved = working_date_out.copy()
             while starting_date_registered == False:
                 self.print_header()   
-                quick_starting_date = input("Show availability FROM:\n1. Today.\n2. Another day this month.\n3. A day of another month this year.\n4. Next year.\n5. Cancel.\n")
+                quick_starting_date = input("Show availability FROM:\n1. Today.\n2. Another day this month.\n3." + 
+                                            "A day of another month this year.\n4. Next year.\n5. Cancel.\n")
                 if quick_starting_date == '1':
                     starting_date_registered = True
                 elif quick_starting_date == '2':
@@ -280,7 +282,8 @@ class UserInterface:
             #Car1 is the car that's being ordered, while car0 would be whichever car in database.
             clashing_orders_list = []
             for order in list_of_order_objects:
-                if return_date_car1 >= date_from_string(str(order.get_rent_date_from())) and date_from_string(str(order.get_rent_date_to())) >= out_date_car1:
+                if return_date_car1 >= date_from_string(str(order.get_rent_date_from())) 
+                and date_from_string(str(order.get_rent_date_to())) >= out_date_car1:
                     clashing_orders_list.append(order.get_car_id())
             clashing_orders_set = set(clashing_orders_list)
             return clashing_orders_set
@@ -476,7 +479,8 @@ class UserInterface:
 
                 specifications = search_filters(list_of_all_cars,filter_option,all_brands, all_categories, all_registration_dates)
                 list_of_available = get_clean_list(list_of_all_cars, clashing_orders)
-                filtered_list = filter_list(list_of_available, brand=specifications[0], category=specifications[1], registration_date=specifications[2])
+                filtered_list = filter_list(list_of_available, brand=specifications[0], category=specifications[1], 
+                                            registration_date=specifications[2])
                 available_car_printout(filtered_list)
                 index_num_or_quit = choose_car_from_list(filtered_list)
                 while index_num_or_quit != 999:
@@ -905,11 +909,13 @@ class UserInterface:
 
                 
     def get_additional_insuarance_cost(self, order_id):
-        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        """ Takes in an order id and gets that order from the database 
+        and calculates the cost of additional insurance"""        
         order = self.__order_service.get_order(order_id)        
         #Check if additional inusarance was ordered
         if order.get_additional_insurance() == "TRUE":                
-            #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+            #From the order object, we obtain the registration number for the car and 
+            #send it into get_car_by_regnum to get car category price
             car = self.__car_service.get_car(order.get_car_id())                 
             #The cost of insurance is the 75% of the price of a days rental
             return int(car[0].get_category_price()) * float(0.75)
@@ -918,13 +924,15 @@ class UserInterface:
 
             
     def get_cost_without_additions(self, order_id):
-        """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
+        """ Takes in an order id and gets that order from the database 
+        and calculates the cost without additions"""        
         order = self.__order_service.get_order(order_id)
         #We need the number of days the car is being rent for to calculat the total cost
         start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
         end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
         number_of_days = abs((end_date-start_date).days)
-        #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+        #From the order object, we obtain the registration number for the car and 
+        #send it into get_car_by_regnum to get car category price
         car = self.__car_service.get_car(order.get_car_id())
         return int(car.get_category_price()) * number_of_days                     
 
