@@ -476,7 +476,8 @@ class UserInterface:
                 all_categories = get_all_categories(list_of_all_cars)
                 all_registration_dates = get_all_registration_dates(list_of_all_cars)
 
-                specifications = search_filters(list_of_all_cars,filter_option,all_brands, all_categories, all_registration_dates)
+                specifications = search_filters(list_of_all_cars,filter_option,all_brands, 
+                                                all_categories, all_registration_dates)
                 list_of_available = get_clean_list(list_of_all_cars, clashing_orders)
                 filtered_list = filter_list(list_of_available, brand=specifications[0], category=specifications[1], 
                                             registration_date=specifications[2])
@@ -567,7 +568,8 @@ class UserInterface:
                         passport_id = input("Please input passport id: ")        
                         credit_card_no = input("Please input credit card number: ")
                         new_customer = Customer(customer_id, identity_number, 
-                                                first_names, surname, citizenship, passport_id, credit_card_no) 
+                                                first_names, surname, citizenship, 
+                                                passport_id, credit_card_no) 
                         self.__customer_service.add_customer(new_customer)
                         customer = new_customer
                         print(new_customer)
@@ -737,7 +739,8 @@ class UserInterface:
                 self.print_header()
                 icelandic_registration_number = input("{:>100}".format("Enter Icelandic registration number: "))
                 if len(self.__customer_service.get_customer_by_icelandic_id(icelandic_registration_number)) == 0:
-                    print("{:>100} {} {}".format("No customer with registration number", icelandic_registration_number, "found."))
+                    print("{:>100} {} {}".format("No customer with registration number", 
+                                                 icelandic_registration_number, "found."))
                     print("{:>96}".format("R. Back to previous menu"))
                     print("{:>96}".format("B. Back to main menu"))
                     print("\n" * 2)
@@ -927,8 +930,8 @@ class UserInterface:
         and calculates the cost without additions"""        
         order = self.__order_service.get_order(order_id)
         #We need the number of days the car is being rent for to calculat the total cost
-        start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
-        end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
+        start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
+        end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
         number_of_days = abs((end_date-start_date).days)
         #From the order object, we obtain the registration number for the car and 
         #send it into get_car_by_regnum to get car category price
@@ -986,8 +989,8 @@ class UserInterface:
         for order in self.__order_service.get_all_orders():
             if order.get_order_id() == order_id:
                 #get total number of days rented for
-                start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
-                end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
+                start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
+                end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
                 number_of_days = abs((end_date-start_date).days)
                 
                 #get total number of kilometers driven on rental period
@@ -999,4 +1002,15 @@ class UserInterface:
                 if number_of_kilometers_driven > max_driven:
                     extra_kilometers = number_of_kilometers_driven - max_driven
                     return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
+    
+    
+    def get_additional_cost_extra_millage(self, order_id):
+        """ Takes in an order id and gets that order from the database 
+        and calculates the cost of additional insurance"""        
+        order = self.__order_service.get_order(order_id)                   
+        #From the order object, we obtain the registration number for the car and send 
+        #it into get_car_by_regnum to get car category price
+        car = self.__car_service.get_car(order.get_car_id())                 
+        #The cost of additional millage over 100km is 1% of daily rental cost
+        return int(car.get_category_price()) * 0.01
 
