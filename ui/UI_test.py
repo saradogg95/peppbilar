@@ -44,7 +44,8 @@ class UserInterface:
         print("{:>115}".format("-" * 40))
         print("{:>106}".format(self.__today.strftime("%A, %B %d, %Y")))
         print()
- 
+
+        
     def print_back_to_main_menu(self):
         print("{:>96}".format("B. Back to main menu"))
         print("\n" * 2)
@@ -899,32 +900,34 @@ class UserInterface:
                 except ValueError:
                     print("Invalid order number. Please enter a new order number.")
                     order_to_return_id = input("{:>100}".format("Enter order number: "))
-            if type(order_to_return) == str:
-                print(order_to_return)
-            valid_input = False
-            mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
-            while not valid_input:
-                try:
-                    mileage_at_return = int(mileage_at_return)
-                    valid_input = True
-                except ValueError:
-                    print("Invalid mileage entered. Please enter a valid mileage number.")
-                    mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
             order_to_return = self.__order_service.get_order(order_to_return_id)
-            print(type(order_to_return))
-            if type(order_to_return) == str:
+            if isinstance(order_to_return, str):
                 print(order_to_return)
             else:
+                valid_input = False
+                mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+                while not valid_input:
+                    try:
+                        mileage_at_return = int(mileage_at_return)
+                        valid_input = True
+                    except ValueError:
+                        print("Invalid mileage entered. Please enter a valid mileage number.")
+                        mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+                
                 car_to_return = self.__car_service.get_car(order_to_return.get_car_id())
-                print("order_to_return.get_car_id()", order_to_return.get_car_id(), type(order_to_return.get_car_id()))
                 mileage_at_departure = int(car_to_return.get_mileage())
                 extra_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_at_return, mileage_at_departure)
                 print("Extra cost to be paid for additional kilometers driven: ", extra_cost, " ISK")
-
+            print("{:>96}".format("R. Return to previous menu"))
             print("{:>96}".format("B. Back to main menu"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
-
+            if self.__menu_action.lower() == "b":
+                self.__menu_action = "b"
+                break
+            if self.__menu_action.lower() == "r":
+                self.return_car()
+                break
 
                 
     def get_additional_insuarance_cost(self, order_id):
@@ -955,6 +958,7 @@ class UserInterface:
         car = self.__car_service.get_car(order.get_car_id())
         return int(car.get_category_price()) * number_of_days                     
 
+
     def write_order_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         #KLÁRA AÐ SKRIFA ÞESSI METHOD FYRIR ALLA KLASA OG BÆTA VIÐ HÉR SVO DRASLIÐ SAVEIST ÞEGAR FORRITIÐ HÆTTIR
@@ -963,6 +967,7 @@ class UserInterface:
     def write_car_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         self.__car_service.write_db_to_file()
+
 
     def update_car_mileage(self, reg_num, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
@@ -974,6 +979,7 @@ class UserInterface:
         self.write_car_to_db()
         return car
 
+
     def update_order_mileage(self, order_id, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
         order = self.__order_service.get_order(order_id)
@@ -981,6 +987,7 @@ class UserInterface:
         order.set_mileage_in(mileage)
         return order
 
+    
     def get_car_rent_history(self, reg_num):
         orders = []
         for order in self.__order_service.get_all_orders():
@@ -991,6 +998,7 @@ class UserInterface:
                 + " To: " + order.get_rent_date_to())
         return orders
 
+    
     def get_customer_rent_history(self, customer_id):
         orders = []
         for order in self.__order_service.get_all_orders():
@@ -1001,6 +1009,7 @@ class UserInterface:
                 + " To: " + order.get_rent_date_to())
         return orders
 
+    
     def get_total_cost_for_extra_kilometers(self, order_id, mileage_driven, mileage_at_departure):
         for order in self.__order_service.get_all_orders():
             if order.get_order_id() == order_id:
