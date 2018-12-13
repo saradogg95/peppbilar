@@ -939,13 +939,18 @@ class UserInterface:
             while self.__submenu_action.lower() != "b":
                 self.print_header()
                 customer_id = customer_to_change.get_customer_id()
-                print(self.__customer_service.delete_customer(customer_id))
+                print("{:>100}".format(self.__customer_service.delete_customer(customer_id)))
                 self.__customer_service.write_db_to_file()
-                
+                print("\n" * 2)
                 
                 print("{:>101}".format("R. Back to previous menu"))
                 print("{:>97}".format("B. Back to main menu"))
-                self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                self.__submenu_action = input("{:>97}".format("Enter menu action: "))
+                if self.__submenu_action.lower() == "r":
+                    break
+                if self.__submenu_action.lower() == "b":
+                    self.__menu_action = "b"
+                    break
 
 
         def print_bottom_menu():
