@@ -1,7 +1,7 @@
 class Car:
     
-    def __init__(self, reg_num=0, brand="", model="", category="", 
-                 category_price="", registration_date="", mileage=0):
+    def __init__(self, reg_num="0", brand="", model="", category="", 
+                 category_price="", registration_date="", mileage="0"):
         self.__reg_num = reg_num
         self.__brand = brand
         self.__model = model
