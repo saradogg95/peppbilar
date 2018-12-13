@@ -769,9 +769,10 @@ class UserInterface:
                 if car.get_reg_num() in clashing_orders_set:
                     unavailable_cars.append(car)
             for car in unavailable_cars:
-                print(car)
-            print("{:>100}".format("B. Back to main menu."))
-            self.__menu_action = input("Enter menu action: ")
+                print("{:>130}".format(car.__str__()))
+            print("\n" * 2)
+            print("{:>97}".format("B. Back to main menu."))
+            self.__menu_action = input("{:>95}".format("Enter menu action: "))
 
     def find_order(self):
         done = False
