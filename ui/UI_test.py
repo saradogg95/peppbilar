@@ -623,17 +623,24 @@ class UserInterface:
         done = False
         while not done:
             self.print_header()
-            order_id = input("{:>114}".format("Please input the order id (q to back): "))
+            print("{:>96}".format("B. Back to main menu\n"))
+            print("{:>101}".format("Please input the order id "))
+            order_id = input("{:>85}".format("Order id: "))
             print()
             order = self.__order_service.get_order(order_id)
-            if order == type(Order):
-                print("{:>92}".format(order))
-                input("type")
+            if type(order) == Order:
+                self.print_header()
+                print("{:>88}".format("Order found.\n"))
+                print("{:>104}".format("Press any button to continue\n"))
+                input("{:>90}".format("*. Any buttom: "))
                 done = True
-            elif order_id == "q":
+            elif order_id.lower() == "b":
                 return None
-            elif type(order_id) == str:
+            elif type(order) == str:
                 print("{:>110}".format(order))
+                print()
+                print("{:>104}".format("Press any button to continue\n"))
+                input("{:>90}".format("*. Any buttom: "))
                 
         def print_choices():
             print("{:>92}".format("Change order by:\n"))
@@ -657,35 +664,78 @@ class UserInterface:
                 except ValueError:
                     print("Wrong input.")
 
-                    
+        self.print_header()            
         print_choices()
         self.__menu_action = choice()
         while self.__menu_action.lower() != "b":
             if self.__menu_action == "1":
                 self.print_header()
-                change_order_id = input("{:>105}".format("Please input order id change: "))
+                change_order_id = input("{:>105}".format("Order id change: "))
+
                 order.set_order_id(change_order_id)
                 print(order)
             if self.__menu_action == "2":
-                self.print_header()
-                change_order_date = input("{:>107}".format("Please input order date change: "))
+                done = False
+                while not done:
+                    try:
+                        self.print_header()
+                        change_order_date = input("{:>107}".format("Order date change (YYYY-MM-DD): "))
+                        print()
+                        year, month, day = change_order_date.split("-")
+                        datetime.datetime(int(year), int(month), int(day))
+                        done = True
+                    except:
+                        print("{:>96}".format("Wrong datetime input\n"))
+                        print("{:>104}".format("Press any button to continue\n"))
+                        input("{:>90}".format("*. Any buttom: "))
+
                 order.set_order_date(change_order_date)
                 print(order)
+                print()
             if self.__menu_action == "3":
-                self.print_header()
-                change_rent_date_from = input("{:>111}".format("Please input rent rate from change: "))
+                done = False
+                while not done:
+                    try:
+                        self.print_header()
+                        change_rent_date_from = input("{:>111}".format("Rent rate from change (YYYY-MM-DD): "))
+                        print()
+                        year, month, day = change_order_date.split("-")
+                        datetime.datetime(int(year), int(month), int(day))
+                        done = True
+                    except:
+                        print("{:>96}".format("Wrong datetime input\n"))
+                        print("{:>104}".format("Press any button to continue\n"))
+                        input("{:>90}".format("*. Any buttom: "))
+
                 order.set_rent_date_from(change_rent_date_from)
-                print(order)    
+                print(order) 
+                print()   
             if self.__menu_action == "4":
-                self.print_header()
-                change_rent_date_to = input("{:>109}".format("Please input rent date to change: "))
+                done = False
+                while not done:
+                    try:
+                        self.print_header()
+                        change_rent_date_to = input("{:>109}".format("Rent date to change (YYYY-MM-DD): "))
+                        print()
+                        year, month, day = change_order_date.split("-")
+                        datetime.datetime(int(year), int(month), int(day))
+                        done = True
+                    except:
+                        print("{:>96}".format("Wrong datetime input\n"))
+                        print("{:>104}".format("Press any button to continue\n"))
+                        input("{:>90}".format("*. Any buttom: "))
+
                 order.set_rent_date_to(change_rent_date_to)
                 print(order)
+                print()
             if self.__menu_action == "5":
                 self.print_header()
                 change_additional_insurance = input("{:>117}".format("Please input additional insurance change: "))
                 order.set_additional_insurance(change_additional_insurance)
+
                 print(order)
+                print()
+
             print_choices()
             self.__menu_action = choice()
 
