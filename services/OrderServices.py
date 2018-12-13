@@ -50,5 +50,21 @@ class OrderServices:
                 return "Order number {} was deleted".format(order_number)
         return "No order number {} found".format(order_number)
 
+    def get_all_orders_for_customer(self, customer_id):
+        """ Takes in a customer id and returns a list with all orders for that customer. """
+        orders = []
+        for order in self.__order_db.get_all_orders():
+            if order.get_customer_id() == customer_id:
+                orders.append(order)
+        return orders
+
+    def get_all_orders_for_car(self, car_id):
+        """ Takes in a car id and returns a list with all orders for that car. """
+        orders = []
+        for order in self.__order_db.get_all_orders():
+            if order.get_car_id() == car_id:
+                orders.append(order)
+        return orders
+
     def write_db_to_file(self):
         self.__order_db.write_db_to_file()
