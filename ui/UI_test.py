@@ -289,10 +289,6 @@ class UserInterface:
         #Listi yfir bíla sem eru lausir:
         def get_clean_list(list_of_all_cars, clashing_orders):
             working_list =  []
-            #TBD:
-            print("List of all cars: {}".format(list_of_all_cars))
-            print("List of clashing orders: {}".format(clashing_orders))
-            disruptive = input("Disruptive prompt.")
             for licence_plate in clashing_orders:
                 for car in list_of_all_cars:
                     if car.get_reg_num() == licence_plate:
@@ -306,9 +302,6 @@ class UserInterface:
         
         #A new list for cars that meet criteria:
         def filter_list(working_list, brand="", category="", registration_date=""):
-            #TBD:
-            print("This is a list of cars:")
-            print(working_list)
             if brand == "" and category == "" and registration_date == "":
                 filtered_working_list = working_list.copy()
             else:
@@ -635,6 +628,8 @@ class UserInterface:
                     customer = self.__customer_service.get_customer_after_id_num(id_num)
                     if customer:
                         order.append(customer.get_customer_id())
+                        print(customer)
+                        disruptive = input("Disruptive input.")
                         return True
                     else:
                         print("Customer not found.")
