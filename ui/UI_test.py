@@ -311,18 +311,34 @@ class UserInterface:
                 filtered_working_list = working_list.copy()
             else:
                 filtered_working_list = []
-                if brand != "":
-                    for car in working_list:
-                        if car.get_brand() == brand:
-                            filtered_working_list.append(car)
-                if category != "":
-                    for car in working_list:
-                        if car.get_category().lower() == category.lower():
-                            filtered_working_list.append(car)
-                if registration_date != "":
-                    for car in working_list:
-                        if car.get_registration_date().lower() == registration_date.lower():
-                            filtered_working_list.append(car)
+            if brand != "" and category != "" and registration_date != "":
+                for car in working_list:
+                    if car.get_brand() == brand and car.get_category() == category and car.get_registration_date() == registration_date:
+                        filtered_working_list.append(car)
+            elif brand == "" and category != "" and registration_date != "":
+                for car in working_list:
+                    if car.get_category() == category and car.get_registration_date() == registration_date:
+                        filtered_working_list.append(car)
+            elif brand != "" and category == "" and registration_date != "":
+                for car in working_list:
+                    if car.get_brand() == brand and car.get_registration_date() == registration_date:
+                        filtered_working_list.append(car)
+            elif brand != "" and category != "" and registration_date == "":
+                for car in working_list:
+                    if car.get_brand() == brand and car.get_category() == category:
+                        filtered_working_list.append(car)
+            elif brand != "":
+                for car in working_list:
+                    if car.get_brand() == brand:
+                        filtered_working_list.append(car)
+            elif category != "":
+                for car in working_list:
+                    if car.get_category() == category:
+                        filtered_working_list.append(car)
+            elif registration_date != "":
+                for car in working_list:
+                    if car.get_registration_date() == registration_date:
+                        filtered_working_list.append(car)
             return filtered_working_list
 
         
@@ -436,8 +452,8 @@ class UserInterface:
                     filter_list.append("")
                     valid_category = True
                 else: 
-                    if category in categories:
-                        filter_list.append(category)
+                    if category.upper() in categories:
+                        filter_list.append(category.upper())
                         valid_category = True
                     else:
                         print("{} not available.".format(category))
