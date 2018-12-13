@@ -987,12 +987,12 @@ class UserInterface:
         
         while self.__menu_action.lower() != "b":
             self.print_header()
-            print("{:>94}".format("Find customer by:\n"))
+            print("{:>93}".format("Find customer by:\n"))
             print("{:>107}".format("1. Icelandic registration number"))
-            print("{:>94}".format("2. Passport number"))
-            print("{:>96}".format("B. Back to main menu"))
+            print("{:>93}".format("2. Passport number"))
+            print("{:>95}".format("B. Back to main menu"))
             print("\n" * 2)
-            self.__menu_action = input("{:>95}".format("Enter menu action: "))
+            self.__menu_action = input("{:>94}".format("Enter menu action: "))
             if self.__menu_action == "1":
                 find_customer_by_icelandic_id()
             if self.__menu_action == "2":
