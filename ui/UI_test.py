@@ -771,6 +771,7 @@ class UserInterface:
             print("{:>92}".format("3. Rent rate from"))
             print("{:>90}".format("4. Rent date to"))
             print("{:>98}".format("5. Additional insurance"))
+            print("{:>89}".format("6. Delet order"))
             print("{:>95}".format("B. Back to main menu"))
 
             
@@ -792,10 +793,11 @@ class UserInterface:
         while self.__menu_action.lower() != "b":
             if self.__menu_action == "1":
                 self.print_header()
-                change_order_id = input("{:>92}".format("Order id change: "))
-
-                order.set_order_id(change_order_id)
+                order_id = input("{:>92}".format("Order id change: "))
+                order.set_order_id(order_id)
+                self.__order_service.write_db_to_file()
                 print(order)
+                print()
             if self.__menu_action == "2":
                 done = False
                 while not done:
@@ -812,6 +814,7 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_order_date(change_order_date)
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
             if self.__menu_action == "3":
@@ -830,6 +833,7 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_rent_date_from(change_rent_date_from)
+                self.__order_service.write_db_to_file()
                 print(order) 
                 print()   
             if self.__menu_action == "4":
@@ -848,16 +852,26 @@ class UserInterface:
                         input("{:>90}".format("*. Any buttom: "))
 
                 order.set_rent_date_to(change_rent_date_to)
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
             if self.__menu_action == "5":
                 self.print_header()
                 change_additional_insurance = input("{:>117}".format("Please input additional insurance change: "))
                 order.set_additional_insurance(change_additional_insurance)
-
+                self.__order_service.write_db_to_file()
                 print(order)
                 print()
-
+            if self.__menu_action == "6":
+                self.print_header()
+                deleted_order_msg = self.__order_service.delete_order(order_id)
+                print("{:>109}".format(deleted_order_msg))
+                print()
+                self.__order_service.write_db_to_file()
+                print("{:>104}".format("Press any button to continue\n"))
+                input("{:>90}".format("*. Any buttom: "))
+                break
+                
             print_choices()
             self.__menu_action = choice()
 
@@ -922,6 +936,15 @@ class UserInterface:
                 
         def delete_customer(customer_to_change):
             """ Takes in a customer and removes them from the database. """
+            while self.__submenu_action.lower() != "b":
+                customer_id = customer_to_change.get_customer_id()
+                print(self.__customer_service.delete_customer(customer_id))
+                self.__customer_service.write_db_to_file()
+                
+                
+                print("{:>101}".format("R. Back to previous menu"))
+                print("{:>97}".format("B. Back to main menu"))
+                self.__submenu_action = input("{:>95}".format("Enter menu action: "))
 
 
         def print_bottom_menu():
