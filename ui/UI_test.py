@@ -551,7 +551,7 @@ class UserInterface:
                 self.print_header()
                 print("Please provide customer details:\n\n")
                 print("Press 1 to add new customer.")
-                print("Press 2 to find costumer.")
+                print("Press 2 to find customer.")
                 print("Or press 'c' to cancel the order.")
 
             print_options_for_user() 
@@ -638,6 +638,8 @@ class UserInterface:
                     customer = self.__customer_service.get_customer_after_pass_id(pass_id)
                     if customer:
                         order.append(customer.get_customer_id())
+                        print(customer)
+                        disruptive = input("Disruptive input.")
                         return True
                     else:
                         print("Customer not found.")
