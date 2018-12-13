@@ -923,6 +923,7 @@ class UserInterface:
         def delete_customer(customer_to_change):
             """ Takes in a customer and removes them from the database. """
             while self.__submenu_action.lower() != "b":
+                self.print_header()
                 customer_id = customer_to_change.get_customer_id()
                 print(self.__customer_service.delete_customer(customer_id))
                 self.__customer_service.write_db_to_file()
@@ -1008,6 +1009,7 @@ class UserInterface:
                     for customer in self.__customer_service.get_all_customers():
                         if customer.get_passport_id().upper() == passport_number.upper():
                             customer_to_change = customer
+                            print("\n" * 2)
                             print("{:>100}".format(customer.__str__()))
                     print_bottom_menu()
                     print("{:>101}".format("R. Back to previous menu"))
