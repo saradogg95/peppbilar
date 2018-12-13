@@ -61,6 +61,7 @@ class UserInterface:
             print("{:>89}".format("3. Find order"))
             print("{:>92}".format("4. Find customer"))
             print("{:>89}".format("5. Return car"))
+            print("{:>94}".format("6. Show price list"))
             print("{:>91}".format("Q. Quit program"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
@@ -75,6 +76,20 @@ class UserInterface:
                 self.find_customer()
             if self.__menu_action == "5":
                 self.return_car()
+            if self.__menu_action == "6":
+                self.show_price_list()
+
+    def show_price_list(self):
+        self.print_header()
+        print("{:>87}".format("Car prices:\n"))
+        print("{:>103}".format("Compact car price: 10000 ISK"))
+        print("{:>100}".format("Jeep car price: 20000 ISK"))
+        print("{:>103}".format("Family car price: 15000 ISK\n"))
+        print("{:>93}".format("Insurance prices:\n"))
+        print("{:>116}".format("Base insurance cost: 75% of one days rent"))
+        print("{:>111}".format("Additional insurance cost: 2000 ISK\n"))
+        print("{:>104}".format("Press any button to continue\n"))
+        input("{:>90}".format("*. Any buttom: "))
 
                 
 #    def show_available_cars(self):
