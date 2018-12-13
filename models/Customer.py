@@ -11,10 +11,9 @@ class Customer:
         self.__credit_card_no = credit_card_no
    
     def __str__(self):
-        return "{}, {}, {}, {}, {}, {}, {}".format(self.__customer_id, self.__identity_number, 
+        return "{}  {}  {}  {}  {}  {}".format(self.__customer_id, self.__identity_number, 
                                                    self.__first_names, self.__surname, 
-                                                   self.__citizenship, self.__passport_id,
-                                                   self.__credit_card_no)
+                                                   self.__citizenship, self.__passport_id)
 
     def get_customer_id(self):
         return self.__customer_id
