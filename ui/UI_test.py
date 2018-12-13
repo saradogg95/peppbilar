@@ -1000,9 +1000,7 @@ class UserInterface:
                 find_customer_by_passport_id()
         self.__menu_action = ""
 
-                
 
-                
     def return_car(self):
         """ Function to return a car. """
         order_to_return = ""
@@ -1037,11 +1035,12 @@ class UserInterface:
                 mileage_at_departure = int(car_to_return.get_mileage())
                 extra_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_at_return, mileage_at_departure)
                 print()
-                print("{:>132}{}{}".format("Extra cost to be paid for additional kilometers driven: ", extra_cost, " ISK"))
+                print("{:>132}{}{}".format("Extra cost to be paid for additional kilometers driven: ", int(extra_cost), " ISK"))
                 print()
-                #SETJA NÝJA MILAGEIÐ Á BÍLINN
-                #SETJA EXTRA COST Á ORDER
-                #SAVEA BÁÐA DB
+                car_to_return.set_mileage(str(mileage_at_return)) #SETJA NÝJA MILAGEIÐ Á BÍLINN
+                order_to_return.set_additional_cost(str(extra_cost)) #SETJA EXTRA COST Á ORDER
+                self.__order_service.write_db_to_file() #SAVEA BÁÐA DB
+                self.__car_service.write_db_to_file()
             print("{:>102}".format("R. Return to previous menu"))
             print("{:>96}".format("B. Back to main menu"))
             print("\n" * 2)
