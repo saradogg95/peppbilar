@@ -234,7 +234,7 @@ class UserInterface:
                 while valid_to_date_day == False:
                     try:
                         to_date_day = int(input("TO (set day): "))
-                        if to_date_day < 100:
+                        if to_date_day < 32:
                             valid_to_date_day = True
                     except ValueError:
                         pass
@@ -254,26 +254,26 @@ class UserInterface:
                             valid_to_date_year = True
                     except ValueError:
                         pass
-                    try:
-                        return_date = datetime.date(to_date_year, to_date_month, to_date_day)
-                        valid_input = True
-                    except ValueError:
-                        print("Invalid input.")
-                if outdate >= return_date:
-                    self.print_header()
-                    print("Invalid input. Check starting date.")
-                    print(("FROM: {}, {} {}, {}".format(outdate_weekday.upper(), outdate_month.upper(), 
-                    working_date[0], working_date[2])))
-                    valid_input = False
-                else:
-                    self.print_header()
-                    confirmation = start_and_return_confirmation(outdate, return_date)
-                    if confirmation == True:
-                        order.append(return_date)
-                        return True
+                try:
+                    return_date = datetime.date(to_date_year, to_date_month, to_date_day)
+                    valid_input = True
+                    if outdate >= return_date:
+                        self.print_header()
+                        print("Invalid input. Check starting date.")
+                        print(("FROM: {}, {} {}, {}".format(outdate_weekday.upper(), outdate_month.upper(), 
+                        working_date[0], working_date[2])))
+                        valid_input = False
                     else:
-                        order.clear()
-                        return False
+                        self.print_header()
+                        confirmation = start_and_return_confirmation(outdate, return_date)
+                        if confirmation == True:
+                            order.append(return_date)
+                            return True
+                        else:
+                            order.clear()
+                            return False
+                except ValueError:
+                    print("Invalid input.")
 
 
         def date_from_string(date_as_string):
