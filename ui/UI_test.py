@@ -921,10 +921,12 @@ class UserInterface:
             while self.__submenu_action.lower() != "b":
                 self.print_header()
                 print("{:>94}{}".format("Change customer first name: ", ("\n" * 2)))
-                new_first_name = input("Enter customer new first name: ")
+                new_first_name = input("{:>95}".format("Enter customer new first name: "))
                 customer_to_change.set_first_name(new_first_name)
-                #write_to_customer_db call here to save changes to hd file
+                self.__customer_service.write_db_to_file()
                 print("{:>96}".format("B. Back to previous menu"))
+                print("\n" * 2)
+                print(customer_to_change)
                 print("\n" * 2)
                 self.__menu_action = input("{:>95}".format("Enter menu action: "))
                 
@@ -934,10 +936,12 @@ class UserInterface:
             while self.__submenu_action.lower() != "b":
                 self.print_header()
                 print("{:>94}{}".format("Change customer surname: ", ("\n" * 2)))
-                new_surname = input("Enter customer new surname: ")
+                new_surname = input("{:>95}".format("Enter customer new surname: "))
                 customer_to_change.set_surname(new_surname)
-                #write_to_customer_db call here to save changes to hd file
+                self.__customer_service.write_db_to_file()
                 print("{:>96}".format("B. Back to previous menu"))
+                print("\n" * 2)
+                print(customer_to_change)
                 print("\n" * 2)
                 self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                           
@@ -947,10 +951,12 @@ class UserInterface:
             while self.__submenu_action.lower() != "b":
                 self.print_header()
                 print("{:>94}{}".format("Change customer passport number: ", ("\n" * 2)))
-                new_passport_no = input("Enter customer new passport number: ")
+                new_passport_no = input("{:>100}".format("Enter customer new passport number: "))
                 customer_to_change.set_surname(new_passport_no)
-                #write_to_customer_db call here to save changes to hd file
+                self.__customer_service.write_db_to_file()
                 print("{:>96}".format("B. Back to previous menu"))
+                print("\n" * 2)
+                print(customer_to_change)
                 print("\n" * 2)
                 self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                       
@@ -960,10 +966,12 @@ class UserInterface:
             while self.__menu_action.lower() != "b":
                 self.print_header()
                 print("{:>94}{}".format("Change credit card number: ", ("\n" * 2)))
-                new_credit_card_no = input("Enter customer credit card number: ")
+                new_credit_card_no = input("{:>100}".format("Enter customer credit card number: "))
                 customer_to_change.set_surname(new_credit_card_no)
-                #write_to_customer_db call here to save changes to hd file
+                self.__customer_service.write_db_to_file()
                 print("{:>96}".format("B. Back to main menu"))
+                print("\n" * 2)
+                print(customer_to_change)
                 print("\n" * 2)
                 self.__submenu_action = input("{:>95}".format("Enter menu action: "))
                 
