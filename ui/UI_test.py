@@ -1036,7 +1036,7 @@ class UserInterface:
             #send it into get_car_by_regnum to get car category price
             car = self.__car_service.get_car(order.get_car_id())                 
             #The cost of insurance is the 75% of the price of a days rental
-            return int(car[0].get_category_price()) * float(0.75)
+            return int(car.get_category_price()) * float(0.75)
         else:
             return None 
 
@@ -1055,13 +1055,10 @@ class UserInterface:
         return int(car.get_category_price()) * number_of_days                     
 
 
-    def write_order_to_db(self):
+    def write_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         #KLÁRA AÐ SKRIFA ÞESSI METHOD FYRIR ALLA KLASA OG BÆTA VIÐ HÉR SVO DRASLIÐ SAVEIST ÞEGAR FORRITIÐ HÆTTIR
         self.__order_service.write_db_to_file()
-
-    def write_car_to_db(self):
-        """ Writes all databases to files. Call this method before program ends. """
         self.__car_service.write_db_to_file()
 
 
@@ -1072,7 +1069,7 @@ class UserInterface:
         new_mileage = int(car.get_mileage()) + int(mileage)
         car.set_mileage(new_mileage)
         #Write changes to db
-        self.write_car_to_db()
+        self.__car_service.write_db_to_file()
         return car
 
 
