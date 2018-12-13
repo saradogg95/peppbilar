@@ -640,8 +640,6 @@ class UserInterface:
                     else:
                         print("Customer not found.")
 
-            #print_options_for_user()
-            #user_choice = get_user_input()
         
             if type(customer) == list:
                 order.append[customer[0]]
@@ -649,12 +647,6 @@ class UserInterface:
             else:
                 order.clear()
                 return False
-
-            #else:
-            #    return False        
-
-            #found_customer = add_or_find_customer()
-
 
 
         """Printout function, to confirm order."""
@@ -673,22 +665,53 @@ class UserInterface:
             model = car_in_question.get_model()
             category = car_in_question.get_category()
             self.print_header()
-            print(("{} {}\nType of car: {}\nDate of car going out: {}\nDate of car coming back: {}\nTotal number of days: {}\nTotal price: {} isk.\n{} {}\n{}".format(
+            print(("{} {}\nType of car: {}\nDate of car going out: {}\nDate of car coming back: {}\nTotal number of days: {}\nTotal price: {} isk.\n{} {}\n".format(
                 brand, model, category, start_date, end_date, total_days, price, customer_first_names, customer_surname)))
             valid_confirmation = False
             while valid_confirmation == False:
                 final_confirmation = input("Confirm?\n1. Yes.\n2. No, cancel order.")
                 if final_confirmation == 1:
+                    valid_insurance_decision = False
+                    while valid_insurance_decision == False:
+                        additional_insurance = input("Add additional insurance?\n1. Yes.\n2. No.")
+                        if additional_insurance == '1':
+                            additional_insurance_column = 'TRUE'
+                            additional_insurance_cost = get_additional_insuarance_cost(licence_plate)
+                            price = price + additional_insurance_cost
+                            valid_insurance_decision = True
+                        elif additional_insurance == '2':
+                            additional_insurance_column = 'FALSE'
+                            additional_insurance_cost = 0
+                            valid_insurance_decision = True
+                        else:
+                            print("Invalid input!")
+
+
+                    valid_credit_card = False
+                    while valid_credit_card == False:
+                        credit_card_info = input("Please provide credit card info: ")
+                        if len(credit_card_info) == 16:
+                            try:
+                                int(credit_card_info)
+                                valid_credit_card == True
+                            except ValueError:
+                                print("Invalid card number (16 digits required).")
+                                pass
                     valid_confirmation == True
-                    return True
+                    new_order_id = CustomerServices.automatic_id_generation()
+                    date_of_order = date.today()
+                    included_km = total_days * 100
+                    new_order = Order(new_order_id, date_of_order, start_date, end_date, credit_card_info, included_km, additional_insurance_column, billing_customer, licence_plate, additional_insurance_cost)
+                    OrderServices.add_order(new_order)
+                    return False
+
                 elif final_confirmation == 2:
                     valid_confirmation == True
+                    order.clear()
                     return False
                 else:
                     print("Invalid input!")
             
-
-
 
 
 
@@ -718,13 +741,12 @@ class UserInterface:
             ongoing_order = get_return_date(order_X, working_date_out)
             if ongoing_order == True:
                 ongoing_order = get_cars(order_X)
-                #print(order_X)
                 if ongoing_order == True:
                     ongoing_order = add_or_find_customer(order_X) 
                     if ongoing_order == True:
                         ongoing_order = confirmation_to_save_order(order_X)
                         if ongoing_order == True:
-                            ongoing_order = save_order(order_X)
+                            return False
                         else:
                             return False
                     else:
