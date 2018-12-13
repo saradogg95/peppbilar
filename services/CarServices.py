@@ -61,4 +61,4 @@ class CarServices():
         return cars
 
     def write_db_to_file(self):
-        self.__order_db.write_db_to_file()
+        self.__repository.write_db_to_file()
