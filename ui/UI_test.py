@@ -921,8 +921,8 @@ class UserInterface:
         """ Takes in an order id and gets that order from the database and calculates the cost without additions"""        
         order = self.__order_service.get_order(order_id)
         #We need the number of days the car is being rent for to calculat the total cost
-        start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
-        end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
+        start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
+        end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
         number_of_days = abs((end_date-start_date).days)
         #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
         car = self.__car_service.get_car(order.get_car_id())
@@ -979,8 +979,8 @@ class UserInterface:
         for order in self.__order_service.get_all_orders():
             if order.get_order_id() == order_id:
                 #get total number of days rented for
-                start_date = datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
-                end_date = datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
+                start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
+                end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
                 number_of_days = abs((end_date-start_date).days)
                 
                 #get total number of kilometers driven on rental period
@@ -992,4 +992,12 @@ class UserInterface:
                 if number_of_kilometers_driven > max_driven:
                     extra_kilometers = number_of_kilometers_driven - max_driven
                     return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
+    
+    def get_additional_cost_extra_millage(self, order_id):
+        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
+        order = self.__order_service.get_order(order_id)                   
+        #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
+        car = self.__car_service.get_car(order.get_car_id())                 
+        #The cost of additional millage over 100km is 1% of daily rental cost
+        return int(car.get_category_price()) * 0.01
 
