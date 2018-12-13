@@ -102,7 +102,7 @@ class UserInterface:
             working_date[2] = working_date[2]+1
 
         #Printout of date for confirmation prompt:
-        def outdate_confirmation(working_date):    
+        def outdate_confirmation(working_date):
             outdate = datetime.date(working_date[2], working_date[1], working_date[0])
             outdate_weekday = calendar.day_name[outdate.weekday()]
             outdate_month = calendar.month_name[outdate.month]
