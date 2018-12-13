@@ -93,10 +93,13 @@ class UserInterface:
         input("{:>90}".format("*. Any buttom: "))
 
                 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 60944d609a6efc3359537b185227abb909f9acc4
 
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
@@ -275,11 +278,6 @@ class UserInterface:
                         order.clear()
                         return False
 
-
-        #For a list of all cars:
-        self.__car_service = CarServices()
-        #For a list of all orders:
-        self.__order_service = OrderServices()
 
         def date_from_string(date_as_string):
             date_as_list = date_as_string.split('-')
@@ -671,6 +669,7 @@ class UserInterface:
                         additional_insurance = input("Add additional insurance?\n1. Yes.\n2. No.\n")
                         if additional_insurance == '1':
                             additional_insurance_column = 'TRUE'
+                            print(licence_plate)
                             additional_insurance_cost = self.get_additional_insuarance_cost(licence_plate)
                             price = price + additional_insurance_cost
                             valid_insurance_decision = True
@@ -682,23 +681,26 @@ class UserInterface:
                             print("Invalid input!")
 
 
-                    valid_credit_card = False
-                    while valid_credit_card == False:
-                        credit_card_info = input("Please provide credit card info: ")
-                        if len(credit_card_info) == 16:
-                            try:
-                                int(credit_card_info)
-                                valid_credit_card == True
-                            except ValueError:
-                                print("Invalid card number (16 digits required).")
-                                pass
-                    valid_credit_card == True
+#                    valid_credit_card = False
+#                    while valid_credit_card == False:
+                    credit_card_info = input("Please provide credit card info: ")
+#                        try:
+#                            int(credit_card_info)
+#                            valid_credit_card == True
+#                        except ValueError:
+#                            print("Invalid card number (16 digits required).")
+#                            pass
+#                        if len(credit_card_info) == 16:
+#                            valid_credit_card == True
+#                    valid_credit_card == True
                     valid_confirmation == True
-                    new_order_id = CustomerServices.automatic_id_generation()
+                    new_order_id = self.__customer_service.automatic_id_generation()
                     date_of_order = date.today()
                     included_km = total_days * 100
-                    new_order = Order(new_order_id, date_of_order, start_date, end_date, credit_card_info, included_km, additional_insurance_column, billing_customer, licence_plate, additional_insurance_cost)
-                    OrderServices.add_order(new_order)
+                    print(date_of_order)
+                    new_order = Order(str(new_order_id), str(date_of_order), str(start_date), str(end_date), str(credit_card_info), str(included_km), str(additional_insurance_column), str(billing_customer), str(licence_plate), str(additional_insurance_cost))
+                    self.__order_service.add_order(new_order)
+                    self.__order_service.write_db_to_file()
                     return False
 
                 elif final_confirmation == "2":
@@ -747,8 +749,32 @@ class UserInterface:
         else:
             return False
 
+    
     def show_unavailable_cars(self):
-        pass
+        
+        def date_from_string(date_as_string):
+            date_as_list = date_as_string.split('-')
+            date_format = date(int(date_as_list[0]),int(date_as_list[1]),int(date_as_list[2]))
+            return date_format
+
+
+        while self.__menu_action.lower() != "b":
+            self.print_header()
+            unavailable_cars = []
+            clashing_orders_list = []
+            list_of_all_order_objects = self.__order_service.get_all_orders()
+            this_is_today = date.today()
+            for order in list_of_all_order_objects:
+                if this_is_today >= date_from_string(str(order.get_rent_date_from())) and date_from_string(str(order.get_rent_date_to())) >= this_is_today:
+                    clashing_orders_list.append(order.get_car_id())
+                clashing_orders_set = set(clashing_orders_list)
+                for car in self.__car_service.get_all_cars():
+                    if car.get_reg_num() in clashing_orders_set:
+                            unavailable_cars.append(car)
+                for car in unavailable_cars:
+                    print(car)
+            print("{:>100}".format("B. Back to main menu."))
+            self.__menu_action = input("Enter menu action: ")
 
     def find_order(self):
         done = False
@@ -804,7 +830,8 @@ class UserInterface:
                 order_id = input("{:>92}".format("Order id change: "))
                 order.set_order_id(order_id)
                 self.__order_service.write_db_to_file()
-                print(order)
+                print()
+                print("{:>130}".format(order.__str__()))
                 print()
             if self.__menu_action == "2":
                 done = False
@@ -823,7 +850,8 @@ class UserInterface:
 
                 order.set_order_date(change_order_date)
                 self.__order_service.write_db_to_file()
-                print(order)
+                print()
+                print("{:>130}".format(order.__str__()))
                 print()
             if self.__menu_action == "3":
                 done = False
@@ -842,8 +870,9 @@ class UserInterface:
 
                 order.set_rent_date_from(change_rent_date_from)
                 self.__order_service.write_db_to_file()
-                print(order) 
-                print()   
+                print()
+                print("{:>130}".format(order.__str__()))
+                print()  
             if self.__menu_action == "4":
                 done = False
                 while not done:
@@ -861,14 +890,16 @@ class UserInterface:
 
                 order.set_rent_date_to(change_rent_date_to)
                 self.__order_service.write_db_to_file()
-                print(order)
+                print()
+                print("{:>130}".format(order.__str__()))
                 print()
             if self.__menu_action == "5":
                 self.print_header()
                 change_additional_insurance = input("{:>117}".format("Please input additional insurance change: "))
                 order.set_additional_insurance(change_additional_insurance)
                 self.__order_service.write_db_to_file()
-                print(order)
+                print()
+                print("{:>130}".format(order.__str__()))
                 print()
             if self.__menu_action == "6":
                 self.print_header()
