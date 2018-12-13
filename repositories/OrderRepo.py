@@ -72,7 +72,7 @@ class OrderRepository:
                     additional_insurance = order.get_additional_insurance().upper()
                     customer_id = order.get_customer_id().upper()
                     car_id = order.get_car_id().upper()
-                    additional_cost = order.get_additional_cost().upper
+                    additional_cost = order.get_additional_cost().upper()
                     orders_db.write("{},{},{},{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, rent_date_to, insurance_with_credit_card, bought_km, additional_insurance, customer_id, car_id, additional_cost))
 
                     
