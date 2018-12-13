@@ -27,11 +27,10 @@ class CustomerServices:
     def get_customer(self, customer_id):
         """ Takes in a customer id, looks it up in the database and returns the customer. 
         If no customer is found a string is returned. """
-        get_customer = []
         for customer in self.__customer_db.get_all_customers():
             if customer.get_customer_id() == customer_id:
-                get_customer.append(customer)
-        return get_customer
+                return customer
+        return "No customer with customer id {} found".format(customer_id)
     
     def get_customer_after_id_num(self, identity_number):
         get_customer = []
