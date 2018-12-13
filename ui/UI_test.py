@@ -607,30 +607,33 @@ class UserInterface:
         done = False
         while not done:
             self.print_header()
-            order_id = input("{:>115}".format("Please input the order id (q to quite): "))
+            order_id = input("{:>114}".format("Please input the order id (q to back): "))
+            print()
             order = self.__order_service.get_order(order_id)
             if order == type(Order):
-                print(order)
+                print("{:>92}".format(order))
+                input("type")
+                done = True
             elif order_id == "q":
-                done = True
-            else:
-                done = True
-
+                return None
+            elif type(order_id) == str:
+                print("{:>110}".format(order))
                 
         def print_choices():
-            print("{:>94}".format("Change order by:\n"))
-            print("{:>94}".format("1. Order id"))
-            print("{:>94}".format("2. Order date"))
-            print("{:>94}".format("3. Rent rate from"))
-            print("{:>94}".format("4. Rent date to"))
-            print("{:>94}".format("5. Additional insurance"))
-            print("{:>94}".format("B. Back to main menu"))
+            print("{:>92}".format("Change order by:\n"))
+            print("{:>86}".format("1. Order id"))
+            print("{:>88}".format("2. Order date"))
+            print("{:>92}".format("3. Rent rate from"))
+            print("{:>90}".format("4. Rent date to"))
+            print("{:>98}".format("5. Additional insurance"))
+            print("{:>95}".format("B. Back to main menu"))
 
             
         def choice():
             while True:
                 try:
-                    self.__menu_action = input("Please input your choice: ").lower()
+                    print()
+                    self.__menu_action = input("{:>101}".format("Please input your choice: "))
                     if self.__menu_action == "b":
                         return self.__menu_action
                     value_error_check = int(self.__menu_action)
@@ -643,23 +646,28 @@ class UserInterface:
         self.__menu_action = choice()
         while self.__menu_action.lower() != "b":
             if self.__menu_action == "1":
-                change_order_id = input("Please input order id change: ")
+                self.print_header()
+                change_order_id = input("{:>105}".format("Please input order id change: "))
                 order.set_order_id(change_order_id)
                 print(order)
             if self.__menu_action == "2":
-                change_order_date = input("Please input order date change: ")
+                self.print_header()
+                change_order_date = input("{:>107}".format("Please input order date change: "))
                 order.set_order_date(change_order_date)
                 print(order)
             if self.__menu_action == "3":
-                change_rent_date_from = input("Please input rent rate from change: ")
+                self.print_header()
+                change_rent_date_from = input("{:>111}".format("Please input rent rate from change: "))
                 order.set_rent_date_from(change_rent_date_from)
                 print(order)    
             if self.__menu_action == "4":
-                change_rent_date_to = input("Please input rent date to change: ")
+                self.print_header()
+                change_rent_date_to = input("{:>109}".format("Please input rent date to change: "))
                 order.set_rent_date_to(change_rent_date_to)
                 print(order)
             if self.__menu_action == "5":
-                change_additional_insurance = input("Please input additional insurance change: ")
+                self.print_header()
+                change_additional_insurance = input("{:>117}".format("Please input additional insurance change: "))
                 order.set_additional_insurance(change_additional_insurance)
                 print(order)
             print_choices()
@@ -1005,15 +1013,10 @@ class UserInterface:
                     extra_kilometers = number_of_kilometers_driven - max_driven
                     return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
     
-<<<<<<< HEAD
-    def get_additional_cost_extra_mileage(self, order_id):
-        """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
-=======
     
     def get_additional_cost_extra_millage(self, order_id):
         """ Takes in an order id and gets that order from the database 
         and calculates the cost of additional insurance"""        
->>>>>>> d6e1b3a102ef22803ea6471ba699bcca19189f7c
         order = self.__order_service.get_order(order_id)                   
         #From the order object, we obtain the registration number for the car and send 
         #it into get_car_by_regnum to get car category price
