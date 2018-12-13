@@ -892,27 +892,45 @@ class UserInterface:
                 
     def return_car(self):
         """ Function to return a car. """
-        mileage_driven = 0
-        total_mileage = 0
         order_to_return = ""
-
+        valid_input = False
         while self.__menu_action.lower() != "b":
             self.print_header()
             order_to_return_id = input("{:>100}".format("Enter order number: "))
-            order_to_return_id = order_to_return_id.upper()
-            print(type(order_to_return_id))
-            order_to_return = self.__order_service.get_order("201801576")
-            car_to_return = self.__car_service.get_car(order_to_return_id)
-            print(car_to_return)
-            print(order_to_return)
+            while not valid_input:
+                try:
+                    int(order_to_return_id)
+                    order_to_return_id = order_to_return_id.upper()
+                    valid_input = True
+                except ValueError:
+                    print("Invalid order number. Please enter a new order number.")
+                    order_to_return_id = input("{:>100}".format("Enter order number: "))
+            if type(order_to_return) == str:
+                print(order_to_return)
+            valid_input = False
+            mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+            while not valid_input:
+                try:
+                    mileage_at_return = int(mileage_at_return)
+                    valid_input = True
+                except ValueError:
+                    print("Invalid mileage entered. Please enter a valid mileage number.")
+                    mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+            order_to_return = self.__order_service.get_order(order_to_return_id)
+            print(type(order_to_return))
+            if type(order_to_return) == str:
+                print(order_to_return)
+            else:
+                car_to_return = self.__car_service.get_car(order_to_return.get_car_id())
+                print("order_to_return.get_car_id()", order_to_return.get_car_id(), type(order_to_return.get_car_id()))
+                mileage_at_departure = int(car_to_return.get_mileage())
+                extra_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_at_return, mileage_at_departure)
+                print("Extra cost to be paid for additional kilometers driven: ", extra_cost, " ISK")
 
+            print("{:>96}".format("B. Back to main menu"))
+            print("\n" * 2)
+            self.__menu_action = input("{:>95}".format("Enter menu action: "))
 
-
-            mileage_driven = total_mileage - car_to_return.get_mileage()
-            additional_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_driven)
-            car_to_return.set_mileage(total_mileage)
-            order_to_return.set_additional_cost(additional_cost)
-            self.print_back_to_main_menu()
 
                 
     def get_additional_insuarance_cost(self, order_id):
@@ -995,21 +1013,23 @@ class UserInterface:
         return orders
 
     
-    def get_total_cost_for_extra_kilometers(self, order_id, mileage_driven):
+    def get_total_cost_for_extra_kilometers(self, order_id, mileage_driven, mileage_at_departure):
         for order in self.__order_service.get_all_orders():
             if order.get_order_id() == order_id:
                 #get total number of days rented for
-                start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
-                end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
+                start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%Y-%m-%d")
+                end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%Y-%m-%d")           
                 number_of_days = abs((end_date-start_date).days)
                 
                 #get total number of kilometers driven on rental period
                 number_of_kilometers_included = number_of_days * self.__max_kilometer_per_day
 
                 #calculate the cost of extra kilometers
-                if mileage_driven > number_of_kilometers_included:
-                    extra_kilometers = mileage_driven - number_of_kilometers_included
+                if mileage_driven > number_of_kilometers_included + mileage_at_departure:
+                    extra_kilometers = mileage_driven - (number_of_kilometers_included + mileage_at_departure)
                     return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
+                else:
+                    return 0
     
     def get_additional_cost_extra_mileage(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
@@ -1018,5 +1038,5 @@ class UserInterface:
         #it into get_car_by_regnum to get car category price
         car = self.__car_service.get_car(order.get_car_id())                 
         #The cost of additional millage over 100km is 1% of daily rental cost
-        return int(car.get_category_price()) * 0.01
+        return (int(car.get_category_price()) * 0.01)
 
