@@ -31,18 +31,18 @@ class CustomerServices:
         for customer in self.__customer_db.get_all_customers():
             if customer.get_identity_number() == identity_number:
                 return customer
-        return "No customer with customer id {} found".format(customer_id)
+        return "No customer with customer id {} found".format(identity_number)
 
     def get_customer_after_pass_id(self, passport_id):
         for customer in self.__customer_db.get_all_customers():
             if customer.get_passport_id() == passport_id:
                 return customer
-        return "No customer with customer id {} found".format(customer_id)
+        return "No customer with customer id {} found".format(passport_id)
 
     def delete_customer(self, customer_id):
         """ Takes in a customer id and deletes it from the database. 
         Returns a string stating whether the customer was deleted or not. """
-        for index, customer in self.__customer_db.get_all_customers():
+        for index, customer in enumerate(self.__customer_db.get_all_customers()):
             if customer.get_customer_id() == customer_id:
                 self.__customer_db.delete_customer(index)
                 return "Customer with customer id {} was deleted.".format(customer_id)
