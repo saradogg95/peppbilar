@@ -93,13 +93,10 @@ class UserInterface:
         input("{:>90}".format("*. Any buttom: "))
 
                 
-<<<<<<< HEAD
 
 
 
 
-=======
->>>>>>> 60944d609a6efc3359537b185227abb909f9acc4
 
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
@@ -681,18 +678,18 @@ class UserInterface:
                             print("Invalid input!")
 
 
-#                    valid_credit_card = False
-#                    while valid_credit_card == False:
-                    credit_card_info = input("Please provide credit card info: ")
-#                        try:
-#                            int(credit_card_info)
-#                            valid_credit_card == True
-#                        except ValueError:
-#                            print("Invalid card number (16 digits required).")
-#                            pass
-#                        if len(credit_card_info) == 16:
-#                            valid_credit_card == True
-#                    valid_credit_card == True
+                    #valid_credit_card = False
+                    #while valid_credit_card == False:
+                    #credit_card_info = input("Please provide credit card info: ")
+                        #try:
+                            #int(credit_card_info)
+                            #valid_credit_card == True
+                       #except ValueError:
+                            #print("Invalid card number (16 digits required).")
+                            #pass
+                        #if len(credit_card_info) == 16:
+                            #valid_credit_card == True
+                    #valid_credit_card == True
                     valid_confirmation == True
                     new_order_id = self.__customer_service.automatic_id_generation()
                     date_of_order = date.today()
