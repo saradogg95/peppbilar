@@ -21,7 +21,7 @@ class CustomerRepository:
                     self.__customers.append(new_customer)
         except FileNotFoundError:
             with open("./data/customers.csv", "a+") as customer_db:
-                customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID\n")
+                customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID,credit_card_no\n")
        
     def check_empty(self):
         """ Checks if the database list is empty. Calls populate_customer_list() if it is """
@@ -48,7 +48,7 @@ class CustomerRepository:
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/customers.csv", "w") as customer_db:
-                customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID\n")
+                customer_db.write("customer_ID,identity_number,first_names,surname,citizenship,passport_ID,credit_card_no\n")
                 for customer in self.__customers:
                     customer_ID = customer.get_customer_id()
                     identity_number = customer.get_identity_number()

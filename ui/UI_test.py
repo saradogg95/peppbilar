@@ -80,6 +80,18 @@ class UserInterface:
 #        def place_order():
 #            """ Menu method for placing a new order. """ 
 
+<<<<<<< HEAD
+=======
+    def get_additional_insuarance_cost(self, reg_num):
+        """ Takes in the car registration number and gets the cost of daily rental
+        and calculates the cost of additional insurance"""        
+        car = self.__car_service.get_car(reg_num)                 
+        #The cost of insurance is the 75% of the price of a days rental
+        return int(car.get_category_price()) * float(0.75)
+
+
+
+>>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
     def show_available_cars(self):
 
         #Set a day this month as starting date:
@@ -609,8 +621,6 @@ class UserInterface:
                     else:
                         print("Customer not found.")
 
-            #print_options_for_user()
-            #user_choice = get_user_input()
         
             if type(customer) == list:
                 order.append[customer[0]]
@@ -619,10 +629,13 @@ class UserInterface:
                 order.clear()
                 return False
 
+<<<<<<< HEAD
             #else:
             #    return False        
 
             #found_customer = add_or_find_customer()
+=======
+>>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
 
         """Printout function, to confirm order."""
         def confirmation_to_save_order(order):
@@ -640,19 +653,64 @@ class UserInterface:
             model = car_in_question.get_model()
             category = car_in_question.get_category()
             self.print_header()
-            print(("{} {}\nType of car: {}\nDate of car going out: {}\nDate of car coming back: {}\nTotal number of days: {}\nTotal price: {} isk.\n{} {}\n{}".format(
+            print(("{} {}\nType of car: {}\nDate of car going out: {}\nDate of car coming back: {}\nTotal number of days: {}\nTotal price: {} isk.\n{} {}\n".format(
                 brand, model, category, start_date, end_date, total_days, price, customer_first_names, customer_surname)))
             valid_confirmation = False
             while valid_confirmation == False:
-                final_confirmation = input("Confirm?\n1. Yes.\n2. No, cancel order.")
-                if final_confirmation == 1:
+                final_confirmation = input("Confirm?\n1. Yes.\n2. No, cancel order.\n")
+                if final_confirmation == "1":
+                    valid_insurance_decision = False
+                    while valid_insurance_decision == False:
+                        additional_insurance = input("Add additional insurance?\n1. Yes.\n2. No.\n")
+                        if additional_insurance == '1':
+                            additional_insurance_column = 'TRUE'
+                            additional_insurance_cost = self.get_additional_insuarance_cost(licence_plate)
+                            price = price + additional_insurance_cost
+                            valid_insurance_decision = True
+                        elif additional_insurance == '2':
+                            additional_insurance_column = 'FALSE'
+                            additional_insurance_cost = 0
+                            valid_insurance_decision = True
+                        else:
+                            print("Invalid input!")
+
+
+                    valid_credit_card = False
+                    while valid_credit_card == False:
+                        credit_card_info = input("Please provide credit card info: ")
+                        if len(credit_card_info) == 16:
+                            try:
+                                int(credit_card_info)
+                                valid_credit_card == True
+                            except ValueError:
+                                print("Invalid card number (16 digits required).")
+                                pass
+                    valid_credit_card == True
                     valid_confirmation == True
-                    return True
-                elif final_confirmation == 2:
+                    new_order_id = CustomerServices.automatic_id_generation()
+                    date_of_order = date.today()
+                    included_km = total_days * 100
+                    new_order = Order(new_order_id, date_of_order, start_date, end_date, credit_card_info, included_km, additional_insurance_column, billing_customer, licence_plate, additional_insurance_cost)
+                    OrderServices.add_order(new_order)
+                    return False
+
+                elif final_confirmation == "2":
                     valid_confirmation == True
+                    order.clear()
                     return False
                 else:
                     print("Invalid input!")
+<<<<<<< HEAD
+=======
+            
+
+
+
+
+
+        
+
+>>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
 
         order_X = [] #Here, order details will gradually be inserted.
         ongoing_order = True #Control variable.
@@ -675,13 +733,12 @@ class UserInterface:
             ongoing_order = get_return_date(order_X, working_date_out)
             if ongoing_order == True:
                 ongoing_order = get_cars(order_X)
-                #print(order_X)
                 if ongoing_order == True:
                     ongoing_order = add_or_find_customer(order_X) 
                     if ongoing_order == True:
                         ongoing_order = confirmation_to_save_order(order_X)
                         if ongoing_order == True:
-                            ongoing_order = save_order(order_X)
+                            return False
                         else:
                             return False
                     else:
@@ -887,14 +944,20 @@ class UserInterface:
         def delete_customer(customer_to_change):
             """ Takes in a customer and removes them from the database. """
             while self.__submenu_action.lower() != "b":
+                self.print_header()
                 customer_id = customer_to_change.get_customer_id()
-                print(self.__customer_service.delete_customer(customer_id))
+                print("{:>100}".format(self.__customer_service.delete_customer(customer_id)))
                 self.__customer_service.write_db_to_file()
-                
+                print("\n" * 2)
                 
                 print("{:>101}".format("R. Back to previous menu"))
                 print("{:>97}".format("B. Back to main menu"))
-                self.__submenu_action = input("{:>95}".format("Enter menu action: "))
+                self.__submenu_action = input("{:>97}".format("Enter menu action: "))
+                if self.__submenu_action.lower() == "r":
+                    break
+                if self.__submenu_action.lower() == "b":
+                    self.__menu_action = "b"
+                    break
 
         def print_bottom_menu():
             print("\n" * 2)
@@ -969,6 +1032,7 @@ class UserInterface:
                     for customer in self.__customer_service.get_all_customers():
                         if customer.get_passport_id().upper() == passport_number.upper():
                             customer_to_change = customer
+                            print("\n" * 2)
                             print("{:>100}".format(customer.__str__()))
                     print_bottom_menu()
                     print("{:>101}".format("R. Back to previous menu"))
@@ -1055,6 +1119,7 @@ class UserInterface:
             if self.__menu_action.lower() == "r":
                 self.return_car()
                 break
+<<<<<<< HEAD
      
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
@@ -1063,6 +1128,14 @@ class UserInterface:
         #The cost of insurance is the 75% of the price of a days rental
         return int(car.get_category_price()) * float(0.75)
      
+=======
+
+                
+
+
+
+            
+>>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database 
         and calculates the cost without additions"""        
