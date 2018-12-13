@@ -1089,19 +1089,13 @@ class UserInterface:
                 break
 
                 
-    def get_additional_insuarance_cost(self, order_id):
-        """ Takes in an order id and gets that order from the database 
+    def get_additional_insuarance_cost(self, reg_num):
+        """ Takes in the car registration number and gets the cost of daily rental
         and calculates the cost of additional insurance"""        
-        order = self.__order_service.get_order(order_id)        
-        #Check if additional inusarance was ordered
-        if order.get_additional_insurance() == "TRUE":                
-            #From the order object, we obtain the registration number for the car and 
-            #send it into get_car_by_regnum to get car category price
-            car = self.__car_service.get_car(order.get_car_id())                 
-            #The cost of insurance is the 75% of the price of a days rental
-            return int(car.get_category_price()) * float(0.75)
-        else:
-            return None 
+        car = self.__car_service.get_car(reg_num)                 
+        #The cost of insurance is the 75% of the price of a days rental
+        return int(car.get_category_price()) * float(0.75)
+
 
             
     def get_cost_without_additions(self, order_id):
