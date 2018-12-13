@@ -94,6 +94,10 @@ class UserInterface:
 
                 
 
+
+
+
+
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
         and calculates the cost of additional insurance"""        
@@ -674,18 +678,18 @@ class UserInterface:
                             print("Invalid input!")
 
 
-#                    valid_credit_card = False
-#                    while valid_credit_card == False:
-                    credit_card_info = input("Please provide credit card info: ")
-#                        try:
-#                            int(credit_card_info)
-#                            valid_credit_card == True
-#                        except ValueError:
-#                            print("Invalid card number (16 digits required).")
-#                            pass
-#                        if len(credit_card_info) == 16:
-#                            valid_credit_card == True
-#                    valid_credit_card == True
+                    #valid_credit_card = False
+                    #while valid_credit_card == False:
+                    #credit_card_info = input("Please provide credit card info: ")
+                        #try:
+                            #int(credit_card_info)
+                            #valid_credit_card == True
+                       #except ValueError:
+                            #print("Invalid card number (16 digits required).")
+                            #pass
+                        #if len(credit_card_info) == 16:
+                            #valid_credit_card == True
+                    #valid_credit_card == True
                     valid_confirmation == True
                     new_order_id = self.__customer_service.automatic_id_generation()
                     date_of_order = date.today()
@@ -765,9 +769,10 @@ class UserInterface:
                 if car.get_reg_num() in clashing_orders_set:
                     unavailable_cars.append(car)
             for car in unavailable_cars:
-                print(car)
-            print("{:>100}".format("B. Back to main menu."))
-            self.__menu_action = input("Enter menu action: ")
+                print("{:>130}".format(car.__str__()))
+            print("\n" * 2)
+            print("{:>97}".format("B. Back to main menu."))
+            self.__menu_action = input("{:>95}".format("Enter menu action: "))
 
     def find_order(self):
         done = False
@@ -1218,12 +1223,7 @@ class UserInterface:
             if self.__menu_action.lower() == "2":
                 usage_history_car()
             
-    def get_additional_insuarance_cost(self, reg_num):
-        """ Takes in the car registration number and gets the cost of daily rental
-        and calculates the cost of additional insurance"""        
-        car = self.__car_service.get_car(reg_num)                 
-        #The cost of insurance is the 75% of the price of a days rental
-        return int(car.get_category_price()) * float(0.75)
+
      
      
     def get_cost_without_additions(self, order_id):
@@ -1244,6 +1244,7 @@ class UserInterface:
         #KLÁRA AÐ SKRIFA ÞESSI METHOD FYRIR ALLA KLASA OG BÆTA VIÐ HÉR SVO DRASLIÐ SAVEIST ÞEGAR FORRITIÐ HÆTTIR
         self.__order_service.write_db_to_file()
         self.__car_service.write_db_to_file()
+        self.__customer_service.write_db_to_file()
 
 
     def update_car_mileage(self, reg_num, mileage):
