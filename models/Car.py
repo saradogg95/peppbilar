@@ -1,14 +1,14 @@
 class Car:
     
-    def __init__(self, reg_num=0, brand="", model="", category="", 
-                 category_price="", registration_date="", mileage=0):
-        self.__reg_num = reg_num
-        self.__brand = brand
-        self.__model = model
-        self.__category = category
-        self.__registration_date = registration_date
-        self.__mileage = mileage
-        self.__category_price = category_price
+    def __init__(self, reg_num="0", brand="", model="", category="", 
+                 category_price="", registration_date="", mileage="0"):
+        self.__reg_num = reg_num.upper()
+        self.__brand = brand.upper()
+        self.__model = model.upper()
+        self.__category = category.upper()
+        self.__registration_date = registration_date.upper()
+        self.__mileage = mileage.upper()
+        self.__category_price = category_price.upper()
     
     
     def __str__(self):

@@ -26,8 +26,8 @@ class OrderRepository:
                     self.__orders.append(new_order)
         except FileNotFoundError:
             with open("./data/orders.csv", "a+") as orders_db:
-                orders_db.write("Order_id,Order_date,Rent_date_from,Rent_date_to," + 
-                "Insurnace_with_credit_card,Bought_km,Additional_Insurance,Customer_id,Car_id\n")
+                orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to," + 
+                "Insurnace_with_credit_card, Bought_km, Additional_Insurance, Customer_id, Car_id\n")
 
             
     def check_empty(self):
@@ -72,7 +72,8 @@ class OrderRepository:
         This writes over the existing file so use with care. """
         self.check_empty()
         with open("./data/orders.csv", "w") as orders_db:
-            orders_db.write("Order_id, Order_date, Rent_date_from, Rent_date_to, Insurnace_with_credit_card, Mileage_out, Mileage_in, Additional_Insurance, Customer_id, Car_id\n")
+            orders_db.write("Order_id,Order_date, Rent_date_from, Rent_date_to, Insurnace_with_credit_card,"  
+            + "Bought_km, Additional_Insurance, Customer_id, Car_id\n")
             for order in self.__orders:
                 order_id = order.get_order_id().upper()
                 order_date = order.get_order_date().upper()
@@ -83,9 +84,10 @@ class OrderRepository:
                 additional_insurance = order.get_additional_insurance().upper()
                 customer_id = order.get_customer_id().upper()
                 car_id = order.get_car_id().upper()
-                orders_db.write("{},{},{},{},{},{},{},{},{},{}\n".format(order_id, order_date, rent_date_from, 
-                                                                   rent_date_to, 
-                                                                   insurance_with_credit_card,
-                                                                   bought_km,
-                                                                   additional_insurance,
-                                                                   customer_id, car_id))
+                orders_db.write("{}, {}, {}, {}, {}, {}, {}, {}, {}, {}\n".format(order_id, order_date, 
+                                                                            rent_date_from, 
+                                                                            rent_date_to, 
+                                                                            insurance_with_credit_card,
+                                                                            bought_km,
+                                                                            additional_insurance,
+                                                                            customer_id, car_id))

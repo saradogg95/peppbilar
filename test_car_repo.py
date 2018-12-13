@@ -6,10 +6,10 @@ from ui.UI_test import UserInterface
 
 
 def main():
-    car_db = CarRepository()
-    car_service = CarServices()
+    #car_db = CarRepository()
+    #car_service = CarServices()
     order_service = OrderServices()
-    brands = car_service.get_brands()
+    #brands = car_service.get_brands()
     ui_test = UserInterface()
     all_orders = order_service.get_all_orders()
 

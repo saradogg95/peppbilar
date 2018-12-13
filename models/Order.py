@@ -2,18 +2,18 @@ class Order:
     
     def __init__(self, order_id="", order_date="", rent_date_from="", 
                  rent_date_to="",insurance_with_credit_card = "", 
-                 bought_km = 100,
-                 additional_insurance=False,
-                 customer_id=0, car_id=0):
-        self.__order_id = order_id
-        self.__order_date = order_date
-        self.__rent_date_from = rent_date_from
-        self.__rent_date_to = rent_date_to
-        self.__insurance_with_credit_card = insurance_with_credit_card
-        self.__additional_insurance = additional_insurance
-        self.__customer_id = customer_id
-        self.__car_id = car_id
-        self.__bought_km = bought_km
+                 bought_km = "100",
+                 additional_insurance="False",
+                 customer_id="0", car_id="0"):
+        self.__order_id = order_id.upper()
+        self.__order_date = order_date.upper()
+        self.__rent_date_from = rent_date_from.upper()
+        self.__rent_date_to = rent_date_to.upper()
+        self.__insurance_with_credit_card = insurance_with_credit_card.upper()
+        self.__additional_insurance = additional_insurance.upper()
+        self.__customer_id = customer_id.upper()
+        self.__car_id = car_id.upper()
+        self.__bought_km = bought_km.upper()
 
 
     def __str__(self):
