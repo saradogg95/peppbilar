@@ -3,15 +3,10 @@ from services.CarServices import CarServices
 from services.CustomerServices import CustomerServices
 from services.EmployeeServices import EmployeeServices
 from services.OrderServices import OrderServices
-#from services.PaymentServices import PaymentServices verður sennilega ekki notað
-
 from datetime import datetime
 from datetime import date
-
 import calendar
-
 import datetime
-
 from models.Car import Car
 from models.Order import Order
 from models.Employee import Employee
@@ -505,6 +500,174 @@ class UserInterface:
                     return True
 
 
+        def add_or_find_customer(order):
+            customer = None
+            def identity_number_check():
+                while True:
+                    identity_number = input("Enter valid identity number: ")
+                    try:
+                        if identity_number[-1] == '9':
+                            reference_year = 1900
+                        elif identity_number[-1] == '0':
+                            reference_year = 2000
+                        else:
+                            print("Wrong input.")
+                            continue
+                        birthday_day = int(identity_number[0:2])
+                        birthday_month = int(identity_number[2:4])
+                        birthday_year = int(identity_number[4:6]) + reference_year
+                        birthday = datetime.date(birthday_year, birthday_month, birthday_day)
+                        return identity_number
+                    except:
+                        print("{} is not a valid identity number!".format(identity_number))
+
+                        
+            def get_user_input():
+                while True:
+                    try:
+                        customer_input = input("Option: ").lower()
+                        if customer_input == "1" or customer_input == "2" or customer_input == "b":
+                            return customer_input
+                        else:
+                            print("Please 1 or 2 for your choice.")
+                    except ValueError:
+                        print("Wrong input.")
+
+            def cancellation_prompt():
+                valid_cancellation = False
+                while valid_cancellation == False:
+                    cancellation = input("Cancel order?\n1. Yes\n2. No\n")
+                    if cancellation == "1":
+                        valid_cancellation = True
+                        return True
+                    elif cancellation == "2":
+                        valid_cancellation = True
+                        return False
+                    else:
+                        print("Please choose one of the two options.")
+                        
+                        
+            def print_options_for_user():
+                self.print_header()
+                print("Please provide customer details:\n\n")
+                print("Press 1 to add new customer.")
+                print("Press 2 to find costumer.")
+                print("Or press 'c' to cancel the order.")
+
+            print_options_for_user() 
+            user_choice = get_user_input()
+#            while user_choice != "c":
+            if user_choice == "1":
+                customer_id = self.__customer_service.automatic_id_generation()
+                self.print_header()
+                identity_number = identity_number_check()
+                self.print_header()
+                valid = False
+                while valid == False:
+                    first_names = input("Please provide first name, or press 0 to cancel: ")
+                    if first_names == "0":
+                        check = cancellation_prompt()
+                        if check == True:
+                            valid = True
+                            return False
+                    valid = True
+                self.print_header()
+                valid = False
+                while valid == False:
+                    surname = input("Please provide last name, or press 0 to cancel: ")
+                    if surname == "0":
+                        check = cancellation_prompt()
+                        if check == True:
+                            valid = True
+                            return False
+                    valid = True
+                self.print_header()
+                valid = False
+                while valid == False:
+                    citizenship = input("Please provide citizenship, or press 0 to cancel: ")
+                    if citizenship == "0":
+                        check = cancellation_prompt()
+                        if check == True:
+                            valid = True
+                            return False
+                    valid = True
+                self.print_header()
+                valid = False
+                while valid == False:
+                    passport_id = input("Please provide passport id, or press 0 to cancel: ")
+                    if citizenship == "0":
+                        check = cancellation_prompt()
+                        if check == True:
+                            valid = True
+                            return False
+                    valid = True
+                self.print_header()
+                valid = False
+                while valid == False:
+                    credit_card_no = input("Please provide credit card number, or press 0 to cancel: ")
+                    if citizenship == "0":
+                        check = cancellation_prompt()
+                        if check == True:
+                            valid = True
+                            return False
+                    valid = True
+                new_customer = Customer(customer_id, identity_number, 
+                                        first_names, surname, citizenship, 
+                                        passport_id, credit_card_no) 
+                self.__customer_service.add_customer(new_customer)
+                customer = new_customer
+                order.append(customer.get_customer_id())
+                return True
+
+            elif user_choice == "2":
+                print("Press 1 to find customer by identity number.")
+                print("Press 2 to find customer by passport id.")
+                user_choice = get_user_input()
+                if user_choice == "1":
+                    id_num = input("Please provide identity number, or press 'c' to cancel: ")
+                    customer = self.__customer_service.get_customer_after_id_num(id_num)
+                    if customer:
+                        order.append(customer.get_customer_id())
+                        return True
+                    else:
+                        print("Customer not found.")
+                elif user_choice == "2":
+                    pass_id = input("Please provide passport id, or press 'c' to cancel: ")
+                    customer = self.__customer_service.get_customer_after_pass_id(pass_id)
+                    if customer:
+                        order.append(customer.get_customer_id())
+                        return True
+                    else:
+                        print("Customer not found.")
+
+            #print_options_for_user()
+            #user_choice = get_user_input()
+        
+            if type(customer) == list:
+                order.append[customer[0]]
+                return True
+            else:
+                order.clear()
+                return False
+
+#            else:
+#                return False        
+
+#            found_customer = add_or_find_customer()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         order_X = [] #Here, order details will gradually be inserted.
         ongoing_order = True #Control variable.
 
@@ -526,97 +689,23 @@ class UserInterface:
             ongoing_order = get_return_date(order_X, working_date_out)
             if ongoing_order == True:
                 ongoing_order = get_cars(order_X)
-                print(order_X)
+                #print(order_X)
+                if ongoing_order == True:
+                    ongoing_order = add_or_find_customer(order_X) 
+                    if ongoing_order == True:
+                        print(order_X)
+                        #save_order()
+                        #pass
+                    else:
+                        return False
+                else:
+                    return False
             else:
                 return False
         else:
             return False
 
 
-            def add_or_find_customer():
-                customer = None
-                def identity_number_check():
-                    while True:
-                        identity_number = input("Enter valid identity number: ")
-                        try:
-                            if identity_number[-1] == '9':
-                                reference_year = 1900
-                            elif identity_number[-1] == '0':
-                                reference_year = 2000
-                            else:
-                                print("Wrong input.")
-                                continue
-                            birthday_day = int(identity_number[0:2])
-                            birthday_month = int(identity_number[2:4])
-                            birthday_year = int(identity_number[4:6]) + reference_year
-                            birthday = datetime.date(birthday_year, birthday_month, birthday_day)
-                            return identity_number
-                        except:
-                            print("{} is not a valid identity number!".format(identity_number))
-
-                            
-                def get_user_input():
-                    while True:
-                        try:
-                            customer_input = input("Option: ").lower()
-                            if customer_input == "1" or customer_input == "2" or customer_input == "b":
-                                return customer_input
-                            else:
-                                print("Please 1 or 2 for your choice.")
-                        except ValueError:
-                            print("Wrong input.")
-
-                            
-                def print_options_for_user():
-                    print("Please press 1 to add new customer.")
-                    print("Please press 2 to find costumer.")
-                    print("Please press b to back.")
-
-                print_options_for_user() 
-                user_choice = get_user_input()
-                while user_choice != "b":
-                    if user_choice == "1":
-                        customer_id = self.__customer_service.automatic_id_generation()
-                        identity_number = identity_number_check()
-                        first_names = input("Please input first name: ")
-                        surname = input("Please input last name: ")
-                        citizenship = input("Please input citizenship: ")
-                        passport_id = input("Please input passport id: ")        
-                        credit_card_no = input("Please input credit card number: ")
-                        new_customer = Customer(customer_id, identity_number, 
-                                                first_names, surname, citizenship, 
-                                                passport_id, credit_card_no) 
-                        self.__customer_service.add_customer(new_customer)
-                        customer = new_customer
-                        print(new_customer)
-
-                    elif user_choice == "2":
-                        print("Press 1 to find customer after identity number.")
-                        print("Press 2 to find customer after passport id.")
-                        user_choice = get_user_input()
-                        if user_choice == "1":
-                            id_num = input("Please input identity number: ")
-                            customer = self.__customer_service.get_customer_after_id_num(id_num)
-                            if customer:
-                                print(customer[0])
-                            else:
-                                print("Customer not found.")
-                        elif user_choice == "2":
-                            pass_id = input("Please input passport id: ")
-                            customer = self.__customer_service.get_customer_after_pass_id(pass_id)
-                            if customer:
-                                print(customer[0])
-                            else:
-                                print("Customer not found.")
-
-                    print_options_for_user()
-                    user_choice = get_user_input()
-                if type(customer) == list:
-                    return customer[0]
-                else:
-                    return customer
-            
-            found_customer = add_or_find_customer()
 
 
     def find_order(self):
@@ -952,27 +1041,47 @@ class UserInterface:
                 
     def return_car(self):
         """ Function to return a car. """
-        mileage_driven = 0
-        total_mileage = 0
         order_to_return = ""
-
+        valid_input = False
         while self.__menu_action.lower() != "b":
             self.print_header()
             order_to_return_id = input("{:>100}".format("Enter order number: "))
-            order_to_return_id = order_to_return_id.upper()
-            print(type(order_to_return_id))
-            order_to_return = self.__order_service.get_order("201801576")
-            car_to_return = self.__car_service.get_car(order_to_return_id)
-            print(car_to_return)
-            print(order_to_return)
-
-
-
-            mileage_driven = total_mileage - car_to_return.get_mileage()
-            additional_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_driven)
-            car_to_return.set_mileage(total_mileage)
-            order_to_return.set_additional_cost(additional_cost)
-            self.print_back_to_main_menu()
+            while not valid_input:
+                try:
+                    int(order_to_return_id)
+                    order_to_return_id = order_to_return_id.upper()
+                    valid_input = True
+                except ValueError:
+                    print("Invalid order number. Please enter a new order number.")
+                    order_to_return_id = input("{:>100}".format("Enter order number: "))
+            order_to_return = self.__order_service.get_order(order_to_return_id)
+            if isinstance(order_to_return, str):
+                print(order_to_return)
+            else:
+                valid_input = False
+                mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+                while not valid_input:
+                    try:
+                        mileage_at_return = int(mileage_at_return)
+                        valid_input = True
+                    except ValueError:
+                        print("Invalid mileage entered. Please enter a valid mileage number.")
+                        mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+                
+                car_to_return = self.__car_service.get_car(order_to_return.get_car_id())
+                mileage_at_departure = int(car_to_return.get_mileage())
+                extra_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_at_return, mileage_at_departure)
+                print("Extra cost to be paid for additional kilometers driven: ", extra_cost, " ISK")
+            print("{:>96}".format("R. Return to previous menu"))
+            print("{:>96}".format("B. Back to main menu"))
+            print("\n" * 2)
+            self.__menu_action = input("{:>95}".format("Enter menu action: "))
+            if self.__menu_action.lower() == "b":
+                self.__menu_action = "b"
+                break
+            if self.__menu_action.lower() == "r":
+                self.return_car()
+                break
 
                 
     def get_additional_insuarance_cost(self, order_id):
@@ -1018,11 +1127,11 @@ class UserInterface:
         ''' Updates milage of a car, with mileage driven by customer'''
         car = self.__car_service.get_car(reg_num)
         #gets current mileage stauts and adds to mileage driven by customer
-        new_mileage = int(car[0].get_mileage()) + int(mileage)
-        car[0].set_mileage(new_mileage)
+        new_mileage = int(car.get_mileage()) + int(mileage)
+        car.set_mileage(new_mileage)
         #Write changes to db
-        write_car_to_db()
-        return car[0]
+        self.write_car_to_db()
+        return car
 
 
     def update_order_mileage(self, order_id, mileage):
@@ -1055,21 +1164,23 @@ class UserInterface:
         return orders
 
     
-    def get_total_cost_for_extra_kilometers(self, order_id, mileage_driven):
+    def get_total_cost_for_extra_kilometers(self, order_id, mileage_driven, mileage_at_departure):
         for order in self.__order_service.get_all_orders():
             if order.get_order_id() == order_id:
                 #get total number of days rented for
-                start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%d/%m/%Y")
-                end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%d/%m/%Y")           
+                start_date = datetime.datetime.strptime(order.get_rent_date_from(), "%Y-%m-%d")
+                end_date = datetime.datetime.strptime(order.get_rent_date_to(), "%Y-%m-%d")           
                 number_of_days = abs((end_date-start_date).days)
                 
                 #get total number of kilometers driven on rental period
                 number_of_kilometers_included = number_of_days * self.__max_kilometer_per_day
 
                 #calculate the cost of extra kilometers
-                if mileage_driven > number_of_kilometers_included:
-                    extra_kilometers = mileage_driven - number_of_kilometers_included
+                if mileage_driven > number_of_kilometers_included + mileage_at_departure:
+                    extra_kilometers = mileage_driven - (number_of_kilometers_included + mileage_at_departure)
                     return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
+                else:
+                    return 0
     
     def get_additional_cost_extra_mileage(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
@@ -1078,5 +1189,5 @@ class UserInterface:
         #it into get_car_by_regnum to get car category price
         car = self.__car_service.get_car(order.get_car_id())                 
         #The cost of additional millage over 100km is 1% of daily rental cost
-        return int(car.get_category_price()) * 0.01
+        return (int(car.get_category_price()) * 0.01)
 
