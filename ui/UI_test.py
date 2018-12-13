@@ -282,8 +282,7 @@ class UserInterface:
             #Car1 is the car that's being ordered, while car0 would be whichever car in database.
             clashing_orders_list = []
             for order in list_of_order_objects:
-                if return_date_car1 >= date_from_string(str(order.get_rent_date_from())) 
-                and date_from_string(str(order.get_rent_date_to())) >= out_date_car1:
+                if return_date_car1 >= date_from_string(str(order.get_rent_date_from())) and date_from_string(str(order.get_rent_date_to())) >= out_date_car1:
                     clashing_orders_list.append(order.get_car_id())
             clashing_orders_set = set(clashing_orders_list)
             return clashing_orders_set
@@ -1001,7 +1000,7 @@ class UserInterface:
                     extra_kilometers = number_of_kilometers_driven - max_driven
                     return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
     
-    def get_additional_cost_extra_millage(self, order_id):
+    def get_additional_cost_extra_mileage(self, order_id):
         """ Takes in an order id and gets that order from the database and calculates the cost of additional insurance"""        
         order = self.__order_service.get_order(order_id)                   
         #From the order object, we obtain the registration number for the car and send it into get_car_by_regnum to get car category price
