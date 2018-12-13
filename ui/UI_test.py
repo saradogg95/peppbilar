@@ -3,15 +3,10 @@ from services.CarServices import CarServices
 from services.CustomerServices import CustomerServices
 from services.EmployeeServices import EmployeeServices
 from services.OrderServices import OrderServices
-#from services.PaymentServices import PaymentServices verður sennilega ekki notað
-
 from datetime import datetime
 from datetime import date
-
 import calendar
-
 import datetime
-
 from models.Car import Car
 from models.Order import Order
 from models.Employee import Employee
@@ -49,8 +44,7 @@ class UserInterface:
         print("{:>115}".format("-" * 40))
         print("{:>106}".format(self.__today.strftime("%A, %B %d, %Y")))
         print()
-
-        
+ 
     def print_back_to_main_menu(self):
         print("{:>96}".format("B. Back to main menu"))
         print("\n" * 2)
@@ -961,7 +955,6 @@ class UserInterface:
         car = self.__car_service.get_car(order.get_car_id())
         return int(car.get_category_price()) * number_of_days                     
 
-
     def write_order_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         #KLÁRA AÐ SKRIFA ÞESSI METHOD FYRIR ALLA KLASA OG BÆTA VIÐ HÉR SVO DRASLIÐ SAVEIST ÞEGAR FORRITIÐ HÆTTIR
@@ -970,7 +963,6 @@ class UserInterface:
     def write_car_to_db(self):
         """ Writes all databases to files. Call this method before program ends. """
         self.__car_service.write_db_to_file()
-
 
     def update_car_mileage(self, reg_num, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
@@ -982,7 +974,6 @@ class UserInterface:
         self.write_car_to_db()
         return car
 
-
     def update_order_mileage(self, order_id, mileage):
         ''' Updates milage of a car, with mileage driven by customer'''
         order = self.__order_service.get_order(order_id)
@@ -990,7 +981,6 @@ class UserInterface:
         order.set_mileage_in(mileage)
         return order
 
-    
     def get_car_rent_history(self, reg_num):
         orders = []
         for order in self.__order_service.get_all_orders():
@@ -1001,7 +991,6 @@ class UserInterface:
                 + " To: " + order.get_rent_date_to())
         return orders
 
-    
     def get_customer_rent_history(self, customer_id):
         orders = []
         for order in self.__order_service.get_all_orders():
@@ -1012,7 +1001,6 @@ class UserInterface:
                 + " To: " + order.get_rent_date_to())
         return orders
 
-    
     def get_total_cost_for_extra_kilometers(self, order_id, mileage_driven, mileage_at_departure):
         for order in self.__order_service.get_all_orders():
             if order.get_order_id() == order_id:

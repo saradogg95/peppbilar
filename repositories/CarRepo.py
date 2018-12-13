@@ -1,5 +1,4 @@
 import csv
-
 from models.Car import Car
 
 
@@ -7,7 +6,6 @@ class CarRepository:
     
     def __init__(self):
         self.__cars = []
-
         
     def add_car(self, car):
         """ Takes in a car and writes to the database """
@@ -59,8 +57,7 @@ class CarRepository:
                 return self.__cars
             except:
                 return self.__cars
-
-            
+           
     def get_cars(self):
         """ Returns a list of all cars in the database """
         self.__cars = self.open_csv()
