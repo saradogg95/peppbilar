@@ -98,8 +98,6 @@ class UserInterface:
 #        def place_order():
 #            """ Menu method for placing a new order. """ 
 
-<<<<<<< HEAD
-=======
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
         and calculates the cost of additional insurance"""        
@@ -109,7 +107,6 @@ class UserInterface:
 
 
 
->>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
     def show_available_cars(self):
 
         #Set a day this month as starting date:
@@ -647,14 +644,6 @@ class UserInterface:
                 order.clear()
                 return False
 
-<<<<<<< HEAD
-            #else:
-            #    return False        
-
-            #found_customer = add_or_find_customer()
-=======
->>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
-
         """Printout function, to confirm order."""
         def confirmation_to_save_order(order):
             start_date = order[0]
@@ -718,17 +707,7 @@ class UserInterface:
                     return False
                 else:
                     print("Invalid input!")
-<<<<<<< HEAD
-=======
             
-
-
-
-
-
-        
-
->>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
 
         order_X = [] #Here, order details will gradually be inserted.
         ongoing_order = True #Control variable.
@@ -1127,17 +1106,14 @@ class UserInterface:
                 order_to_return.set_additional_cost(str(extra_cost)) #SETJA EXTRA COST Á ORDER
                 self.__order_service.write_db_to_file() #SAVEA BÁÐA DB
                 self.__car_service.write_db_to_file()
-            print("{:>102}".format("R. Return to previous menu"))
             print("{:>96}".format("B. Back to main menu"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
             if self.__menu_action.lower() == "b":
                 self.__menu_action = "b"
                 break
-            if self.__menu_action.lower() == "r":
-                self.return_car()
-                break
-<<<<<<< HEAD
+
+
 
     def usage_history(self):
         """ Menu for showing usage history for cars/customers. """
@@ -1218,12 +1194,6 @@ class UserInterface:
             if self.__menu_action.lower() == "2":
                 usage_history_car()
             
-
-                
-=======
-<<<<<<< HEAD
-     
->>>>>>> 46328413c2b3a040229ddd8c73c4282f87ba6331
     def get_additional_insuarance_cost(self, reg_num):
         """ Takes in the car registration number and gets the cost of daily rental
         and calculates the cost of additional insurance"""        
@@ -1231,14 +1201,7 @@ class UserInterface:
         #The cost of insurance is the 75% of the price of a days rental
         return int(car.get_category_price()) * float(0.75)
      
-=======
-
-                
-
-
-
-            
->>>>>>> 74eec334742a0db9adb2b2984d27977efe591326
+     
     def get_cost_without_additions(self, order_id):
         """ Takes in an order id and gets that order from the database 
         and calculates the cost without additions"""        
