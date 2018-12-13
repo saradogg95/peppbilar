@@ -991,5 +991,5 @@ class UserInterface:
                 #calculate the cost of extra kilometers
                 if number_of_kilometers_driven > max_driven:
                     extra_kilometers = number_of_kilometers_driven - max_driven
-                    return extra_kilometers * self.get_additional_cost_extra_millage(order_id)
+                    return extra_kilometers * self.get_additional_cost_extra_mileage(order_id)
 
