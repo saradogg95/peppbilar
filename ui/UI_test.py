@@ -628,8 +628,6 @@ class UserInterface:
                     customer = self.__customer_service.get_customer_after_id_num(id_num)
                     if customer:
                         order.append(customer.get_customer_id())
-                        print(customer)
-                        disruptive = input("Disruptive input.")
                         return True
                     else:
                         print("Customer not found.")
@@ -638,8 +636,6 @@ class UserInterface:
                     customer = self.__customer_service.get_customer_after_pass_id(pass_id)
                     if customer:
                         order.append(customer.get_customer_id())
-                        print(customer)
-                        disruptive = input("Disruptive input.")
                         return True
                     else:
                         print("Customer not found.")
@@ -661,6 +657,36 @@ class UserInterface:
 
 
 
+        """Printout function, to confirm order."""
+        def confirmation_to_save_order(order):
+            start_date = order[0]
+            end_date = order[1]
+            total_days = abs((end_date - start_date).days)
+            car_in_question = order[2]
+            billing_customer = order[3]
+            proper_customer = self.__customer_service.get_customer(billing_customer)
+            customer_first_names = proper_customer.get_first_names()
+            customer_surname = proper_customer.get_surname()
+            price = int(car_in_question.get_category_price()) * total_days
+            licence_plate = car_in_question.get_reg_num()
+            brand = car_in_question.get_brand()
+            model = car_in_question.get_model()
+            category = car_in_question.get_category()
+            self.print_header()
+            print(("{} {}\nType of car: {}\nDate of car going out: {}\nDate of car coming back: {}\nTotal number of days: {}\nTotal price: {} isk.\n{} {}\n{}".format(
+                brand, model, category, start_date, end_date, total_days, price, customer_first_names, customer_surname)))
+            valid_confirmation = False
+            while valid_confirmation == False:
+                final_confirmation = input("Confirm?\n1. Yes.\n2. No, cancel order.")
+                if final_confirmation == 1:
+                    valid_confirmation == True
+                    return True
+                elif final_confirmation == 2:
+                    valid_confirmation == True
+                    return False
+                else:
+                    print("Invalid input!")
+            
 
 
 
@@ -668,8 +694,7 @@ class UserInterface:
 
 
 
-
-
+        
 
 
         order_X = [] #Here, order details will gradually be inserted.
@@ -697,9 +722,11 @@ class UserInterface:
                 if ongoing_order == True:
                     ongoing_order = add_or_find_customer(order_X) 
                     if ongoing_order == True:
-                        print(order_X)
-                        #save_order()
-                        #pass
+                        ongoing_order = confirmation_to_save_order(order_X)
+                        if ongoing_order == True:
+                            ongoing_order = save_order(order_X)
+                        else:
+                            return False
                     else:
                         return False
                 else:
@@ -1000,16 +1027,14 @@ class UserInterface:
                 find_customer_by_passport_id()
         self.__menu_action = ""
 
-                
 
-                
     def return_car(self):
         """ Function to return a car. """
         order_to_return = ""
         valid_input = False
         while self.__menu_action.lower() != "b":
             self.print_header()
-            order_to_return_id = input("{:>100}".format("Enter order number: "))
+            order_to_return_id = input("{:>96}".format("Enter order number: "))
             while not valid_input:
                 try:
                     int(order_to_return_id)
@@ -1017,25 +1042,33 @@ class UserInterface:
                     valid_input = True
                 except ValueError:
                     print("Invalid order number. Please enter a new order number.")
-                    order_to_return_id = input("{:>100}".format("Enter order number: "))
+                    order_to_return_id = input("{:>96}".format("Enter order number: "))
             order_to_return = self.__order_service.get_order(order_to_return_id)
             if isinstance(order_to_return, str):
-                print(order_to_return)
+                print()
+                print("{:>111}".format(order_to_return))
+                print()
             else:
                 valid_input = False
-                mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+                mileage_at_return = input("{:>113}".format("Enter car's total mileage at return: "))
                 while not valid_input:
                     try:
                         mileage_at_return = int(mileage_at_return)
                         valid_input = True
                     except ValueError:
                         print("Invalid mileage entered. Please enter a valid mileage number.")
-                        mileage_at_return = input("{:>100}".format("Enter car's total mileage at return: "))
+                        mileage_at_return = input("{:>113}".format("Enter car's total mileage at return: "))
                 car_to_return = self.__car_service.get_car(order_to_return.get_car_id())
                 mileage_at_departure = int(car_to_return.get_mileage())
                 extra_cost = self.get_total_cost_for_extra_kilometers(order_to_return_id, mileage_at_return, mileage_at_departure)
-                print("Extra cost to be paid for additional kilometers driven: ", extra_cost, " ISK")
-            print("{:>96}".format("R. Return to previous menu"))
+                print()
+                print("{:>132}{}{}".format("Extra cost to be paid for additional kilometers driven: ", int(extra_cost), " ISK"))
+                print()
+                car_to_return.set_mileage(str(mileage_at_return)) #SETJA NÝJA MILAGEIÐ Á BÍLINN
+                order_to_return.set_additional_cost(str(extra_cost)) #SETJA EXTRA COST Á ORDER
+                self.__order_service.write_db_to_file() #SAVEA BÁÐA DB
+                self.__car_service.write_db_to_file()
+            print("{:>102}".format("R. Return to previous menu"))
             print("{:>96}".format("B. Back to main menu"))
             print("\n" * 2)
             self.__menu_action = input("{:>95}".format("Enter menu action: "))
