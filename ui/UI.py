@@ -618,6 +618,7 @@ class UserInterface:
                                             first_names, surname, citizenship, 
                                             passport_id, credit_card_no) 
                     self.__customer_service.add_customer(new_customer)
+                    self.__customer_service.write_db_to_file()
                     customer = new_customer
                     order.append(customer.get_customer_id())
                     return True
