@@ -162,14 +162,19 @@ class UserInterface:
                     print("Invalid input.")
        
         def date_validation(working_date, reference_date, working_date_saved):
-            date_to_validate = datetime.date(working_date[2], working_date[1], working_date[0])
-            if date_to_validate <= reference_date:
-                print("This date is out of scope.")
-                working_date = working_date_saved.copy()
+            try:
+                date_to_validate = datetime.date(working_date[2], working_date[1], working_date[0])
+                if date_to_validate <= reference_date:
+                    print("This date is out of scope.")
+                    working_date = working_date_saved.copy()
+                    return False
+                else:
+                    return True
+            except ValueError:
+                print("Invalid date input.")
                 return False
-            else:
-                return True
-        
+
+
         def get_starting_date(order, working_date_out, this_is_today):
             starting_date_registered = False
             working_date_out_saved = working_date_out.copy()
