@@ -525,7 +525,7 @@ class UserInterface:
                 while True:
                     try:
                         customer_input = input("Option: ").lower()
-                        if customer_input == "1" or customer_input == "2" or customer_input == "b":
+                        if customer_input == "1" or customer_input == "2" or customer_input == "c":
                             return customer_input
                         else:
                             print("Please 1 or 2 for your choice.")
@@ -554,97 +554,97 @@ class UserInterface:
 
             print_options_for_user() 
             user_choice = get_user_input()
-            #while user_choice != "c":
-            if user_choice == "1":
-                customer_id = self.__customer_service.automatic_id_generation()
-                self.print_header()
-                identity_number = identity_number_check()
-                self.print_header()
-                valid = False
-                while valid == False:
-                    first_names = input("Please provide first name, or press 0 to cancel: ")
-                    if first_names == "0":
-                        check = cancellation_prompt()
-                        if check == True:
-                            valid = True
-                            return False
-                    valid = True
-                self.print_header()
-                valid = False
-                while valid == False:
-                    surname = input("Please provide last name, or press 0 to cancel: ")
-                    if surname == "0":
-                        check = cancellation_prompt()
-                        if check == True:
-                            valid = True
-                            return False
-                    valid = True
-                self.print_header()
-                valid = False
-                while valid == False:
-                    citizenship = input("Please provide citizenship, or press 0 to cancel: ")
-                    if citizenship == "0":
-                        check = cancellation_prompt()
-                        if check == True:
-                            valid = True
-                            return False
-                    valid = True
-                self.print_header()
-                valid = False
-                while valid == False:
-                    passport_id = input("Please provide passport id, or press 0 to cancel: ")
-                    if citizenship == "0":
-                        check = cancellation_prompt()
-                        if check == True:
-                            valid = True
-                            return False
-                    valid = True
-                self.print_header()
-                valid = False
-                while valid == False:
-                    credit_card_no = input("Please provide credit card number, or press 0 to cancel: ")
-                    if citizenship == "0":
-                        check = cancellation_prompt()
-                        if check == True:
-                            valid = True
-                            return False
-                    valid = True
-                new_customer = Customer(customer_id, identity_number, 
-                                        first_names, surname, citizenship, 
-                                        passport_id, credit_card_no) 
-                self.__customer_service.add_customer(new_customer)
-                customer = new_customer
-                order.append(customer.get_customer_id())
-                return True
-
-            elif user_choice == "2":
-                print("Press 1 to find customer by identity number.")
-                print("Press 2 to find customer by passport id.")
-                user_choice = get_user_input()
+            while user_choice != "c":
                 if user_choice == "1":
-                    id_num = input("Please provide identity number, or press 'c' to cancel: ")
-                    customer = self.__customer_service.get_customer_after_id_num(id_num)
-                    if customer:
-                        order.append(customer.get_customer_id())
-                        return True
-                    else:
-                        print("Customer not found.")
+                    customer_id = self.__customer_service.automatic_id_generation()
+                    self.print_header()
+                    identity_number = identity_number_check()
+                    self.print_header()
+                    valid = False
+                    while valid == False:
+                        first_names = input("Please provide first name, or press 0 to cancel: ")
+                        if first_names == "0":
+                            check = cancellation_prompt()
+                            if check == True:
+                                valid = True
+                                return False
+                        valid = True
+                    self.print_header()
+                    valid = False
+                    while valid == False:
+                        surname = input("Please provide last name, or press 0 to cancel: ")
+                        if surname == "0":
+                            check = cancellation_prompt()
+                            if check == True:
+                                valid = True
+                                return False
+                        valid = True
+                    self.print_header()
+                    valid = False
+                    while valid == False:
+                        citizenship = input("Please provide citizenship, or press 0 to cancel: ")
+                        if citizenship == "0":
+                            check = cancellation_prompt()
+                            if check == True:
+                                valid = True
+                                return False
+                        valid = True
+                    self.print_header()
+                    valid = False
+                    while valid == False:
+                        passport_id = input("Please provide passport id, or press 0 to cancel: ")
+                        if citizenship == "0":
+                            check = cancellation_prompt()
+                            if check == True:
+                                valid = True
+                                return False
+                        valid = True
+                    self.print_header()
+                    valid = False
+                    while valid == False:
+                        credit_card_no = input("Please provide credit card number, or press 0 to cancel: ")
+                        if citizenship == "0":
+                            check = cancellation_prompt()
+                            if check == True:
+                                valid = True
+                                return False
+                        valid = True
+                    new_customer = Customer(customer_id, identity_number, 
+                                            first_names, surname, citizenship, 
+                                            passport_id, credit_card_no) 
+                    self.__customer_service.add_customer(new_customer)
+                    customer = new_customer
+                    order.append(customer.get_customer_id())
+                    return True
+
                 elif user_choice == "2":
-                    pass_id = input("Please provide passport id, or press 'c' to cancel: ")
-                    customer = self.__customer_service.get_customer_after_pass_id(pass_id)
-                    if customer:
-                        order.append(customer.get_customer_id())
-                        return True
-                    else:
-                        print("Customer not found.")
+                    print("Press 1 to find customer by identity number.")
+                    print("Press 2 to find customer by passport id.")
+                    user_choice = get_user_input()
+                    if user_choice == "1":
+                        id_num = input("Please provide identity number, or press 'c' to cancel: ")
+                        customer = self.__customer_service.get_customer_after_id_num(id_num)
+                        if customer:
+                            order.append(customer.get_customer_id())
+                            return True
+                        else:
+                            print("Customer not found.")
+                    elif user_choice == "2":
+                        pass_id = input("Please provide passport id, or press 'c' to cancel: ")
+                        customer = self.__customer_service.get_customer_after_pass_id(pass_id)
+                        if customer:
+                            order.append(customer.get_customer_id())
+                            return True
+                        else:
+                            print("Customer not found.")
 
         
-            if type(customer) == list:
-                order.append[customer[0]]
-                return True
-            else:
-                order.clear()
-                return False
+            #if type(customer) == list:
+            #    order.append[customer[0]]
+            #    return True
+            #else:
+            #    order.clear()
+            #    return False
 
         """Printout function, to confirm order."""
         def confirmation_to_save_order(order):
