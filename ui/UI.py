@@ -354,6 +354,17 @@ class UserInterface:
                     try: 
                         selection_int = int(selection)
                         selection_as_index = selection_int - 1
+                        while selection_int > len(filtered_working_list):
+                            print("Invalid car selected. Please enter a valid index number: ")
+                            selection = input("\nSelect car from list by typing in index, or press 'c' to cancel and go back.")
+                            if selection.lower() == 'c':
+                                return 999
+                            else:
+                                try: 
+                                    selection_int = int(selection)
+                                    selection_as_index = selection_int - 1
+                                except ValueError:
+                                    print("Invalid input.")
                         return selection_as_index
                     except ValueError:
                         print("Invalid input.")
