@@ -639,13 +639,16 @@ class UserInterface:
                             else:
                                 print("Customer not found.")
                     elif user_choice == "2":
-                        pass_id = input("Please provide passport id, or press 'c' to cancel: ")
-                        customer = self.__customer_service.get_customer_after_pass_id(pass_id)
-                        if customer:
-                            order.append(customer.get_customer_id())
-                            return True
-                        else:
-                            print("Customer not found.")
+                        while True:
+                            pass_id = input("Please provide passport id, or press 'c' to cancel: ")
+                            customer = self.__customer_service.get_customer_after_pass_id(pass_id)
+                            if type(customer) == Customer:
+                                order.append(customer.get_customer_id())
+                                return True
+                            elif pass_id.lower() == "c":
+                                break
+                            else:
+                                print("Customer not found.")
 
         
             #if type(customer) == list:
