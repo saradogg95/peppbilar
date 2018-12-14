@@ -107,15 +107,26 @@ class UserInterface:
 
         #Set a day this month as starting date:
         def change_working_date_day(working_date, logic="STARTING"):
-            set_outday = int(input("Set a day this month as {} date: ".format(logic)))
-            working_date[0] = set_outday
+            valid_input = False
+            while valid_input != True:
+                try:
+                    set_outday = int(input("Set a day this month as {} date: ".format(logic)))
+                    working_date[0] = set_outday
+                    valid_input = True
+                except:
+                    print("Invalid input.")
           
         #Set a day of a month this year as a starting date:
         def change_working_date_day_month(working_date, logic="STARTING"):
-            set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
-            working_date[0] = set_out_day
-            set_out_month = int(input("Set month as {} date: ".format(logic)))
-            working_date[1] = set_out_month
+            valid_input = False
+            while valid_input != True:
+                try:
+                    set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
+                    working_date[0] = set_out_day
+                    set_out_month = int(input("Set month as {} date: ".format(logic)))
+                    working_date[1] = set_out_month
+                except:
+                    print("Invalid input.")
         
         #Set a day next year as a starting date:
         def change_working_date_day_month_year(working_date, logic="STARTING"):
