@@ -107,24 +107,90 @@ class UserInterface:
 
         #Set a day this month as starting date:
         def change_working_date_day(working_date, logic="STARTING"):
-            set_outday = int(input("Set a day this month as {} date: ".format(logic)))
+            valid_input = False
+            while valid_input == False:
+                try:
+                    set_outday = int(input("Set a day this month as {} date: ".format(logic)))
+                    if set_outday < 32:
+                        valid_input = True
+                    else:
+                        print("Invalid input.")
+                except ValueError:
+                    print("Invalid input.")
             working_date[0] = set_outday
           
         #Set a day of a month this year as a starting date:
         def change_working_date_day_month(working_date, logic="STARTING"):
-            set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
-            working_date[0] = set_out_day
-            set_out_month = int(input("Set month as {} date: ".format(logic)))
-            working_date[1] = set_out_month
+            valid_input = False
+            valid_out_date_day = False
+            while valid_input == False:
+                while valid_out_date_day == False:
+                    try:
+                        set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
+                        if set_out_day < 32:
+                            working_date[0] = set_out_day
+                            valid_out_date_day = True
+                        else:
+                            print("Invalid input.")    
+                    except ValueError:
+                        print("Invalid input.")
+                valid_out_date_month = False
+                while valid_out_date_month == False:
+                    try:
+                        set_out_month = int(input("Set month as {} date: ".format(logic)))
+                        if set_out_month < 13:
+                            working_date[1] = set_out_month
+                            valid_out_date_month = True
+                            valid_input = True
+                        else:
+                            print("Invalid input.")
+                    except ValueError:
+                        print("Invalid input.")
+ 
+
+            #set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
+            #working_date[0] = set_out_day
+            #set_out_month = int(input("Set month as {} date: ".format(logic)))
+            #working_date[1] = set_out_month
         
         #Set a day next year as a starting date:
         def change_working_date_day_month_year(working_date, logic="STARTING"):
-            set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
-            working_date[0] = set_out_day
-            set_out_month = int(input("Set month as {} date: ".format(logic)))
-            working_date[1] = set_out_month
-            working_date[2] = working_date[2]+1
-        
+            valid_input = False
+            valid_to_date_day = False
+            valid_to_date_month = False
+            while valid_input == False:
+                while valid_to_date_day == False:
+                    try:
+                        set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
+                        if set_out_day < 32:
+                            working_date[0] = set_out_day
+                            valid_to_date_day = True
+                        else:
+                            print("Invalid input.")
+                    except ValueError:
+                        print("Invalid input.")
+                while valid_to_date_month == False:
+                    try:
+                        set_out_month = int(input("Set month as {} date: ".format(logic)))
+                        if set_out_month < 13:
+                            working_date[1] = set_out_month
+                            working_date[2] = working_date[2]+1
+                            valid_to_date_month = True
+                            valid_input = True
+                        else:
+                            print("Invalid input.")
+                    except ValueError:
+                        print("Invalid input.")
+
+            
+            
+            
+            #set_out_day = int(input("Set a day of month as {} date: ".format(logic)))
+            #working_date[0] = set_out_day
+            #set_out_month = int(input("Set month as {} date: ".format(logic)))
+            #working_date[1] = set_out_month
+            #working_date[2] = working_date[2]+1
+
         #Printout of date for confirmation prompt:
         def outdate_confirmation(working_date):
             outdate = datetime.date(working_date[2], working_date[1], working_date[0])
