@@ -1083,7 +1083,7 @@ class UserInterface:
                         update_first_name(customer_to_change)
                     if self.__submenu_action == "2":
                         update_surname(customer_to_change)
-                    if self.__submenu_action == "2":
+                    if self.__submenu_action == "3":
                         update_passport_number(customer_to_change)
                     if self.__submenu_action == "4":
                         update_cc_number(customer_to_change)
