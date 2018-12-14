@@ -799,7 +799,7 @@ class UserInterface:
             print("{:>92}".format("3. Rent rate from"))
             print("{:>90}".format("4. Rent date to"))
             print("{:>98}".format("5. Additional insurance"))
-            print("{:>89}".format("6. Delet order"))
+            print("{:>89}".format("6. Delete order"))
             print("{:>95}".format("B. Back to main menu"))
 
         def choice():
