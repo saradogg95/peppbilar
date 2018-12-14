@@ -180,7 +180,7 @@ class UserInterface:
             working_date_out_saved = working_date_out.copy()
             while starting_date_registered == False:
                 self.print_header()   
-                quick_starting_date = input("Show availability FROM:\n1. Today.\n2. Another day this month.\n3." + 
+                quick_starting_date = input("Show availability FROM:\n1. Today.\n2. Another day this month.\n3. "
                                             "A day of another month this year.\n4. Next year.\n5. Cancel.\n")
                 if quick_starting_date == '1':
                     starting_date_registered = True
