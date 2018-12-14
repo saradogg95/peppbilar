@@ -622,13 +622,16 @@ class UserInterface:
                     print("Press 2 to find customer by passport id.")
                     user_choice = get_user_input()
                     if user_choice == "1":
-                        id_num = input("Please provide identity number, or press 'c' to cancel: ")
-                        customer = self.__customer_service.get_customer_after_id_num(id_num)
-                        if customer:
-                            order.append(customer.get_customer_id())
-                            return True
-                        else:
-                            print("Customer not found.")
+                        while True:
+                            id_num = input("Please provide identity number, or press 'c' to cancel: ")
+                            customer = self.__customer_service.get_customer_after_id_num(id_num)
+                            if type(customer) == Customer:
+                                order.append(customer.get_customer_id())
+                                return True
+                            elif id_num.lower() == "c":
+                                break
+                            else:
+                                print("Customer not found.")
                     elif user_choice == "2":
                         pass_id = input("Please provide passport id, or press 'c' to cancel: ")
                         customer = self.__customer_service.get_customer_after_pass_id(pass_id)
