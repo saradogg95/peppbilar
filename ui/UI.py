@@ -987,6 +987,7 @@ class UserInterface:
                 print("{:>102}{}".format("Change credit card number: ", ("\n" * 2)))
                 new_credit_card_no = input("{:>111}".format("Enter customer credit card number: "))
                 customer_to_change.set_credit_card_no(new_credit_card_no)
+                self.__customer_service.write_db_to_file()
                 print("\n" * 2)
                 print("{:>120}".format(customer_to_change.__str__()))
                 print("\n" * 2)
@@ -1001,7 +1002,6 @@ class UserInterface:
                 print("{:>100}".format(self.__customer_service.delete_customer(customer_id)))
                 self.__customer_service.write_db_to_file()
                 print("\n" * 2)
-                
                 print("{:>101}".format("R. Back to previous menu"))
                 print("{:>97}".format("B. Back to main menu"))
                 self.__submenu_action = input("{:>97}".format("Enter menu action: "))
