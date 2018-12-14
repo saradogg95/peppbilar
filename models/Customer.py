@@ -21,7 +21,6 @@ class Customer:
     def get_identity_number(self):
         return self.__identity_number
  
-
     def get_first_names(self):
         return self.__first_names
  
@@ -36,6 +35,9 @@ class Customer:
 
     def get_passport_id(self):
         return self.__passport_id
+
+    def set_passport_id(self, new_passport):
+        self.__passport_id = new_passport
 
     def set_citizenship(self, citizenship):
         self.__citizenship = citizenship
